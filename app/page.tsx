@@ -6,7 +6,7 @@ import { Github, Linkedin, Mail, MapPin, ExternalLink, Calendar, Award, Graduati
 
 import Navbar from '@/components/Navbar';
 import LiquidGlassWrapper from '@/components/LiquidGlassWrapper';
-import SudokuBackground from '@/components/SudokuBackground';
+import EvolvingSudokuNeuralGrid from '@/components/EvolvingSudokuNeuralGrid';
 import SectionWrapper from '@/components/SectionWrapper';
 import Card from '@/components/Card';
 import ProjectCard from '@/components/ProjectCard';
@@ -16,7 +16,7 @@ import profileData from '@/data/profile.json';
 export default function Home() {
   return (
     <div className="min-h-screen relative">
-      <SudokuBackground />
+      <EvolvingSudokuNeuralGrid />
       <LiquidGlassWrapper className="min-h-screen relative z-10">
         <Navbar />
         <ChatBot />
