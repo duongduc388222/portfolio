@@ -27,152 +27,110 @@ export default function DogAvatar({ isActive, isHovered, onClick, onHover, onHov
       onMouseEnter={onHover}
       onMouseLeave={onHoverEnd}
       onClick={handleClick}
-      className="cursor-pointer relative"
+      className="cursor-pointer relative flex items-center justify-center"
     >
       <svg
-        width="90"
-        height="90"
-        viewBox="0 0 120 120"
+        width="70"
+        height="70"
+        viewBox="0 0 100 100"
         className="drop-shadow-lg"
       >
-        {/* Back Legs (behind body) */}
-        <motion.ellipse
-          cx="35"
-          cy="85"
-          rx="4"
-          ry="12"
-          fill="url(#legGradient)"
-          animate={{
-            ry: isHovered ? [12, 13, 12] : 12
-          }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-        />
-        <motion.ellipse
-          cx="65"
-          cy="85"
-          rx="4"
-          ry="12"
-          fill="url(#legGradient)"
-          animate={{
-            ry: isHovered ? [12, 13, 12] : 12
-          }}
-          transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
-        />
-
-        {/* Dog Body */}
-        <motion.ellipse
-          cx="50"
-          cy="75"
-          rx="28"
-          ry="20"
-          fill="url(#bodyGradient)"
-          animate={{
-            ry: isActive ? [20, 21, 20] : [20, 20.5, 20]
-          }}
-          transition={{
-            duration: isActive ? 1.5 : 3,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-
-        {/* Front Legs */}
-        <motion.ellipse
-          cx="32"
-          cy="90"
-          rx="5"
-          ry="15"
-          fill="url(#legGradient)"
-          animate={{
-            ry: isBarking || isHovered ? [15, 12, 15] : 15,
-            cy: isBarking || isHovered ? [90, 88, 90] : 90
-          }}
-          transition={{ duration: 0.4, repeat: isHovered ? Infinity : 0 }}
-        />
-        <motion.ellipse
-          cx="68"
-          cy="90"
-          rx="5"
-          ry="15"
-          fill="url(#legGradient)"
-          animate={{
-            ry: isBarking || isHovered ? [15, 12, 15] : 15,
-            cy: isBarking || isHovered ? [90, 88, 90] : 90
-          }}
-          transition={{ duration: 0.4, repeat: isHovered ? Infinity : 0, delay: 0.2 }}
-        />
-
-        {/* Paws */}
-        <motion.ellipse cx="32" cy="105" rx="6" ry="4" fill="url(#pawGradient)" />
-        <motion.ellipse cx="68" cy="105" rx="6" ry="4" fill="url(#pawGradient)" />
-        <motion.ellipse cx="35" cy="100" rx="5" ry="3" fill="url(#pawGradient)" />
-        <motion.ellipse cx="65" cy="100" rx="5" ry="3" fill="url(#pawGradient)" />
-
         {/* Dog Head */}
         <motion.circle
           cx="50"
           cy="50"
-          r="22"
+          r="28"
           fill="url(#headGradient)"
           animate={{
-            cy: isBarking ? 48 : isHovered ? 49 : 50,
-            scale: isBarking ? 1.05 : 1
+            scale: isBarking ? 1.05 : isActive ? [1, 1.02, 1] : 1
           }}
-          transition={{ duration: 0.2 }}
+          transition={{ 
+            duration: isBarking ? 0.2 : 3,
+            repeat: isActive ? Infinity : 0,
+            ease: "easeInOut"
+          }}
+        />
+        
+        {/* Head highlight */}
+        <ellipse
+          cx="50"
+          cy="45"
+          rx="12"
+          ry="8"
+          fill="rgba(224, 246, 255, 0.4)"
         />
 
         {/* Left Ear */}
         <motion.ellipse
-          cx="38"
-          cy="35"
+          cx="32"
+          cy="28"
           rx="8"
-          ry="12"
+          ry="14"
           fill="url(#earGradient)"
           animate={{
-            rotate: isBarking || isHovered ? -15 : 5,
-            ry: isBarking || isHovered ? 14 : 12
+            rotate: isBarking || isHovered ? -20 : -10,
+            ry: isBarking || isHovered ? 16 : 14
           }}
           transition={{ duration: 0.3 }}
         />
 
         {/* Right Ear */}
         <motion.ellipse
-          cx="62"
-          cy="35"
+          cx="68"
+          cy="28"
           rx="8"
-          ry="12"
+          ry="14"
           fill="url(#earGradient)"
           animate={{
-            rotate: isBarking || isHovered ? 15 : -5,
-            ry: isBarking || isHovered ? 14 : 12
+            rotate: isBarking || isHovered ? 20 : 10,
+            ry: isBarking || isHovered ? 16 : 14
           }}
           transition={{ duration: 0.3 }}
         />
 
+        {/* Inner Ears */}
+        <ellipse cx="34" cy="30" rx="4" ry="8" fill="rgba(224, 246, 255, 0.6)" />
+        <ellipse cx="66" cy="30" rx="4" ry="8" fill="rgba(224, 246, 255, 0.6)" />
+
         {/* Eyes */}
-        <circle cx="44" cy="47" r="3" fill="#1e3a8a" />
-        <circle cx="56" cy="47" r="3" fill="#1e3a8a" />
-        <circle cx="44.5" cy="46" r="1" fill="white" />
-        <circle cx="56.5" cy="46" r="1" fill="white" />
+        <circle cx="42" cy="45" r="4" fill="#1e3a8a" />
+        <circle cx="58" cy="45" r="4" fill="#1e3a8a" />
+        <circle cx="42.5" cy="44" r="1.5" fill="white" />
+        <circle cx="58.5" cy="44" r="1.5" fill="white" />
+        
+        {/* Eye highlights for cartoon effect */}
+        <circle cx="43" cy="43" r="0.8" fill="white" opacity="0.9" />
+        <circle cx="59" cy="43" r="0.8" fill="white" opacity="0.9" />
+
+        {/* Snout */}
+        <ellipse
+          cx="50"
+          cy="58"
+          rx="10"
+          ry="8"
+          fill="rgba(224, 246, 255, 0.7)"
+        />
 
         {/* Nose */}
         <motion.ellipse
           cx="50"
-          cy="53"
+          cy="55"
           rx="2"
           ry="1.5"
           fill="#1e3a8a"
           animate={{
-            ry: isBarking ? 2.5 : 1.5
+            ry: isBarking ? 2 : 1.5
           }}
           transition={{ duration: 0.2 }}
         />
+        {/* Nose highlight */}
+        <ellipse cx="49.5" cy="54.5" rx="0.7" ry="0.5" fill="white" opacity="0.8" />
 
         {/* Mouth */}
         <motion.path
           d={isBarking ? 
-            "M 46 57 Q 50 63 54 57" : 
-            isHovered ? "M 47 57 Q 50 60 53 57" : "M 48 57 Q 50 59 52 57"
+            "M 45 62 Q 50 68 55 62" : 
+            isHovered ? "M 46 62 Q 50 66 54 62" : "M 47 62 Q 50 65 53 62"
           }
           stroke="#1e3a8a"
           strokeWidth="2"
@@ -184,44 +142,17 @@ export default function DogAvatar({ isActive, isHovered, onClick, onHover, onHov
         {/* Tongue (when barking) */}
         {isBarking && (
           <motion.ellipse
-            initial={{ opacity: 0, cy: 57 }}
-            animate={{ opacity: 1, cy: 61 }}
+            initial={{ opacity: 0, cy: 62 }}
+            animate={{ opacity: 1, cy: 66 }}
             exit={{ opacity: 0 }}
             cx="50"
-            cy="61"
+            cy="66"
             rx="3"
             ry="2"
             fill="#ef4444"
             transition={{ duration: 0.2 }}
           />
         )}
-
-        {/* Enhanced Tail */}
-        <motion.path
-          d="M 22 75 Q 8 70 15 55 Q 12 45 18 35"
-          stroke="url(#tailGradient)"
-          strokeWidth="10"
-          fill="none"
-          strokeLinecap="round"
-          animate={isHovered ? {
-            d: [
-              "M 22 75 Q 8 70 15 55 Q 12 45 18 35",
-              "M 22 75 Q 5 65 12 50 Q 8 40 15 30",
-              "M 22 75 Q 12 72 18 60 Q 15 50 20 40",
-              "M 22 75 Q 8 70 15 55 Q 12 45 18 35"
-            ]
-          } : {
-            d: [
-              "M 22 75 Q 8 70 15 55 Q 12 45 18 35",
-              "M 22 75 Q 12 72 18 60 Q 15 50 20 40"
-            ]
-          }}
-          transition={{
-            duration: isHovered ? 0.4 : 2.5,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
 
         {/* Speech Bubble (when barking) */}
         {isBarking && (
@@ -231,45 +162,24 @@ export default function DogAvatar({ isActive, isHovered, onClick, onHover, onHov
             exit={{ opacity: 0, scale: 0.5 }}
             transition={{ duration: 0.3 }}
           >
-            <ellipse cx="85" cy="30" rx="18" ry="10" fill="rgba(255, 255, 255, 0.9)" stroke="#22d3ee" strokeWidth="1" />
-            <path d="M 70 35 L 62 42 L 75 38 Z" fill="rgba(255, 255, 255, 0.9)" />
-            <text x="85" y="33" textAnchor="middle" className="text-xs font-bold fill-blue-900">Woof!</text>
+            <ellipse cx="80" cy="20" rx="18" ry="10" fill="rgba(255, 255, 255, 0.95)" stroke="#22d3ee" strokeWidth="1" />
+            <path d="M 68 28 L 58 35 L 70 32 Z" fill="rgba(255, 255, 255, 0.95)" />
+            <text x="80" y="23" textAnchor="middle" className="text-xs font-bold fill-blue-900">Woof!</text>
           </motion.g>
         )}
 
         {/* Gradient Definitions */}
         <defs>
-          <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#3b82f6" />
-            <stop offset="50%" stopColor="#2563eb" />
-            <stop offset="100%" stopColor="#1d4ed8" />
-          </linearGradient>
-          
           <linearGradient id="headGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#60a5fa" />
-            <stop offset="50%" stopColor="#3b82f6" />
+            <stop offset="0%" stopColor="#87CEEB" />
+            <stop offset="30%" stopColor="#60a5fa" />
+            <stop offset="70%" stopColor="#4169E1" />
             <stop offset="100%" stopColor="#2563eb" />
           </linearGradient>
 
           <linearGradient id="earGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#2563eb" />
-            <stop offset="100%" stopColor="#1d4ed8" />
-          </linearGradient>
-
-          <linearGradient id="tailGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#3b82f6" />
-            <stop offset="100%" stopColor="#1d4ed8" />
-          </linearGradient>
-
-          <linearGradient id="pawGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#1d4ed8" />
-            <stop offset="100%" stopColor="#1e3a8a" />
-          </linearGradient>
-
-          <linearGradient id="legGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#2563eb" />
-            <stop offset="50%" stopColor="#1d4ed8" />
-            <stop offset="100%" stopColor="#1e3a8a" />
+            <stop offset="0%" stopColor="#4169E1" />
+            <stop offset="100%" stopColor="#2563eb" />
           </linearGradient>
         </defs>
       </svg>
@@ -281,12 +191,25 @@ export default function DogAvatar({ isActive, isHovered, onClick, onHover, onHov
           boxShadow: isActive ? 
             ['0 0 20px rgba(34, 211, 238, 0.4)', '0 0 30px rgba(34, 211, 238, 0.6)', '0 0 20px rgba(34, 211, 238, 0.4)'] :
             isHovered ?
-            '0 0 25px rgba(59, 130, 246, 0.5)' :
-            '0 0 15px rgba(59, 130, 246, 0.3)'
+            '0 0 25px rgba(135, 206, 235, 0.5)' :
+            '0 0 15px rgba(135, 206, 235, 0.3)'
         }}
         transition={{
           duration: isActive ? 2 : 0.3,
           repeat: isActive ? Infinity : 0,
+          ease: "easeInOut"
+        }}
+      />
+      
+      {/* Subtle bounce animation */}
+      <motion.div
+        className="absolute inset-0"
+        animate={{
+          y: isActive ? [0, -2, 0] : isHovered ? [0, -1, 0] : 0
+        }}
+        transition={{
+          duration: isActive ? 1 : 2,
+          repeat: isActive || isHovered ? Infinity : 0,
           ease: "easeInOut"
         }}
       />
