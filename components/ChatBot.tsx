@@ -131,8 +131,17 @@ export default function ChatBot() {
           >
             {/* Header */}
             <div className="p-4 border-b border-white/10">
-              <h3 className="font-semibold text-cyan-400">Ask me anything!</h3>
-              <p className="text-xs text-white/60">I can tell you about my skills, experience, and projects</p>
+              <div className="flex items-center space-x-3 mb-2">
+                <div className="w-10 h-10 rounded-full glass p-1.5 border border-blue-400/20">
+                  <div className="w-full h-full bg-gradient-to-br from-blue-400 to-cyan-500 rounded-full flex items-center justify-center">
+                    🐕
+                  </div>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-cyan-400">Blue, your AI assistant</h3>
+                  <p className="text-xs text-white/60">Ask me about Duc's background!</p>
+                </div>
+              </div>
             </div>
 
             {/* Messages */}
@@ -142,8 +151,17 @@ export default function ChatBot() {
                   key={message.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                  className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start items-end'}`}
                 >
+                  {message.sender === 'bot' && (
+                    <div className="flex-shrink-0 mr-2 mb-1">
+                      <div className="w-8 h-8 rounded-full glass p-1 border border-blue-400/20">
+                        <div className="w-full h-full bg-gradient-to-br from-blue-400 to-cyan-500 rounded-full flex items-center justify-center">
+                          🐕
+                        </div>
+                      </div>
+                    </div>
+                  )}
                   <div
                     className={`
                       max-w-[75%] p-3 rounded-lg text-sm
@@ -162,8 +180,15 @@ export default function ChatBot() {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="flex justify-start"
+                  className="flex justify-start items-end"
                 >
+                  <div className="flex-shrink-0 mr-2 mb-1">
+                    <div className="w-8 h-8 rounded-full glass p-1 border border-blue-400/20">
+                      <div className="w-full h-full bg-gradient-to-br from-blue-400 to-cyan-500 rounded-full flex items-center justify-center animate-pulse">
+                        🐕
+                      </div>
+                    </div>
+                  </div>
                   <div className="bg-blue-500/20 text-blue-100 border border-blue-400/20 p-3 rounded-lg">
                     <div className="flex space-x-1">
                       <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce"></div>
