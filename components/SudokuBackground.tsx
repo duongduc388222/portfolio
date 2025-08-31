@@ -36,7 +36,7 @@ export default function SudokuBackground() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.target.id.includes('education', 'experience', 'projects', 'skills')) {
+          if (entry.isIntersecting && ['education', 'experience', 'projects', 'skills'].includes(entry.target.id)) {
             triggerSolveCelebration();
           }
         });
