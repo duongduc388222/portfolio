@@ -2,7 +2,8 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, Send, X } from 'lucide-react';
+import { Send, X } from 'lucide-react';
+import DogAvatar from './DogAvatar';
 import profileData from '@/data/profile.json';
 
 interface Message {
@@ -15,6 +16,11 @@ interface Message {
 function generateReply(question: string): string {
   const lowerQuestion = question.toLowerCase();
   const responses = profileData.chatbot.responses;
+
+  // Lam-specific responses
+  if (lowerQuestion.includes('name') || lowerQuestion.includes('lam') || lowerQuestion.includes('blue') || lowerQuestion.includes('vietnamese')) {
+    return responses.name[Math.floor(Math.random() * responses.name.length)];
+  }
 
   // Keyword matching for different topics
   if (lowerQuestion.includes('skill') || lowerQuestion.includes('technology') || lowerQuestion.includes('tech')) {
@@ -50,6 +56,7 @@ export default function ChatBot() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -65,7 +72,7 @@ export default function ChatBot() {
       // Send welcome message when chat opens for the first time
       const welcomeMessage: Message = {
         id: 1,
-        text: "Hi there! I'm here to tell you about my background and experience. What would you like to know?",
+        text: "Woof! Hi there! I'm Lam, Duc's digital companion. My name means 'blue' in Vietnamese - pretty fitting, right? What would you like to know about Duc?",
         sender: 'bot',
         timestamp: new Date()
       };
@@ -106,19 +113,29 @@ export default function ChatBot() {
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
-      {/* Chat Button */}
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={() => setIsOpen(!isOpen)}
-        className={`
-          w-14 h-14 rounded-full glass-strong flex items-center justify-center
-          text-cyan-400 hover:text-cyan-300 transition-all duration-300
-          ${isOpen ? 'bg-red-500/20' : 'glow-border'}
-        `}
-      >
-        {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
-      </motion.button>
+      {/* Dog Avatar Button */}
+      <div className="relative">
+        <DogAvatar
+          isActive={isOpen}
+          isHovered={isHovered}
+          onClick={() => setIsOpen(!isOpen)}
+          onHover={() => setIsHovered(true)}
+          onHoverEnd={() => setIsHovered(false)}
+        />
+        
+        {/* Close button when chat is open */}
+        {isOpen && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.5 }}
+            onClick={() => setIsOpen(false)}
+            className="absolute -top-2 -right-2 w-6 h-6 bg-red-500/80 hover:bg-red-500 rounded-full flex items-center justify-center text-white text-xs transition-colors"
+          >
+            <X size={12} />
+          </motion.button>
+        )}
+      </div>
 
       {/* Chat Window */}
       <AnimatePresence>
@@ -138,7 +155,7 @@ export default function ChatBot() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-cyan-400">Blue, your AI assistant</h3>
+                  <h3 className="font-semibold text-cyan-400">Lam, your AI assistant</h3>
                   <p className="text-xs text-white/60">Ask me about Duc's background!</p>
                 </div>
               </div>

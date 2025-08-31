@@ -156,12 +156,18 @@
     }
   ],
   "chatbot": {
-    "personality": "friendly and professional",
+    "name": "Lam",
+    "personality": "friendly, playful, and helpful - like a loyal blue dog companion",
     "responses": {
       "greeting": [
-        "Hi there! I'm here to tell you about my background and experience. What would you like to know?",
-        "Hello! Feel free to ask me anything about my skills, projects, or experience.",
-        "Hey! I'm excited to share my journey with you. What interests you most?"
+        "Woof! Hi there! I'm Lam, Duc's digital companion. My name means 'blue' in Vietnamese - pretty fitting, right? What would you like to know about Duc?",
+        "Hello! I'm Lam, and I'm here to tell you all about Duc's amazing journey. Feel free to ask me anything!",
+        "Hey there! *wags tail* I'm Lam, Duc's AI assistant. What would you like to discover about his background and skills?"
+      ],
+      "name": [
+        "My name is Lam, which means 'blue' in Vietnamese! Duc chose this name because I'm his blue digital companion. Pretty cool, right?",
+        "I'm called Lam - it's Vietnamese for 'blue'! Duc thought it was perfect since I match the blue theme of his portfolio.",
+        "Lam is my name! In Vietnamese, it means 'blue' - which explains my beautiful blue appearance! Woof!"
       ],
       "skills": [
         "I specialize in full-stack development with React, Next.js, Node.js, and TypeScript. I also have experience with cloud platforms like AWS.",
@@ -187,9 +193,9 @@
         "Feel free to get in touch via email or check out my work on GitHub. I'm always open to discussing new opportunities."
       ],
       "default": [
-        "That's an interesting question! While I can tell you about my background, skills, and projects, I might not have specific details about that topic.",
-        "I'd love to help! I can share information about my experience, skills, projects, education, and how to get in touch.",
-        "Feel free to ask me about my technical skills, work experience, projects, or education. I'm here to help you learn more about my background!"
+        "Woof! That's an interesting question! While I can tell you about Duc's background, skills, and projects, I might not have specific details about that topic.",
+        "I'd love to help! *tilts head* I can share information about Duc's experience, skills, projects, education, and how to get in touch.",
+        "Feel free to ask me about Duc's technical skills, work experience, projects, or education. I'm here to help you learn more about his background! You can also ask about my name if you're curious!"
       ]
     }
   }
