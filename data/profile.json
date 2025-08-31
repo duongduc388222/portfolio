@@ -1,0 +1,196 @@
+{
+  "personal": {
+    "name": "Your Name",
+    "title": "Full Stack Developer",
+    "bio": "Passionate full-stack developer with a love for creating beautiful, functional applications. I specialize in React, Next.js, and modern web technologies. When I'm not coding, you can find me exploring new frameworks or contributing to open source projects.",
+    "profileImage": "/images/profile.jpg",
+    "location": "San Francisco, CA",
+    "email": "your.email@example.com",
+    "phone": "+1 (555) 123-4567",
+    "website": "https://yourwebsite.com",
+    "linkedin": "https://linkedin.com/in/yourprofile",
+    "github": "https://github.com/yourusername",
+    "twitter": "https://twitter.com/yourusername"
+  },
+  "education": [
+    {
+      "id": 1,
+      "institution": "University of Technology",
+      "degree": "Bachelor of Science in Computer Science",
+      "duration": "2018 - 2022",
+      "gpa": "3.8/4.0",
+      "description": "Focused on software engineering, algorithms, and web development. Graduated Summa Cum Laude.",
+      "achievements": [
+        "Dean's List for 6 semesters",
+        "President of Computer Science Society",
+        "Winner of University Hackathon 2021"
+      ]
+    },
+    {
+      "id": 2,
+      "institution": "Tech Academy",
+      "degree": "Full Stack Web Development Bootcamp",
+      "duration": "2022",
+      "description": "Intensive 6-month program covering modern web development technologies including React, Node.js, and cloud deployment.",
+      "achievements": [
+        "Top 5% of graduating class",
+        "Built 10+ full-stack applications"
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "id": 1,
+      "company": "TechCorp Solutions",
+      "position": "Senior Frontend Developer",
+      "duration": "Jan 2023 - Present",
+      "location": "San Francisco, CA",
+      "description": "Lead frontend development for enterprise-level applications serving 50K+ users. Collaborate with cross-functional teams to deliver high-quality user experiences.",
+      "achievements": [
+        "Improved application performance by 40% through code optimization",
+        "Led migration from class components to React Hooks",
+        "Mentored 3 junior developers",
+        "Implemented comprehensive testing suite with 95% coverage"
+      ],
+      "technologies": ["React", "TypeScript", "Next.js", "GraphQL", "AWS"]
+    },
+    {
+      "id": 2,
+      "company": "StartupXYZ",
+      "position": "Full Stack Developer",
+      "duration": "Jun 2022 - Dec 2022",
+      "location": "Remote",
+      "description": "Developed and maintained multiple web applications in a fast-paced startup environment. Built features from concept to deployment.",
+      "achievements": [
+        "Built 5+ full-stack applications from scratch",
+        "Implemented real-time features using WebSocket",
+        "Reduced API response time by 60%",
+        "Designed and implemented REST APIs"
+      ],
+      "technologies": ["React", "Node.js", "MongoDB", "Express", "Docker"]
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "title": "E-Commerce Platform",
+      "description": "A fully functional e-commerce platform with shopping cart, payment processing, and admin dashboard. Built with modern React and Node.js architecture.",
+      "image": "/images/project1.jpg",
+      "technologies": ["React", "Node.js", "PostgreSQL", "Stripe", "Docker"],
+      "githubUrl": "https://github.com/yourusername/ecommerce-platform",
+      "liveUrl": "https://your-ecommerce-demo.com",
+      "featured": true
+    },
+    {
+      "id": 2,
+      "title": "Task Management App",
+      "description": "Collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
+      "image": "/images/project2.jpg",
+      "technologies": ["Next.js", "TypeScript", "Prisma", "Socket.io", "Tailwind"],
+      "githubUrl": "https://github.com/yourusername/task-manager",
+      "liveUrl": "https://your-task-app.com",
+      "featured": true
+    },
+    {
+      "id": 3,
+      "title": "Weather Dashboard",
+      "description": "Beautiful weather dashboard with location-based forecasts, interactive maps, and customizable widgets.",
+      "image": "/images/project3.jpg",
+      "technologies": ["React", "Chart.js", "OpenWeather API", "Geolocation"],
+      "githubUrl": "https://github.com/yourusername/weather-dashboard",
+      "liveUrl": "https://your-weather-app.com",
+      "featured": false
+    }
+  ],
+  "skills": {
+    "frontend": [
+      { "name": "React", "level": 95 },
+      { "name": "Next.js", "level": 90 },
+      { "name": "TypeScript", "level": 85 },
+      { "name": "Vue.js", "level": 75 },
+      { "name": "Tailwind CSS", "level": 90 }
+    ],
+    "backend": [
+      { "name": "Node.js", "level": 90 },
+      { "name": "Python", "level": 80 },
+      { "name": "PostgreSQL", "level": 85 },
+      { "name": "MongoDB", "level": 80 },
+      { "name": "GraphQL", "level": 75 }
+    ],
+    "tools": [
+      { "name": "Git", "level": 95 },
+      { "name": "Docker", "level": 80 },
+      { "name": "AWS", "level": 75 },
+      { "name": "Figma", "level": 70 },
+      { "name": "Jest", "level": 85 }
+    ]
+  },
+  "awards": [
+    {
+      "id": 1,
+      "title": "Best Innovation Award",
+      "issuer": "TechCorp Solutions",
+      "date": "2023",
+      "description": "Recognized for developing an innovative solution that improved user engagement by 150%."
+    },
+    {
+      "id": 2,
+      "title": "Certified React Developer",
+      "issuer": "React Training",
+      "date": "2023",
+      "description": "Advanced certification in React development and best practices."
+    },
+    {
+      "id": 3,
+      "title": "AWS Solutions Architect Associate",
+      "issuer": "Amazon Web Services",
+      "date": "2022",
+      "description": "Certified in designing distributed systems on AWS platform."
+    },
+    {
+      "id": 4,
+      "title": "Hackathon Winner",
+      "issuer": "University of Technology",
+      "date": "2021",
+      "description": "First place in university-wide hackathon for developing a sustainable tech solution."
+    }
+  ],
+  "chatbot": {
+    "personality": "friendly and professional",
+    "responses": {
+      "greeting": [
+        "Hi there! I'm here to tell you about my background and experience. What would you like to know?",
+        "Hello! Feel free to ask me anything about my skills, projects, or experience.",
+        "Hey! I'm excited to share my journey with you. What interests you most?"
+      ],
+      "skills": [
+        "I specialize in full-stack development with React, Next.js, Node.js, and TypeScript. I also have experience with cloud platforms like AWS.",
+        "My core skills include React, Next.js, TypeScript, Node.js, and various databases like PostgreSQL and MongoDB.",
+        "I'm proficient in modern web technologies including React ecosystem, backend development with Node.js, and cloud deployment."
+      ],
+      "experience": [
+        "I currently work as a Senior Frontend Developer at TechCorp Solutions, where I lead development for enterprise applications.",
+        "I have over 2 years of professional experience, including roles at both established companies and startups.",
+        "My experience spans from startup environments to enterprise-level applications, giving me a well-rounded perspective on software development."
+      ],
+      "projects": [
+        "I've built several projects including an e-commerce platform, task management app, and weather dashboard. You can check them out in the projects section!",
+        "My featured projects include a full-stack e-commerce platform and a collaborative task management application with real-time features.",
+        "I love building projects that solve real problems. My portfolio includes everything from e-commerce solutions to productivity tools."
+      ],
+      "education": [
+        "I have a Bachelor's degree in Computer Science from University of Technology and completed a Full Stack Web Development bootcamp.",
+        "My educational background includes both formal computer science education and intensive practical training in modern web development."
+      ],
+      "contact": [
+        "You can reach me through the contact information in my profile, or connect with me on LinkedIn and GitHub!",
+        "Feel free to get in touch via email or check out my work on GitHub. I'm always open to discussing new opportunities."
+      ],
+      "default": [
+        "That's an interesting question! While I can tell you about my background, skills, and projects, I might not have specific details about that topic.",
+        "I'd love to help! I can share information about my experience, skills, projects, education, and how to get in touch.",
+        "Feel free to ask me about my technical skills, work experience, projects, or education. I'm here to help you learn more about my background!"
+      ]
+    }
+  }
+}
