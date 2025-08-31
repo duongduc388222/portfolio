@@ -153,7 +153,7 @@ export default function EvolvingSudokuNeuralGrid() {
                 style={{ writingMode: 'vertical-rl' }}
               >
                 {Array.from({ length: 20 }, (_, i) => 
-                  VALID_NUMBERS[Math.floor(Math.random() * VALID_NUMBERS.length)]
+                  [1, 2, 3, 4, 5, 6, 7, 8, 9][Math.floor(Math.random() * 9)]
                 ).join(' ')}
               </motion.div>
             ))}
