@@ -6,6 +6,7 @@ import { Github, Linkedin, Mail, MapPin, ExternalLink, Calendar, Award, Graduati
 
 import Navbar from '@/components/Navbar';
 import LiquidGlassWrapper from '@/components/LiquidGlassWrapper';
+import SudokuBackground from '@/components/SudokuBackground';
 import SectionWrapper from '@/components/SectionWrapper';
 import Card from '@/components/Card';
 import ProjectCard from '@/components/ProjectCard';
@@ -14,11 +15,13 @@ import profileData from '@/data/profile.json';
 
 export default function Home() {
   return (
-    <LiquidGlassWrapper className="min-h-screen">
-      <Navbar />
-      <ChatBot />
+    <div className="min-h-screen relative">
+      <SudokuBackground />
+      <LiquidGlassWrapper className="min-h-screen relative z-10">
+        <Navbar />
+        <ChatBot />
 
-      {/* Hero Section */}
+        {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -368,6 +371,7 @@ export default function Home() {
           </div>
         </div>
       </footer>
-    </LiquidGlassWrapper>
+      </LiquidGlassWrapper>
+    </div>
   );
 }

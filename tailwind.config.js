@@ -43,6 +43,8 @@ module.exports = {
         'blob': 'blob 7s infinite',
         'float': 'float 6s ease-in-out infinite',
         'glow': 'glow 2s ease-in-out infinite alternate',
+        'sudoku-float': 'sudoku-float 15s ease-in-out infinite',
+        'sudoku-pulse': 'sudoku-pulse 3s ease-in-out infinite',
       },
       keyframes: {
         blob: {
@@ -70,6 +72,16 @@ module.exports = {
           to: {
             boxShadow: '0 0 10px #60a5fa, 0 0 20px #60a5fa, 0 0 30px #60a5fa',
           },
+        },
+        'sudoku-float': {
+          '0%, 100%': { transform: 'translateY(0px) translateX(0px)' },
+          '25%': { transform: 'translateY(-8px) translateX(4px)' },
+          '50%': { transform: 'translateY(6px) translateX(-6px)' },
+          '75%': { transform: 'translateY(-4px) translateX(8px)' },
+        },
+        'sudoku-pulse': {
+          '0%, 100%': { opacity: '0.3' },
+          '50%': { opacity: '0.6' },
         },
       },
     },
