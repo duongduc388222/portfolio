@@ -65,7 +65,7 @@
         "Constructed geospatial database of 10,000+ wards with <100m accuracy for address standardization",
         "Led weekly seminars with senior researchers on transformers, CNNs, diffusion models, and more."
       ],
-      "technologies": ["AI Research", "LLM Finetuning", "Research", "ETL", "Web Scraping",]
+      "technologies": ["AI Research", "LLM Finetuning", "Research", "ETL", "Web Scraping"]
     },
     {
       "id": 3,
