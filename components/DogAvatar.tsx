@@ -30,20 +30,44 @@ export default function DogAvatar({ isActive, isHovered, onClick, onHover, onHov
       className="cursor-pointer relative"
     >
       <svg
-        width="80"
-        height="80"
-        viewBox="0 0 100 100"
+        width="90"
+        height="90"
+        viewBox="0 0 120 120"
         className="drop-shadow-lg"
       >
+        {/* Back Legs (behind body) */}
+        <motion.ellipse
+          cx="35"
+          cy="85"
+          rx="4"
+          ry="12"
+          fill="url(#legGradient)"
+          animate={{
+            ry: isHovered ? [12, 13, 12] : 12
+          }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+        />
+        <motion.ellipse
+          cx="65"
+          cy="85"
+          rx="4"
+          ry="12"
+          fill="url(#legGradient)"
+          animate={{
+            ry: isHovered ? [12, 13, 12] : 12
+          }}
+          transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
+        />
+
         {/* Dog Body */}
         <motion.ellipse
           cx="50"
-          cy="70"
-          rx="25"
-          ry="18"
+          cy="75"
+          rx="28"
+          ry="20"
           fill="url(#bodyGradient)"
           animate={{
-            ry: isActive ? [18, 19, 18] : [18, 18.5, 18]
+            ry: isActive ? [20, 21, 20] : [20, 20.5, 20]
           }}
           transition={{
             duration: isActive ? 1.5 : 3,
@@ -52,14 +76,46 @@ export default function DogAvatar({ isActive, isHovered, onClick, onHover, onHov
           }}
         />
 
+        {/* Front Legs */}
+        <motion.ellipse
+          cx="32"
+          cy="90"
+          rx="5"
+          ry="15"
+          fill="url(#legGradient)"
+          animate={{
+            ry: isBarking || isHovered ? [15, 12, 15] : 15,
+            cy: isBarking || isHovered ? [90, 88, 90] : 90
+          }}
+          transition={{ duration: 0.4, repeat: isHovered ? Infinity : 0 }}
+        />
+        <motion.ellipse
+          cx="68"
+          cy="90"
+          rx="5"
+          ry="15"
+          fill="url(#legGradient)"
+          animate={{
+            ry: isBarking || isHovered ? [15, 12, 15] : 15,
+            cy: isBarking || isHovered ? [90, 88, 90] : 90
+          }}
+          transition={{ duration: 0.4, repeat: isHovered ? Infinity : 0, delay: 0.2 }}
+        />
+
+        {/* Paws */}
+        <motion.ellipse cx="32" cy="105" rx="6" ry="4" fill="url(#pawGradient)" />
+        <motion.ellipse cx="68" cy="105" rx="6" ry="4" fill="url(#pawGradient)" />
+        <motion.ellipse cx="35" cy="100" rx="5" ry="3" fill="url(#pawGradient)" />
+        <motion.ellipse cx="65" cy="100" rx="5" ry="3" fill="url(#pawGradient)" />
+
         {/* Dog Head */}
         <motion.circle
           cx="50"
-          cy="45"
-          r="20"
+          cy="50"
+          r="22"
           fill="url(#headGradient)"
           animate={{
-            cy: isBarking ? 43 : isHovered ? 44 : 45,
+            cy: isBarking ? 48 : isHovered ? 49 : 50,
             scale: isBarking ? 1.05 : 1
           }}
           transition={{ duration: 0.2 }}
@@ -68,12 +124,12 @@ export default function DogAvatar({ isActive, isHovered, onClick, onHover, onHov
         {/* Left Ear */}
         <motion.ellipse
           cx="38"
-          cy="32"
+          cy="35"
           rx="8"
           ry="12"
           fill="url(#earGradient)"
           animate={{
-            rotate: isBarking || isHovered ? -10 : 5,
+            rotate: isBarking || isHovered ? -15 : 5,
             ry: isBarking || isHovered ? 14 : 12
           }}
           transition={{ duration: 0.3 }}
@@ -82,27 +138,27 @@ export default function DogAvatar({ isActive, isHovered, onClick, onHover, onHov
         {/* Right Ear */}
         <motion.ellipse
           cx="62"
-          cy="32"
+          cy="35"
           rx="8"
           ry="12"
           fill="url(#earGradient)"
           animate={{
-            rotate: isBarking || isHovered ? 10 : -5,
+            rotate: isBarking || isHovered ? 15 : -5,
             ry: isBarking || isHovered ? 14 : 12
           }}
           transition={{ duration: 0.3 }}
         />
 
         {/* Eyes */}
-        <circle cx="44" cy="42" r="3" fill="#1e3a8a" />
-        <circle cx="56" cy="42" r="3" fill="#1e3a8a" />
-        <circle cx="44.5" cy="41" r="1" fill="white" />
-        <circle cx="56.5" cy="41" r="1" fill="white" />
+        <circle cx="44" cy="47" r="3" fill="#1e3a8a" />
+        <circle cx="56" cy="47" r="3" fill="#1e3a8a" />
+        <circle cx="44.5" cy="46" r="1" fill="white" />
+        <circle cx="56.5" cy="46" r="1" fill="white" />
 
         {/* Nose */}
         <motion.ellipse
           cx="50"
-          cy="48"
+          cy="53"
           rx="2"
           ry="1.5"
           fill="#1e3a8a"
@@ -115,8 +171,8 @@ export default function DogAvatar({ isActive, isHovered, onClick, onHover, onHov
         {/* Mouth */}
         <motion.path
           d={isBarking ? 
-            "M 46 52 Q 50 58 54 52" : 
-            isHovered ? "M 47 52 Q 50 55 53 52" : "M 48 52 Q 50 54 52 52"
+            "M 46 57 Q 50 63 54 57" : 
+            isHovered ? "M 47 57 Q 50 60 53 57" : "M 48 57 Q 50 59 52 57"
           }
           stroke="#1e3a8a"
           strokeWidth="2"
@@ -128,11 +184,11 @@ export default function DogAvatar({ isActive, isHovered, onClick, onHover, onHov
         {/* Tongue (when barking) */}
         {isBarking && (
           <motion.ellipse
-            initial={{ opacity: 0, cy: 52 }}
-            animate={{ opacity: 1, cy: 56 }}
+            initial={{ opacity: 0, cy: 57 }}
+            animate={{ opacity: 1, cy: 61 }}
             exit={{ opacity: 0 }}
             cx="50"
-            cy="56"
+            cy="61"
             rx="3"
             ry="2"
             fill="#ef4444"
@@ -140,37 +196,32 @@ export default function DogAvatar({ isActive, isHovered, onClick, onHover, onHov
           />
         )}
 
-        {/* Tail */}
+        {/* Enhanced Tail */}
         <motion.path
-          d="M 25 70 Q 15 65 20 55"
+          d="M 22 75 Q 8 70 15 55 Q 12 45 18 35"
           stroke="url(#tailGradient)"
-          strokeWidth="8"
+          strokeWidth="10"
           fill="none"
           strokeLinecap="round"
           animate={isHovered ? {
             d: [
-              "M 25 70 Q 15 65 20 55",
-              "M 25 70 Q 12 62 18 52",
-              "M 25 70 Q 18 68 22 58",
-              "M 25 70 Q 15 65 20 55"
+              "M 22 75 Q 8 70 15 55 Q 12 45 18 35",
+              "M 22 75 Q 5 65 12 50 Q 8 40 15 30",
+              "M 22 75 Q 12 72 18 60 Q 15 50 20 40",
+              "M 22 75 Q 8 70 15 55 Q 12 45 18 35"
             ]
           } : {
             d: [
-              "M 25 70 Q 15 65 20 55",
-              "M 25 70 Q 18 68 22 58"
+              "M 22 75 Q 8 70 15 55 Q 12 45 18 35",
+              "M 22 75 Q 12 72 18 60 Q 15 50 20 40"
             ]
           }}
           transition={{
-            duration: isHovered ? 0.5 : 2,
+            duration: isHovered ? 0.4 : 2.5,
             repeat: Infinity,
             ease: "easeInOut"
           }}
         />
-
-        {/* Paws */}
-        <ellipse cx="40" cy="85" rx="4" ry="6" fill="url(#pawGradient)" />
-        <ellipse cx="50" cy="88" rx="4" ry="6" fill="url(#pawGradient)" />
-        <ellipse cx="60" cy="85" rx="4" ry="6" fill="url(#pawGradient)" />
 
         {/* Speech Bubble (when barking) */}
         {isBarking && (
@@ -180,9 +231,9 @@ export default function DogAvatar({ isActive, isHovered, onClick, onHover, onHov
             exit={{ opacity: 0, scale: 0.5 }}
             transition={{ duration: 0.3 }}
           >
-            <ellipse cx="75" cy="25" rx="15" ry="8" fill="rgba(255, 255, 255, 0.9)" stroke="#22d3ee" strokeWidth="1" />
-            <path d="M 65 30 L 58 35 L 70 32 Z" fill="rgba(255, 255, 255, 0.9)" />
-            <text x="75" y="28" textAnchor="middle" className="text-xs font-bold fill-blue-900">Woof!</text>
+            <ellipse cx="85" cy="30" rx="18" ry="10" fill="rgba(255, 255, 255, 0.9)" stroke="#22d3ee" strokeWidth="1" />
+            <path d="M 70 35 L 62 42 L 75 38 Z" fill="rgba(255, 255, 255, 0.9)" />
+            <text x="85" y="33" textAnchor="middle" className="text-xs font-bold fill-blue-900">Woof!</text>
           </motion.g>
         )}
 
@@ -212,6 +263,12 @@ export default function DogAvatar({ isActive, isHovered, onClick, onHover, onHov
 
           <linearGradient id="pawGradient" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#1d4ed8" />
+            <stop offset="100%" stopColor="#1e3a8a" />
+          </linearGradient>
+
+          <linearGradient id="legGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#2563eb" />
+            <stop offset="50%" stopColor="#1d4ed8" />
             <stop offset="100%" stopColor="#1e3a8a" />
           </linearGradient>
         </defs>
