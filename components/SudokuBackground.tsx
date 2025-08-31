@@ -102,13 +102,13 @@ export default function SudokuBackground() {
               key={`floating-${num}`}
               initial={{ 
                 opacity: 0,
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight
+                x: Math.random() * 1200,
+                y: Math.random() * 800
               }}
               animate={{
                 opacity: [0, 0.2, 0],
-                x: Math.random() * (window.innerWidth || 1200),
-                y: Math.random() * (window.innerHeight || 800),
+                x: Math.random() * 1200,
+                y: Math.random() * 800,
                 rotate: 360
               }}
               transition={{
