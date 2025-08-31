@@ -2,7 +2,7 @@
   "personal": {
     "name": "Duc Duong",
     "title": "ML/AI Savvy",
-    "bio": "Passionate full-stack developer with a love for creating beautiful, functional applications. I specialize in React, Next.js, and modern web technologies. When I'm not coding, you can find me exploring new frameworks or contributing to open source projects.",
+    "bio": "I’m Duc Duong, a machine learning savvy with a strong interest in quantitative research and data-driven problem solving. From variant Sudoku puzzles to applying algorithms that uncover hidden patterns in complex systems, I enjoy tackling challenges that require both structure and creativity. Outside of academics, I’m a dog lover and puzzle solver, qualities that keep me curious, persistent, and focused. My goal is to leverage machine learning and analytical thinking to contribute to the fast-evolving world of quantitative finance while continuously learning and growing in the field.",
     "profileImage": "/images/profile.jpg",
     "location": "Grinnell, IA",
     "email": "duongduc@grinnell.edu",
@@ -15,144 +15,146 @@
   "education": [
     {
       "id": 1,
-      "institution": "University of Technology",
-      "degree": "Bachelor of Science in Computer Science",
-      "duration": "2018 - 2022",
+      "institution": "Grinnell College",
+      "degree": "Bachelor of Arts in Computer Science & Economics. Considering double major with Mathematics and a concentration in Statistics.",
+      "duration": "2024 - 2028",
       "gpa": "3.8/4.0",
-      "description": "Focused on software engineering, algorithms, and web development. Graduated Summa Cum Laude.",
+      "description": "Focused on Machine Learning / AI, Data Engineering, Quantitative Economics, and Cloud Computing.",
       "achievements": [
-        "Dean's List for 6 semesters",
-        "President of Computer Science Society",
-        "Winner of University Hackathon 2021"
+        "Dean's List 2024, 2025",
+        "Executive of Vietnamese Student Association and ML/AI Club",
+        "Relevant Coursework: Data Structures & Algorithms, Database Systems, Machine Learning, Artificial Intelligence, Cloud Computing, Distributed Systems"
       ]
     },
     {
       "id": 2,
-      "institution": "Tech Academy",
-      "degree": "Full Stack Web Development Bootcamp",
-      "duration": "2022",
-      "description": "Intensive 6-month program covering modern web development technologies including React, Node.js, and cloud deployment.",
+      "institution": "VNU - HCM High School for the Gifted",
+      "degree": "High School Diploma, Mathematics Honors",
+      "duration": "2021 - 2024",
+      "description": "Specialized high school curriculum with advanced training in Mathematics, Computer Science, and Research Methods.",
       "achievements": [
-        "Top 5% of graduating class",
-        "Built 10+ full-stack applications"
+        "Graduated in top 5% of class",
+        "Won provincial-level mathematics competitions"
       ]
     }
   ],
   "experience": [
     {
       "id": 1,
-      "company": "TechCorp Solutions",
-      "position": "Senior Frontend Developer",
-      "duration": "Jan 2023 - Present",
-      "location": "San Francisco, CA",
-      "description": "Lead frontend development for enterprise-level applications serving 50K+ users. Collaborate with cross-functional teams to deliver high-quality user experiences.",
+      "company": "CF Hub – qAnts Research Team",
+      "position": "Quantitative Developer",
+      "duration": "Aug 2025 – Present",
+      "location": "Remote",
+      "description": "Built backtesting frameworks and automated data pipelines in Google Cloud.",
       "achievements": [
-        "Improved application performance by 40% through code optimization",
-        "Led migration from class components to React Hooks",
-        "Mentored 3 junior developers",
-        "Implemented comprehensive testing suite with 95% coverage"
+        "Built flexible backtesting framework with dynamic Yahoo Finance/IB ingestion for 50+ strategies",
+        "Automated data pipelines with Google Cloud Scheduler + BigQuery, processing 200k+ rows",
+        "Improved research reproducibility and efficiency by 40% with reusable data scripts"
       ],
-      "technologies": ["React", "TypeScript", "Next.js", "GraphQL", "AWS"]
+      "technologies": ["Quantitative Finance", "Backtesting", "Data Engineering", "Google Airflow", "Docker"]
     },
     {
       "id": 2,
-      "company": "StartupXYZ",
-      "position": "Full Stack Developer",
-      "duration": "Jun 2022 - Dec 2022",
-      "location": "Remote",
-      "description": "Developed and maintained multiple web applications in a fast-paced startup environment. Built features from concept to deployment.",
+      "company": "Gtel Data Research Group",
+      "position": "AI Software (Data Scientist) Intern ",
+      "duration": "May – Aug 2025",
+      "location": "Ho Chi Minh City, Vietnam",
+      "description": "Worked on large-scale AI/ML pipelines and database systems supporting language model fine-tuning.",
       "achievements": [
-        "Built 5+ full-stack applications from scratch",
-        "Implemented real-time features using WebSocket",
-        "Reduced API response time by 60%",
-        "Designed and implemented REST APIs"
+        "Processed 1M+ text samples, reducing preprocessing latency by 30% and raising BLEU score by 15%",
+        "Constructed geospatial database of 10,000+ wards with <100m accuracy for address standardization",
+        "Led weekly seminars with senior researchers on transformers, CNNs, diffusion models, and more."
       ],
-      "technologies": ["React", "Node.js", "MongoDB", "Express", "Docker"]
+      "technologies": ["AI Research", "LLM Finetuning", "Research", "ETL", "Web Scraping",]
+    },
+    {
+      "id": 3,
+      "company": "Data Glacier",
+      "position": "Natural Language Processing Intern",
+      "duration": "Feb – May 2025",
+      "location": "Remote",
+      "description": "Developed ETL pipelines and deployed ML systems for NLP workflows.",
+      "achievements": [
+        "Engineered ML pipelines deployed as REST APIs with 99% uptime",
+        "Automated classification of 50,000+ unstructured documents with NLP models",
+        "Reduced pipeline errors by 25% through bottleneck diagnosis reports"
+      ],
+      "technologies": ["NLP", "Flask", "REST APIs", "System Monitoring", "Data Pipeline"]
     }
   ],
   "projects": [
     {
       "id": 1,
-      "title": "E-Commerce Platform",
-      "description": "A fully functional e-commerce platform with shopping cart, payment processing, and admin dashboard. Built with modern React and Node.js architecture.",
+      "title": "Predicting Tonal Languages",
+      "description": "Directed research project analyzing multilingual audio samples with signal processing and ML models.",
       "image": "/images/project1.jpg",
-      "technologies": ["React", "Node.js", "PostgreSQL", "Stripe", "Docker"],
-      "githubUrl": "https://github.com/yourusername/ecommerce-platform",
-      "liveUrl": "https://your-ecommerce-demo.com",
+      "technologies": ["Cross Validation", "scikit-learn", "PyTorch", "Signal Processing"],
+      "githubUrl": "https://github.com/duongduc388222/predict-tonal-languages-machine-learning",
+      "liveUrl": "",
       "featured": true
     },
     {
       "id": 2,
-      "title": "Task Management App",
-      "description": "Collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
+      "title": "Price Compare",
+      "description": "Built a price comparison web application that scrapes and analyzes product prices across multiple e-commerce platforms.",
       "image": "/images/project2.jpg",
-      "technologies": ["Next.js", "TypeScript", "Prisma", "Socket.io", "Tailwind"],
-      "githubUrl": "https://github.com/yourusername/task-manager",
-      "liveUrl": "https://your-task-app.com",
+      "technologies": ["Web Scraping", "BeautifulSoup", "Flask", "Data Visualization"],
+      "githubUrl": "https://github.com/duongduc388222/price-compare",
+      "liveUrl": "",
       "featured": true
-    },
-    {
-      "id": 3,
-      "title": "Weather Dashboard",
-      "description": "Beautiful weather dashboard with location-based forecasts, interactive maps, and customizable widgets.",
-      "image": "/images/project3.jpg",
-      "technologies": ["React", "Chart.js", "OpenWeather API", "Geolocation"],
-      "githubUrl": "https://github.com/yourusername/weather-dashboard",
-      "liveUrl": "https://your-weather-app.com",
-      "featured": false
     }
   ],
   "skills": {
-    "frontend": [
-      { "name": "React", "level": 95 },
-      { "name": "Next.js", "level": 90 },
-      { "name": "TypeScript", "level": 85 },
-      { "name": "Vue.js", "level": 75 },
-      { "name": "Tailwind CSS", "level": 90 }
+    "Languages": [
+      { "name": "Python", "level": 95 },
+      { "name": "C++", "level": 80 },
+      { "name": "R", "level": 85 },
+      { "name": "Java/JavaScript", "level": 70 },
+      { "name": "SQL", "level": 90 }
     ],
-    "backend": [
-      { "name": "Node.js", "level": 90 },
-      { "name": "Python", "level": 80 },
-      { "name": "PostgreSQL", "level": 85 },
-      { "name": "MongoDB", "level": 80 },
-      { "name": "GraphQL", "level": 75 }
+    "ML/AI Frameworks": [
+      { "name": "scikit-learn", "level": 90 },
+      { "name": "Pytorch", "level": 80 },
+      { "name": "TensorFlow", "level": 85 },
+      { "name": "transformer", "level": 80 },
+      { "name": "Hugging Face", "level": 75 }
     ],
     "tools": [
       { "name": "Git", "level": 95 },
       { "name": "Docker", "level": 80 },
-      { "name": "AWS", "level": 75 },
-      { "name": "Figma", "level": 70 },
-      { "name": "Jest", "level": 85 }
+      { "name": "Google Cloud Platform", "level": 75 },
+      { "name": "REST APIs", "level": 70 },
+      { "name": "AWS", "level": 60 }
     ]
   },
   "awards": [
     {
       "id": 1,
-      "title": "Best Innovation Award",
-      "issuer": "TechCorp Solutions",
-      "date": "2023",
-      "description": "Recognized for developing an innovative solution that improved user engagement by 150%."
+      "title": "Runners-up ",
+      "issuer": "Iowa Collegiate Mathematics Competition",
+      "date": "2025",
+      "description": "Scored 99/100 points in a statewide contest."
     },
     {
       "id": 2,
-      "title": "Certified React Developer",
-      "issuer": "React Training",
-      "date": "2023",
-      "description": "Advanced certification in React development and best practices."
+      "title": "Intermediate Technical Interview Prep",
+      "issuer": "CodePath",
+      "date": "2025",
+      "description": "Completed a selective program focused on algorithms, data structures, and coding interview mastery."
     },
     {
       "id": 3,
-      "title": "AWS Solutions Architect Associate",
-      "issuer": "Amazon Web Services",
-      "date": "2022",
-      "description": "Certified in designing distributed systems on AWS platform."
+      "title": "Data Engineering with Google Cloud",
+      "issuer": "Coursera",
+      "date": "2025",
+      "description": "Learned to design scalable data pipelines, ETL workflows, and manage BigQuery & Cloud Storage."
     },
     {
       "id": 4,
-      "title": "Hackathon Winner",
-      "issuer": "University of Technology",
-      "date": "2021",
-      "description": "First place in university-wide hackathon for developing a sustainable tech solution."
+      "title": "Practical Deep Learning for Coders",
+      "issuer": "Fast.ai",
+      "date": "2024 - Present",
+      "description": "Hands-on course applying deep learning with PyTorch, covering CNNs, NLP, Diffusion Models, and production workflows."
     }
   ],
   "chatbot": {
