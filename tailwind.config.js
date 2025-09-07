@@ -45,6 +45,8 @@ module.exports = {
         'glow': 'glow 2s ease-in-out infinite alternate',
         'sudoku-float': 'sudoku-float 15s ease-in-out infinite',
         'sudoku-pulse': 'sudoku-pulse 3s ease-in-out infinite',
+        'bounce-slow': 'bounce-slow 2s ease-in-out infinite',
+        'neural-pulse': 'neural-pulse 3s ease-in-out infinite',
       },
       keyframes: {
         blob: {
@@ -82,6 +84,14 @@ module.exports = {
         'sudoku-pulse': {
           '0%, 100%': { opacity: '0.3' },
           '50%': { opacity: '0.6' },
+        },
+        'bounce-slow': {
+          '0%, 100%': { transform: 'translateY(0) scale(1)' },
+          '50%': { transform: 'translateY(-4px) scale(1.05)' },
+        },
+        'neural-pulse': {
+          '0%, 100%': { opacity: '0.3' },
+          '50%': { opacity: '0.8' },
         },
       },
     },

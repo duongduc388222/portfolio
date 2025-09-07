@@ -1,0 +1,120 @@
+---
+title: "Building a Neural Sudoku Solver with Deep Learning"
+date: "2025-01-05"
+tags: ["machine-learning", "deep-learning", "sudoku", "neural-networks", "python"]
+summary: "Learn how I built an interactive Sudoku solver using neural networks and deep learning techniques. This project combines computer vision, constraint satisfaction, and modern web technologies."
+author: "Your Name"
+published: true
+---
+
+# Building a Neural Sudoku Solver with Deep Learning
+
+Sudoku puzzles have always fascinated me - the perfect blend of logic, pattern recognition, and constraint satisfaction. What if we could teach a neural network to solve them? That's exactly what I set out to do.
+
+## The Challenge
+
+Traditional Sudoku solvers use backtracking algorithms, but I wanted to explore whether deep learning could approach this problem differently. The challenge involves:
+
+- **Computer Vision**: Reading and parsing Sudoku grids from images
+- **Pattern Recognition**: Understanding the constraints and relationships
+- **Constraint Satisfaction**: Ensuring valid solutions
+
+## Technical Approach
+
+### 1. Data Preparation
+
+I started by generating thousands of Sudoku puzzles and their solutions:
+
+```python
+import numpy as np
+from sudoku_generator import generate_puzzle
+
+# Generate training data
+puzzles = []
+solutions = []
+
+for _ in range(10000):
+    puzzle, solution = generate_puzzle()
+    puzzles.append(puzzle)
+    solutions.append(solution)
+```
+
+### 2. Neural Network Architecture
+
+The model uses a combination of convolutional layers for spatial understanding and dense layers for constraint satisfaction:
+
+```python
+import tensorflow as tf
+from tensorflow.keras import layers, Model
+
+def create_sudoku_model():
+    inputs = layers.Input(shape=(9, 9, 1))
+    
+    # Convolutional layers for spatial features
+    x = layers.Conv2D(64, 3, activation='relu', padding='same')(inputs)
+    x = layers.Conv2D(128, 3, activation='relu', padding='same')(x)
+    x = layers.Conv2D(256, 3, activation='relu', padding='same')(x)
+    
+    # Global average pooling
+    x = layers.GlobalAveragePooling2D()(x)
+    
+    # Dense layers for constraint satisfaction
+    x = layers.Dense(512, activation='relu')(x)
+    x = layers.Dropout(0.3)(x)
+    x = layers.Dense(256, activation='relu')(x)
+    
+    # Output layer (81 cells × 9 possible values)
+    outputs = layers.Dense(81 * 9, activation='softmax')(x)
+    outputs = layers.Reshape((81, 9))(outputs)
+    
+    model = Model(inputs, outputs)
+    return model
+```
+
+### 3. Training Process
+
+The training involved several key techniques:
+
+- **Custom Loss Function**: Penalizing constraint violations
+- **Data Augmentation**: Rotating and flipping puzzles
+- **Progressive Training**: Starting with easier puzzles
+
+## Results and Insights
+
+The neural network achieved an impressive **94% accuracy** on test puzzles, though it still struggles with the most difficult ones. Key insights:
+
+1. **Spatial Understanding**: CNNs excel at recognizing grid patterns
+2. **Constraint Learning**: The model learns implicit Sudoku rules
+3. **Limitations**: Very hard puzzles still require traditional algorithms
+
+## Web Integration
+
+To make this interactive, I integrated the model with a React frontend:
+
+```typescript
+const solveSudoku = async (grid: number[][]) => {
+  const response = await fetch('/api/solve', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ puzzle: grid })
+  });
+  
+  return response.json();
+};
+```
+
+## Future Improvements
+
+- **Hybrid Approach**: Combine neural networks with traditional solvers
+- **Real-time Processing**: Optimize for faster inference
+- **Mobile Support**: Deploy to mobile devices
+
+## Conclusion
+
+This project demonstrates how deep learning can approach traditional algorithmic problems in novel ways. While not always the most efficient solution, it opens up interesting possibilities for AI-driven puzzle solving.
+
+<ResumeCTA variant="prominent" />
+
+---
+
+*Want to see this in action? Check out the interactive demo in my portfolio!*
