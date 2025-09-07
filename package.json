@@ -23,7 +23,7 @@
     "gray-matter": "^4.0.3",
     "remark": "^15.0.1",
     "remark-gfm": "^4.0.0",
-    "remark-frontmatter": "^5.1.0",
+    "remark-frontmatter": "^4.0.0",
     "reading-time": "^1.5.0",
     "next-mdx-remote": "^4.4.1"
   },
