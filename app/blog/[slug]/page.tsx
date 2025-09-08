@@ -11,18 +11,16 @@ import { Suspense } from 'react';
 import ShareButton from '@/components/ShareButton';
 
 
+
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 interface BlogPostPageProps {
   params: {
     slug: string;
   };
 }
 
-export async function generateStaticParams() {
-  const slugs = getAllPostSlugs();
-  return slugs.map((slug) => ({
-    slug,
-  }));
-}
 
 export async function generateMetadata({ params }: BlogPostPageProps) {
   const post = getPostBySlug(params.slug);
