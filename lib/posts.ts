@@ -4,7 +4,10 @@ import matter from 'gray-matter';
 import { Post, PostFrontmatter, parseFrontmatter, validateFrontmatter, generateSlug } from './mdx';
 import { calculateReadingTime } from './readingTime';
 
-const POSTS_DIRECTORY = path.join(process.cwd(), 'content', 'posts');
+
+// Re-export types for external use
+export type { Post, PostFrontmatter } from './mdx';
+
 
 /**
  * Get all post slugs from the posts directory
