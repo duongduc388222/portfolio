@@ -9,6 +9,7 @@ import { calculateReadingTime } from './readingTime';
 export type { Post, PostFrontmatter } from './mdx';
 
 
+const POSTS_DIRECTORY = path.join(process.cwd(), 'content', 'posts');
 /**
  * Get all post slugs from the posts directory
  * @returns Array of post slugs
