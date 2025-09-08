@@ -73,11 +73,19 @@ export function parseFrontmatter(content: string): { frontmatter: PostFrontmatte
       
       switch (cleanKey) {
         case 'title':
+          frontmatter.title = value.replace(/['"]/g, '');
+          break;
         case 'date':
+          frontmatter.date = value.replace(/['"]/g, '');
+          break;
         case 'summary':
+          frontmatter.summary = value.replace(/['"]/g, '');
+          break;
         case 'portfolioLink':
+          frontmatter.portfolioLink = value.replace(/['"]/g, '');
+          break;
         case 'author':
-          frontmatter[cleanKey as keyof PostFrontmatter] = value.replace(/['"]/g, '');
+          frontmatter.author = value.replace(/['"]/g, '');
           break;
         case 'tags':
           // Parse array format: ["tag1", "tag2", "tag3"]
@@ -91,8 +99,10 @@ export function parseFrontmatter(content: string): { frontmatter: PostFrontmatte
           }
           break;
         case 'isHot':
+          frontmatter.isHot = value.toLowerCase() === 'true';
+          break;
         case 'published':
-          frontmatter[cleanKey as keyof PostFrontmatter] = value.toLowerCase() === 'true';
+          frontmatter.published = value.toLowerCase() === 'true';
           break;
         case 'cover':
           frontmatter.cover = value.replace(/['"]/g, '');
