@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { getPostBySlug, getRelatedPosts, getAllPostSlugs } from '@/lib/posts';
 import { serializeMDX } from '@/lib/mdx';
-import { MDXRemote } from 'next-mdx-remote';
+import MDXContent from '@/components/MDXContent';
 import PostMeta from '@/components/PostMeta';
 import BlogCard from '@/components/BlogCard';
 import TagPill from '@/components/TagPill';
@@ -10,12 +10,6 @@ import Link from 'next/link';
 import { Suspense } from 'react';
 import ShareButton from '@/components/ShareButton';
 
-// MDX Components
-import ResumeCTA from '@/components/ResumeCTA';
-
-const components = {
-  ResumeCTA,
-};
 
 interface BlogPostPageProps {
   params: {
@@ -108,7 +102,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       {/* Article Content */}
       <article className="prose prose-lg prose-invert max-w-none mb-12">
         <Suspense fallback={<div>Loading...</div>}>
-          <MDXRemote {...mdxSource} components={components} />
+          <MDXContent source={mdxSource} />
         </Suspense>
       </article>
 
