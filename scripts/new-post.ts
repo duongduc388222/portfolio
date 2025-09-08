@@ -31,7 +31,7 @@ function createPostTemplate(title: string): PostTemplate {
 }
 
 function generateFrontmatter(template: PostTemplate): string {
-  const frontmatter = `---
+  let frontmatter = `---
 title: "${template.title}"
 date: "${template.date}"
 tags: [${template.tags.map(tag => `"${tag}"`).join(', ')}]
@@ -129,7 +129,7 @@ function main() {
 
   // Generate post content
   const template = createPostTemplate(title);
-  const frontmatter = generateFrontmatter(template);
+  let frontmatter = generateFrontmatter(template);
   const content = generatePostContent(title);
   const fullContent = frontmatter + '\n' + content;
 
@@ -214,7 +214,7 @@ function interactiveMode() {
         fs.mkdirSync(postsDir, { recursive: true });
       }
 
-      const frontmatter = generateFrontmatter(template);
+      let frontmatter = generateFrontmatter(template);
       const content = generatePostContent(title);
       const fullContent = frontmatter + '\n' + content;
 
