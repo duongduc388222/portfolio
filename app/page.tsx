@@ -52,11 +52,22 @@ export default function Home() {
               className="mb-8"
             >
               <p className="text-xl sm:text-2xl text-cyan-300 mb-2">
-                Data Engineer • ML/AI Enthusiast • Sudoku Solver
+                Impact Engineer • Model Builder • Sudoku Solver
               </p>
             </motion.div>
 
             <Separator className="mb-8" />
+
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="mb-6"
+            >
+              <p className="text-white/80 text-lg">
+              Hark! Thou art welcome to my portfolio, where craft of data and art of numbers entwine, and from tangled problems springeth solutions to serve the world.
+              </p>
+            </motion.div>
 
             {/* Current Role */}
             <motion.div
@@ -80,7 +91,7 @@ export default function Home() {
             >
               <h2 className="text-lg font-semibold text-cyan-400 mb-2">Education</h2>
               <p className="text-white/80 text-lg">
-                Grinnell College • 
+                Grinnell College 
               </p>
             </motion.div>
 
@@ -93,7 +104,7 @@ export default function Home() {
             >
               <h2 className="text-lg font-semibold text-cyan-400 mb-2">Focus</h2>
               <p className="text-white/80 text-lg">
-                Deep Learning and AI
+                Deep Learning and LLM Architectures
               </p>
             </motion.div>
 
