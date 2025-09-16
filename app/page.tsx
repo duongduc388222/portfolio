@@ -41,7 +41,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 font-mono"
               >
-              DƯƠNG HỒNG ĐỨC
+              DUC DUONG
               </motion.h1>
               
             {/* Subtitle */}
@@ -52,15 +52,8 @@ export default function Home() {
               className="mb-8"
             >
               <p className="text-xl sm:text-2xl text-cyan-300 mb-2">
-                Data Engineer • ML/AI Enthusiast • Ecosystem Builder
+                Data Engineer • ML/AI Enthusiast • Sudoku Solver
               </p>
-              <div className="flex items-center justify-center space-x-2 text-lg text-cyan-400">
-                <span>Data Engineer</span>
-                <span>•</span>
-                <span className="underline decoration-cyan-400 decoration-2">ML/AI Enthusiast</span>
-                <span>•</span>
-                <span>Ecosystem Builder</span>
-              </div>
             </motion.div>
 
             <Separator className="mb-8" />
@@ -74,7 +67,7 @@ export default function Home() {
             >
               <h2 className="text-lg font-semibold text-cyan-400 mb-2">Current Role</h2>
               <p className="text-white/80 text-lg">
-                Quant & Data Engineering Projects, Student Research
+                Quantitative Developer @ CF Hub - qAnts Research Team
               </p>
             </motion.div>
 
@@ -87,7 +80,7 @@ export default function Home() {
             >
               <h2 className="text-lg font-semibold text-cyan-400 mb-2">Education</h2>
               <p className="text-white/80 text-lg">
-                Grinnell College • Kofi Annan Scholar
+                Grinnell College • 
               </p>
             </motion.div>
 
@@ -100,22 +93,7 @@ export default function Home() {
             >
               <h2 className="text-lg font-semibold text-cyan-400 mb-2">Focus</h2>
               <p className="text-white/80 text-lg">
-                Building data pipelines, research, and helpful tools
-              </p>
-            </motion.div>
-
-            {/* About */}
-                      <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.4 }}
-              className="mb-8"
-            >
-              <h2 className="text-lg font-semibold text-cyan-400 mb-3">About</h2>
-              <p className="text-white/80 text-lg leading-relaxed max-w-2xl mx-auto">
-                A machine learning enthusiast with a passion for quantitative research and data-driven problem solving. 
-                I enjoy tackling challenges that require both structure and creativity, from variant Sudoku puzzles to 
-                applying algorithms that uncover hidden patterns in complex systems.
+                Deep Learning and AI
               </p>
             </motion.div>
 
