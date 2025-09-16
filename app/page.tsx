@@ -64,7 +64,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.8 }}
               className="mb-6"
             >
-              <p className="text-white/80 text-lg">
+              <p className="text-white/80 text-lg text-center max-w-2xl mx-auto leading-relaxed">
               Hark! Thou art welcome to my portfolio, where craft of data and art of numbers entwine, and from tangled problems springeth solutions to serve the world.
               </p>
             </motion.div>
