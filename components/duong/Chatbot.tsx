@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, X } from 'lucide-react';
-import DogAvatar from './DogAvatar';
+import DogAvatar from '../DogAvatar';
 import profileData from '@/data/profile.json';
 
 interface Message {
@@ -17,8 +17,8 @@ function generateReply(question: string): string {
   const lowerQuestion = question.toLowerCase();
   const responses = profileData.chatbot.responses;
 
-  // Lam-specific responses
-  if (lowerQuestion.includes('name') || lowerQuestion.includes('lam') || lowerQuestion.includes('blue') || lowerQuestion.includes('vietnamese')) {
+  // Duong-specific responses
+  if (lowerQuestion.includes('name') || lowerQuestion.includes('duong') || lowerQuestion.includes('blue') || lowerQuestion.includes('vietnamese')) {
     return responses.name[Math.floor(Math.random() * responses.name.length)];
   }
 
@@ -67,12 +67,30 @@ export default function ChatBot() {
     scrollToBottom();
   }, [messages]);
 
+  // Keyboard support
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Ctrl/Cmd + K to open/close
+      if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
+        event.preventDefault();
+        setIsOpen(!isOpen);
+      }
+      // Esc to close
+      if (event.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
+
   useEffect(() => {
     if (isOpen && messages.length === 0) {
       // Send welcome message when chat opens for the first time
       const welcomeMessage: Message = {
         id: 1,
-        text: "Woof! Hi there! I'm Lam, Duc's digital companion. My name means 'blue' in Vietnamese - pretty fitting, right? What would you like to know about Duc?",
+        text: "Woof! Hi there! I'm Duong, Duc's digital companion. My name means 'blue' in Vietnamese - pretty fitting, right? What would you like to know about Duc?",
         sender: 'bot',
         timestamp: new Date()
       };
@@ -155,7 +173,7 @@ export default function ChatBot() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-cyan-400">Lam, your AI assistant</h3>
+                  <h3 className="font-semibold text-cyan-400">Duong, your AI assistant</h3>
                   <p className="text-xs text-white/60">Ask me about Duc's background!</p>
                 </div>
               </div>

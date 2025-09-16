@@ -6,7 +6,8 @@ A modern, responsive portfolio website built with Next.js 14, featuring a liquid
 
 - **Liquid Glass Design**: Beautiful glassmorphism effects with animated SVG blobs
 - **Responsive Layout**: Optimized for all devices and screen sizes
-- **Local Chatbot**: Interactive AI assistant that answers questions about your profile
+- **Local Chatbot**: Interactive AI assistant (Duong) that answers questions about your profile
+- **Keyboard Shortcuts**: Ctrl/Cmd+K to open chatbot, Esc to close
 - **Dynamic Content**: All content managed through a single JSON file
 - **Smooth Animations**: Powered by Framer Motion for delightful interactions
 - **SEO Optimized**: Built with Next.js 14 App Router for optimal performance
@@ -28,10 +29,16 @@ portfolio/
 ├── app/
 │   ├── globals.css          # Global styles and CSS variables
 │   ├── layout.tsx           # Root layout component
-│   └── page.tsx             # Home page with all sections
+│   ├── page.tsx             # Home screen with navigation
+│   └── portfolio/
+│       └── page.tsx         # Portfolio page with all sections
 ├── components/
 │   ├── Card.tsx             # Reusable glass card component
-│   ├── ChatBot.tsx          # Local chatbot with Q&A functionality
+│   ├── duong/
+│   │   └── Chatbot.tsx      # Local chatbot with Q&A functionality (renamed from Lam)
+│   ├── ui/
+│   │   ├── GlowButton.tsx   # Animated button component
+│   │   └── Separator.tsx    # Decorative separator component
 │   ├── LiquidGlassWrapper.tsx # SVG blob animations and glass effects
 │   ├── Navbar.tsx           # Navigation with smooth scrolling
 │   ├── ProjectCard.tsx      # Project showcase cards
