@@ -41,9 +41,9 @@ export default function ResumePage() {
 
           {/* Resume Content */}
           <div className="prose prose-lg prose-invert max-w-none">
-            <h2 className="text-2xl font-bold text-white mb-6">Your Name</h2>
+            <h2 className="text-2xl font-bold text-white mb-6">Duc Duong</h2>
             <p className="text-gray-300 mb-6">
-              Full Stack Developer & Machine Learning Engineer
+              Quantitative Developer & Software Engineer
             </p>
 
             <div className="space-y-8">
@@ -52,16 +52,16 @@ export default function ResumePage() {
                 <h3 className="text-xl font-semibold text-white mb-4">Contact</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-300">
                   <div>
-                    <strong>Email:</strong> your.email@example.com
+                    <strong>Work Email:</strong> duongduc@grinnell.edu
                   </div>
                   <div>
-                    <strong>Phone:</strong> (555) 123-4567
+                    <strong>Personal Email:</strong> dhd388222@gmail.com
                   </div>
                   <div>
-                    <strong>Location:</strong> Your City, State
+                    <strong>Location:</strong> Grinnell, Iowa
                   </div>
                   <div>
-                    <strong>LinkedIn:</strong> linkedin.com/in/yourprofile
+                    <strong>LinkedIn:</strong> linkedin.com/in/duchduong/
                   </div>
                 </div>
               </section>
@@ -70,9 +70,12 @@ export default function ResumePage() {
               <section>
                 <h3 className="text-xl font-semibold text-white mb-4">Professional Summary</h3>
                 <p className="text-gray-300">
-                  Passionate full-stack developer with expertise in machine learning and modern web technologies. 
-                  Experienced in building scalable applications using React, Next.js, Python, and TensorFlow. 
-                  Strong background in AI/ML algorithms and neural network implementations.
+                Passionate software and data engineer with expertise in machine learning, NLP, and scalable system 
+                design. Experienced in building robust data pipelines, deploying APIs, and developing backtesting 
+                and automation frameworks using Python, SQL, and cloud platforms. Strong background in deep learning 
+                frameworks, statistical modeling, and time series forecasting, with a focus on turning complex datasets 
+                into reliable, data-driven solutions. Actively exploring advanced AI techniques in large language models 
+                and diffusion architectures to bridge research with practical applications.
                 </p>
               </section>
 
@@ -81,39 +84,39 @@ export default function ResumePage() {
                 <h3 className="text-xl font-semibold text-white mb-4">Technical Skills</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <h4 className="font-semibold text-blue-300 mb-2">Frontend</h4>
+                    <h4 className="font-semibold text-blue-300 mb-2">Data Engineering</h4>
                     <ul className="text-gray-300 space-y-1">
-                      <li>• React, Next.js, TypeScript</li>
-                      <li>• Tailwind CSS, Styled Components</li>
-                      <li>• Redux, Zustand</li>
-                      <li>• WebGL, Canvas API</li>
+                      <li>• NoSQL, SQL, BigQuery</li>
+                      <li>• Airflow, DAG Automation</li>
+                      <li>• ETL Pipelines, Data Normalization</li>
+                      <li>• AWS, GCP</li>
                     </ul>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-blue-300 mb-2">Backend</h4>
+                    <h4 className="font-semibold text-blue-300 mb-2">Software Engineering</h4>
                     <ul className="text-gray-300 space-y-1">
-                      <li>• Node.js, Express</li>
-                      <li>• Python, FastAPI</li>
-                      <li>• PostgreSQL, MongoDB</li>
-                      <li>• Redis, Docker</li>
+                      <li>• Python, C, C++, R</li>
+                      <li>• Java, JavaScript, MATLAB</li>
+                      <li>• REST APIs, React</li>
+                      <li>• Flask, Git</li>
                     </ul>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-blue-300 mb-2">Machine Learning</h4>
+                    <h4 className="font-semibold text-blue-300 mb-2">Machine Learning & AI</h4>
                     <ul className="text-gray-300 space-y-1">
-                      <li>• TensorFlow, PyTorch</li>
-                      <li>• Scikit-learn, Pandas</li>
-                      <li>• Computer Vision</li>
-                      <li>• Neural Networks</li>
+                      <li>• Deep Learning, Transformers, Diffusion</li>
+                      <li>• NLP, Computer Vision,Prompt Engineering</li>
+                      <li>• Time Series Forecasting, Statistical Modeling</li>
+                      <li>• PyTorch, TensorFlow, Hugging Face</li>
                     </ul>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-blue-300 mb-2">Tools & Others</h4>
+                    <h4 className="font-semibold text-blue-300 mb-2">Tools & Platforms</h4>
                     <ul className="text-gray-300 space-y-1">
-                      <li>• Git, GitHub</li>
-                      <li>• AWS, Vercel</li>
-                      <li>• Linux, Bash</li>
-                      <li>• Agile, Scrum</li>
+                      <li>• Docker, Linux, Bash</li>
+                      <li>• Cloud Deployment (Vercel, AWS)</li>
+                      <li>• Jupyter Notebook, VSCode</li>
+                      <li>• Slack, Jira (Agile, Scrum)</li>
                     </ul>
                   </div>
                 </div>
@@ -124,24 +127,31 @@ export default function ResumePage() {
                 <h3 className="text-xl font-semibold text-white mb-4">Professional Experience</h3>
                 <div className="space-y-6">
                   <div className="border-l-2 border-blue-500 pl-4">
-                    <h4 className="font-semibold text-white">Senior Full Stack Developer</h4>
-                    <p className="text-blue-300">Company Name • 2022 - Present</p>
+                    <h4 className="font-semibold text-white">Quantitative Developer</h4>
+                    <p className="text-blue-300">CF Hub - qAnts Research Team • Aug. 2025 - Present</p>
                     <ul className="text-gray-300 mt-2 space-y-1">
-                      <li>• Led development of machine learning-powered web applications</li>
-                      <li>• Built neural network solvers for complex optimization problems</li>
-                      <li>• Implemented real-time data processing pipelines</li>
-                      <li>• Mentored junior developers and conducted code reviews</li>
+                      <li>• Built backtesting simulators for fractional share trading and volatility-based strategies</li>
+                      <li>• Developed Airflow DAGs to automate data ingestion for market indices, price volumes data, and fundamental data</li>
+                      <li>• Integrated multiple data sources including IB, MarketStack, FRED API, and GICS datasets</li>
+                      <li>• Implemented ARIMA and GARCH models for forecasting volatility and returns</li>
+                      <li>• Created portfolio evaluation frameworks and standardized research workflows</li>
+                      <li>• Diagnosed and resolved multi-threading issues in simulation pipelines</li>
+                      <li>• Prototyped unsupervised learning approaches for alpha generation</li>
                     </ul>
                   </div>
                   
                   <div className="border-l-2 border-blue-500 pl-4">
-                    <h4 className="font-semibold text-white">Machine Learning Engineer</h4>
-                    <p className="text-blue-300">Previous Company • 2020 - 2022</p>
+                    <h4 className="font-semibold text-white">Data Scientist Intern</h4>
+                    <p className="text-blue-300">Gtel Data Research Group • May 2025 - Aug. 2025</p>
                     <ul className="text-gray-300 mt-2 space-y-1">
-                      <li>• Developed computer vision models for image recognition</li>
-                      <li>• Created automated data processing workflows</li>
-                      <li>• Optimized model performance and deployment pipelines</li>
-                      <li>• Collaborated with data scientists on research projects</li>
+                      <li>• Processed and standardized diverse datasets including text, image, and audio</li>
+                      <li>• Researched and experimented with Transformer, CNN, Contrastive Learning, and Diffusion models</li>
+                      <li>• Applied prompt engineering to build NLP pipelines for large-scale Vietnamese text corpora</li>
+                      <li>• Constructed geospatial datasets for ward-level analysis with high accuracy</li>
+                      <li>• Presented findings in internal seminars and defended methods under peer review</li>
+                      <li>• Collaborated with AI engineers to balance research and production tasks</li>
+                      <li>• Improved coding discipline, workflow planning, and quality assurance through mentorship</li>
+
                     </ul>
                   </div>
                 </div>
@@ -151,10 +161,10 @@ export default function ResumePage() {
               <section>
                 <h3 className="text-xl font-semibold text-white mb-4">Education</h3>
                 <div className="border-l-2 border-blue-500 pl-4">
-                  <h4 className="font-semibold text-white">Bachelor of Science in Computer Science</h4>
-                  <p className="text-blue-300">University Name • 2016 - 2020</p>
+                  <h4 className="font-semibold text-white">Bachelor of Arts in Computer Science & Economics, Concentration in Statistics</h4>
+                  <p className="text-blue-300">Grinnell College • 2024 - 2028</p>
                   <p className="text-gray-300 mt-1">
-                    Focus: Machine Learning, Artificial Intelligence, Software Engineering
+                    Focus: Machine Learning, Artificial Intelligence, Software Engineering, Data Pipeline, Quantitative Research.
                   </p>
                 </div>
               </section>
