@@ -157,6 +157,23 @@ export default function ResumePage() {
                 </div>
               </section>
 
+              {/* Leadership Experience */}
+              <section>
+                <h3 className="text-xl font-semibold text-white mb-4">Leadership Experience</h3>
+                <div className="space-y-6">
+                  <div className="border-l-2 border-blue-500 pl-4">
+                    <h4 className="font-semibold text-white">Executive, VSA Cabinet</h4>
+                    <p className="text-blue-300">Vietnamese Student Association • December. 2024 - Present</p>
+                    <ul className="text-gray-300 mt-2 space-y-1">
+                      <li>• Coordinated an 8-member board to deliver cultural and community events</li>
+                      <li>• Organized 6+ campus-wide programs with over 500 participants</li>
+                      <li>• Managed budgets and logistics to ensure smooth event operations</li>
+                      <li>• Fostered collaboration and leadership development among student members</li>
+                    </ul>
+                  </div>
+                </div>
+              </section>
+
               {/* Education */}
               <section>
                 <h3 className="text-xl font-semibold text-white mb-4">Education</h3>
@@ -164,7 +181,7 @@ export default function ResumePage() {
                   <h4 className="font-semibold text-white">Bachelor of Arts in Computer Science & Economics, Concentration in Statistics</h4>
                   <p className="text-blue-300">Grinnell College • 2024 - 2028</p>
                   <p className="text-gray-300 mt-1">
-                    Focus: Machine Learning, Artificial Intelligence, Software Engineering, Data Pipeline, Quantitative Research.
+                    Focus: Machine Learning, Artificial Intelligence, Data Pipeline, Cloud Computing, Quantitative Research.
                   </p>
                 </div>
               </section>
@@ -172,6 +189,26 @@ export default function ResumePage() {
               {/* Projects */}
               <section>
                 <h3 className="text-xl font-semibold text-white mb-4">Notable Projects</h3>
+                <div className="space-y-4">
+                  <div className="bg-white/5 p-4 rounded-lg">
+                    <h4 className="font-semibold text-white">Neural Sudoku Solver</h4>
+                    <p className="text-gray-300 text-sm">
+                      Deep learning model that solves Sudoku puzzles using computer vision and constraint satisfaction algorithms.
+                    </p>
+                  </div>
+                  
+                  <div className="bg-white/5 p-4 rounded-lg">
+                    <h4 className="font-semibold text-white">Real-time Analytics Dashboard</h4>
+                    <p className="text-gray-300 text-sm">
+                      Interactive dashboard with live data visualization and machine learning predictions.
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              {/* Awards & Certifications */}
+              <section>
+                <h3 className="text-xl font-semibold text-white mb-4">Awards & Certifications</h3>
                 <div className="space-y-4">
                   <div className="bg-white/5 p-4 rounded-lg">
                     <h4 className="font-semibold text-white">Neural Sudoku Solver</h4>

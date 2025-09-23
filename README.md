@@ -15,12 +15,43 @@ A modern, responsive portfolio website built with Next.js 14, featuring a liquid
 
 ## 🛠️ Tech Stack
 
+### Core Framework & Language
 - **Framework**: Next.js 14 (App Router)
 - **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
+- **Runtime**: Node.js
+
+### Styling & UI
+- **CSS Framework**: Tailwind CSS with custom theme
+- **Animation Library**: Framer Motion
 - **Icons**: Lucide React
-- **Deployment**: Vercel
+- **Design System**: Custom glassmorphism components
+
+### Content & Data Management
+- **Content Format**: MDX (Markdown + JSX) for blog posts
+- **Markdown Processing**: 
+  - `@next/mdx` for MDX compilation
+  - `gray-matter` for frontmatter parsing
+  - `remark-gfm` for GitHub Flavored Markdown
+  - `remark-frontmatter` for frontmatter support
+- **Reading Time**: `reading-time` for post duration calculation
+- **Remote MDX**: `next-mdx-remote` for dynamic content rendering
+
+### Development Tools
+- **Package Manager**: npm
+- **Linting**: ESLint with Next.js configuration
+- **TypeScript Config**: Strict mode with path mapping
+- **Development Scripts**: Custom post creation with `ts-node`
+
+### Deployment & Build
+- **Deployment Platform**: Vercel
+- **Build Output**: Static export optimized
+- **Image Optimization**: Disabled for static export compatibility
+
+### Special Features
+- **Neural Sudoku Visualization**: Custom React hooks and animations
+- **Interactive Chatbot**: Local AI assistant with keyword matching
+- **Responsive Design**: Mobile-first approach with custom breakpoints
+- **Dark Theme**: Custom blue gradient color scheme with glass effects
 
 ## 📁 Project Structure
 
