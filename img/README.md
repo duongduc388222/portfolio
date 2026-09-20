@@ -12,6 +12,7 @@ All images for the portfolio live here, organized by which page consumes them. D
 | `hobbies/sports/`   | Photos for Badminton, Football cards (4:3)                       | `hobbies.html` `.sport-card` thumbnails       |
 | `hobbies/games/`    | Cover art / icons for PUBG, Arena of Valor, FIFA (1:1)           | `hobbies.html` `.game-card` thumbnails        |
 | `hobbies/teams/`    | Crests for Real Madrid, Portugal, France (SVG preferred)         | `hobbies.html` `.team-item` left bar          |
+| `pixel/`            | Pixel-art sprites, compiled from `.pix` character grids          | `hobbies.html` card icons, Sprites listing    |
 | `og/`               | Open Graph share image — single 1200×630 PNG named `og-image.png`| Referenced by `<meta property="og:image">`    |
 
 ## Naming
@@ -57,6 +58,22 @@ Wrap thumbnails in the M3 `.thumb` system to enforce aspect ratio:
 - Avatars / project shots / sport photos → your own.
 - Team crests, game art → trademarked. Use abstract SVG outlines you create yourself, or keep the existing colored-bar abstraction. Don't ship copyrighted PNGs.
 
+## Pixel sprites (`pixel/`)
+
+These are **generated**, not drawn in a vector editor. The source of truth is a
+`.pix` file — a palette plus a character grid, one character per pixel — and the
+`.svg` here is compiled from it. Never hand-edit an `.svg` in this folder: the
+next compile overwrites it. Edit the `.pix` and re-render.
+
+Sprites do **not** follow the active Theme. Each one is authored to survive both
+grounds instead, which means every piece carries a rim that contrasts with a
+light and a dark background. That is also why they cannot be tinted the way the
+`currentColor` vectors they replaced could be.
+
+Scale by whole numbers only, with `image-rendering: pixelated`, and normalise to
+a common visual box rather than a common pixel count — a 16×16 should not be
+punished for being small. The caption, where there is one, carries native size.
+
 ## Tracking what's in here
 Each folder ships with a `.gitkeep` so it stays in git while empty. As you add real assets, update this table:
 
@@ -74,3 +91,9 @@ Each folder ships with a `.gitkeep` so it stays in git while empty. As you add r
 | `hobbies/teams/portugal.svg`               | `hobbies.html` Portugal item           | pending  |
 | `hobbies/teams/france.svg`                 | `hobbies.html` France item             | pending  |
 | `og/og-image.png`                          | Open Graph meta on every page          | pending  |
+| `pixel/shuttlecock.svg`                    | `hobbies.html` Badminton card icon     | live     |
+| `pixel/football.svg`                       | `hobbies.html` Football card icon      | live     |
+| `pixel/knight.svg`                         | `hobbies.html` Solo / Strategy icon    | live     |
+| `pixel/pan.svg`                            | `hobbies.html` Social / Action icon    | live     |
+| `pixel/ducksys.svg`                        | `hobbies.html` DUCK.SYS sign-off       | live     |
+| `pixel/joker.svg`                          | `hobbies.html` Sprites listing only    | live     |
