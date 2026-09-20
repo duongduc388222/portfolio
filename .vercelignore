@@ -3,16 +3,28 @@
 # a denylist would ship each new working note until someone remembered to add it.
 *
 
+# A directory needs both lines. These are gitignore patterns, so the bare `*`
+# above matches at every depth: `!css/` re-includes the directory but `*` still
+# excludes `css/style.css` on the way down. Without the `/**` line the site
+# deploys as unstyled HTML with no scripts, fonts or images.
 !*.html
 !css/
+!css/**
 !js/
+!js/**
 !fonts/
+!fonts/**
 !img/
+!img/**
 !favicon.svg
 !resume.pdf
 !robots.txt
 !sitemap.xml
 !vercel.json
+
+# Last match wins, so this re-excludes markdown the `/**` lines swept back in:
+# img/README.md documents the .pix source contract and is not part of the site.
+*.md
 
 # stats.json is deliberately NOT re-included: it is served through a rewrite
 # from the stats branch, and a deployed copy would override that rewrite.
