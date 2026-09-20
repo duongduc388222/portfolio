@@ -330,12 +330,21 @@
   <!-- ── NAV ── -->
   <nav class="navbar" aria-label="Main navigation">
     <div class="navbar-inner">
-      <a href="/" class="nav-logo">
-        <div class="nav-logo-dots">
-          <span></span><span></span><span></span>
-        </div>
-        DUC.
-      </a>
+      <!-- One level up, to the Landing. `$ cd ..` at rest; the sentence slides out
+           on hover and on keyboard focus. A touch screen never hovers, so the
+           mobile menu below carries the words — keep the two in step. -->
+      <div class="nav-left">
+        <a href="/" class="nav-return" aria-label="Back to landing page">
+          <span class="prompt" aria-hidden="true">$</span><span class="cmd">cd ..</span><span class="nav-return-cursor" aria-hidden="true"></span>
+          <span class="label"><span aria-hidden="true">&#8592;</span> Back to landing page</span>
+        </a>
+        <a href="home.html" class="nav-logo">
+          <div class="nav-logo-dots">
+            <span></span><span></span><span></span>
+          </div>
+          DUC.
+        </a>
+      </div>
       <div class="nav-links">
         <a href="home.html"       class="nav-link">HOME</a>
         <a href="work.html" class="nav-link active" aria-current="page">WORK</a>
@@ -353,6 +362,7 @@
   <div id="mobile-menu" class="nav-menu" aria-hidden="true">
     <div class="nav-menu-inner">
       <button class="nav-menu-close" aria-label="Close menu">✕</button>
+      <a href="/" class="nav-menu-return" aria-label="Back to landing page"><span class="prompt">$</span> cd ..&nbsp;&nbsp;<span aria-hidden="true">&#8592;</span> Back to landing page</a>
       <a href="home.html"   class="nav-menu-link">// HOME</a>
       <a href="work.html"    class="nav-menu-link active" aria-current="page">// WORK</a>
       <a href="about.html"   class="nav-menu-link">// ABOUT</a>
