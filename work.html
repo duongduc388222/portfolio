@@ -27,6 +27,29 @@
   <meta name="twitter:description" content="WORK.LOG — build log. Projects live, real writeups in progress." />
   <meta name="twitter:image" content="https://ducduong-portfolio.vercel.app/img/og/og-image.png" />
 
+  <!-- No-flash: pick the Theme before first paint. Three distinct stored states,
+       so that opting into MATCH_SYSTEM is not mistaken for a first visit:
+         a saved id  -> that Theme
+         'system'    -> follow the OS
+         nothing     -> the night ground, i.e. the site as designed.
+       Keep the two lists in step with css/style.css and js/main.js. -->
+  <script>
+    (function () {
+      var accents = ['gold', 'vermilion', 'cyan', 'violet'];
+      var grounds = ['night', 'day'];
+      var a = null, g = null;
+      try {
+        a = localStorage.getItem('theme-accent');
+        g = localStorage.getItem('theme-scheme');
+      } catch (e) {}
+      if (accents.indexOf(a) < 0) a = 'gold';
+      if (g === 'system') g = matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day';
+      else if (grounds.indexOf(g) < 0) g = 'night';
+      document.documentElement.dataset.accent = a;
+      document.documentElement.dataset.scheme = g;
+    })();
+  </script>
+
   <link rel="stylesheet" href="css/style.css" />
   <style>
     /* ── WORK PAGE — scoped to work.html only (M5 owns css/style.css) ── */

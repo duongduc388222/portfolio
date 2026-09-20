@@ -20,33 +20,23 @@
   src: url('/fonts/JetBrainsMono-variable.woff2') format('woff2');
 }
 /* ─── DESIGN TOKENS ─────────────────────────────────────── */
+/* Two axes, deliberately independent. The GROUND is the fixed harmony — one dark
+   and its literal flip — and does not vary between Themes. The ACCENT is what a
+   Theme actually is: four colours spread around the wheel, two warm two cool
+   (gold 51°, vermilion 15°, cyan 187°, violet 258°). Every pairing below was
+   computed, not eyeballed. See docs/adr/0001 and
+   .scratch/portfolio-v2/issues/12-theme-switcher-prototype.md.
+
+   Every ratio below is measured against ONE reference: the worst stack on that
+   ground, i.e. --surface-3 composited over --bg-2, which is the deepest a panel
+   ever sits. Text on the bare --bg measures higher, so these are the floor, not
+   the typical case. The exception is --on-accent, which is ink on the fill and
+   so names the fill it is measured on. Quote the reference with any new number:
+   the same hex against --bg vs the worst stack differs by ~4 points, and a
+   figure without its ground is not checkable.
+
+   The non-colour tokens stay here; the colours live on the attribute blocks. */
 :root {
-  --bg:            #0a0f1e;
-  --bg-2:          #0a0e1a;
-  --surface:       rgba(16, 24, 40, 0.5);
-  --surface-2:     rgba(255, 255, 255, 0.05);
-  --surface-3:     rgba(255, 255, 255, 0.1);
-  --border:        #1e2939;
-  --border-bright: #364153;
-  --text-primary:  #ffffff;
-  --text-secondary:#707070;
-  --text-soft:     #d1d5dc;
-  --text-muted:    #6b7280;
-  --accent:        #ffd700;
-  /* The accent's two jobs. --accent colours fills and decoration, --accent-text
-     colours text and icon strokes. They are the same value here because this
-     block is the night ground; the day ground darkens --accent-text, because a
-     bright accent is ~1.3:1 on near-white. See docs/adr/0001. */
-  --accent-text:   #ffd700;
-  --on-accent:     #0a0f1e;
-  --accent-dim:    rgba(255, 215, 0, 0.10);
-  --accent-dimmer: rgba(255, 215, 0, 0.05);
-  --accent-glow:   rgba(255, 215, 0, 0.30);
-  --danger:        #fb2c36;
-  /* Ink-coloured washes. Never write rgba(255,255,255,a) into a page: white at
-     low alpha is a surface on the night ground and nothing at all on the day one. */
-  --wash:          rgba(255, 255, 255, 0.04);
-  --text-faint:    rgba(255, 255, 255, 0.6);
   --font-sans:     'Space Grotesk', system-ui, sans-serif;
   --font-mono:     'JetBrains Mono', ui-monospace, monospace;
   --nav-h:         86px;
@@ -55,6 +45,101 @@
   --radius:        2px;
   --transition:    0.2s ease;
 }
+
+/* The night ground is repeated on bare :root as a fallback. The head script sets
+   both attributes before first paint, so these should never win — but if it ever
+   throws, the page renders as the designed dark site rather than unstyled. */
+:root,
+:root[data-scheme="night"] {
+  color-scheme: dark;
+  --bg:            #0a0f1e;
+  --bg-2:          #0a0e1a;
+  --surface:       rgba(16, 24, 40, 0.5);
+  --surface-2:     rgba(255, 255, 255, 0.05);
+  --surface-3:     rgba(255, 255, 255, 0.1);
+  --border:        #1e2939;
+  --border-bright: #5e7190; /* 3.05:1 */
+  --text-primary:  #ffffff; /* 15.08:1 */
+  --text-soft:     #d1d5dc; /* 10.24:1 */
+  /* Was #707070 (3.86:1) and #6b7280 (3.95:1) — both under AA for body text.
+     Raised to a single value clearing 4.5:1, per the research note's finding. */
+  --text-secondary:#8e8e8e; /* 4.60:1 */
+  --text-muted:    #8e8e8e; /* 4.60:1 */
+  --danger:        #fc4e56; /* 4.57:1 */
+  --nav-bg:        rgba(10, 15, 30, 0.9);
+  --line-strong:   #ffffff;
+  --modal-bg:      #0a0e1a;
+  --scrim:         rgba(0, 0, 0, 0.88);
+  /* Ink-coloured washes. Never write rgba(255,255,255,a) into a page: white at
+     low alpha is a surface on the night ground and nothing at all on the day one. */
+  --wash:          rgba(255, 255, 255, 0.04);
+  --text-faint:    rgba(255, 255, 255, 0.6);
+}
+:root[data-scheme="day"] {
+  color-scheme: light;
+  --bg:            #f4f6fa;
+  --bg-2:          #e8ecf4;
+  --surface:       rgba(232, 236, 244, 0.5);
+  --surface-2:     rgba(10, 15, 30, 0.05);
+  --surface-3:     rgba(10, 15, 30, 0.1);
+  --border:        #dfe3ec;
+  --border-bright: #6c7791; /* 3.07:1 — was #6d7993, which measured 2.997 here */
+  --text-primary:  #0a0f1e; /* 13.09:1 */
+  --text-soft:     #2b3140; /* 8.91:1 */
+  --text-secondary:#575d6a; /* 4.53:1 */
+  --text-muted:    #575d6a; /* 4.53:1 */
+  --danger:        #bd040d; /* 4.52:1 */
+  --nav-bg:        rgba(244, 246, 250, 0.9);
+  --line-strong:   #0a0f1e;
+  --modal-bg:      #e8ecf4;
+  --scrim:         rgba(10, 15, 30, 0.88);
+  --wash:          rgba(10, 15, 30, 0.04);
+  --text-faint:    rgba(10, 15, 30, 0.6);
+}
+
+/* The accent's two jobs. --accent colours fills and decoration, --accent-text
+   colours text and icon strokes. They are the same value on the night ground;
+   the day ground darkens --accent-text, because a bright accent is ~1.3:1 on
+   near-white. A fill is the only way to keep the literal bright value on screen
+   on both grounds — hence the wordmark is a fill, never a looser contrast floor. */
+:root, :root[data-accent="gold"] {
+  --accent:        #ffd700;
+  --accent-text:   #ffd700; /* 10.75:1 */
+  --on-accent:     #0a0f1e; /* 13.61:1 on the gold fill */
+  --accent-dim:    rgba(255, 215, 0, 0.10);
+  --accent-dimmer: rgba(255, 215, 0, 0.05);
+  --accent-glow:   rgba(255, 215, 0, 0.30);
+}
+:root[data-accent="vermilion"] {
+  --accent:        #e04b1f;
+  --accent-text:   #e98162; /* 5.59:1 */
+  --on-accent:     #0a0f1e; /* 4.72:1 on the vermilion fill */
+  --accent-dim:    rgba(224, 75, 31, 0.10);
+  --accent-dimmer: rgba(224, 75, 31, 0.05);
+  --accent-glow:   rgba(224, 75, 31, 0.30);
+}
+:root[data-accent="cyan"] {
+  --accent:        #14919b;
+  --accent-text:   #18aeba; /* 5.60:1 */
+  --on-accent:     #0a0f1e; /* 5.05:1 on the cyan fill */
+  --accent-dim:    rgba(20, 145, 155, 0.10);
+  --accent-dimmer: rgba(20, 145, 155, 0.05);
+  --accent-glow:   rgba(20, 145, 155, 0.30);
+}
+:root[data-accent="violet"] {
+  --accent:        #7c3aed;
+  --accent-text:   #b18af4; /* 5.61:1 */
+  --on-accent:     #ffffff; /* 5.70:1 on the violet fill */
+  --accent-dim:    rgba(124, 58, 237, 0.10);
+  --accent-dimmer: rgba(124, 58, 237, 0.05);
+  --accent-glow:   rgba(124, 58, 237, 0.30);
+}
+/* The bright accent is 1.3–3.5:1 on the day ground. Text carrying the accent
+   takes a darkened sibling; fills and decoration keep the bright one. */
+:root[data-scheme="day"][data-accent="gold"]      { --accent-text: #5e4f00; } /* 5.55:1 */
+:root[data-scheme="day"][data-accent="vermilion"] { --accent-text: #903014; } /* 5.50:1 */
+:root[data-scheme="day"][data-accent="cyan"]      { --accent-text: #0c595f; } /* 5.52:1 */
+:root[data-scheme="day"][data-accent="violet"]    { --accent-text: #5e14dd; } /* 5.50:1 */
 
 /* ─── RESET ─────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -82,7 +167,7 @@ img { display: block; max-width: 100%; }
   position: fixed;
   top: 0; left: 0; right: 0;
   height: var(--nav-h);
-  background: rgba(10, 15, 30, 0.9);
+  background: var(--nav-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   z-index: 100;
@@ -139,7 +224,7 @@ img { display: block; max-width: 100%; }
   font-weight: 500;
   font-size: 14px;
   letter-spacing: -0.01em;
-  border: 1px solid #ffffff;
+  border: 1px solid var(--line-strong);
   background: transparent;
   color: var(--text-primary);
   padding: 8px 24px;
@@ -148,7 +233,7 @@ img { display: block; max-width: 100%; }
 }
 .btn-connect-nav:hover {
   border-color: var(--accent);
-  color: var(--accent);
+  color: var(--accent-text);
   background: var(--accent-dimmer);
 }
 
@@ -191,7 +276,7 @@ img { display: block; max-width: 100%; }
 }
 .badge-accent {
   background: var(--accent);
-  color: #000;
+  color: var(--on-accent);
 }
 .badge-outline {
   background: var(--surface-3);
@@ -220,7 +305,7 @@ img { display: block; max-width: 100%; }
 .tag em {
   font-style: normal;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-faint);
   font-size: 12px;
 }
 
@@ -235,7 +320,7 @@ img { display: block; max-width: 100%; }
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.88);
+  background: var(--scrim);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -249,7 +334,7 @@ img { display: block; max-width: 100%; }
   pointer-events: all;
 }
 .modal-box {
-  background: #101828;
+  background: var(--modal-bg);
   border: 1px solid var(--border-bright);
   width: 460px;
   max-width: calc(100vw - 48px);
@@ -265,7 +350,7 @@ img { display: block; max-width: 100%; }
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.14em;
-  color: var(--accent);
+  color: var(--accent-text);
   margin-bottom: 10px;
 }
 .modal-title {
@@ -304,7 +389,7 @@ img { display: block; max-width: 100%; }
   justify-content: space-between;
   padding: 14px 18px;
   border: 1px solid var(--border-bright);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--wash);
   color: var(--text-primary);
   font-family: var(--font-mono);
   font-size: 11px;
@@ -316,14 +401,14 @@ img { display: block; max-width: 100%; }
 }
 .contact-btn:hover {
   border-color: var(--accent);
-  color: var(--accent);
+  color: var(--accent-text);
   background: var(--accent-dimmer);
 }
 .contact-btn .contact-btn-arrow {
   color: var(--text-secondary);
   transition: color var(--transition);
 }
-.contact-btn:hover .contact-btn-arrow { color: var(--accent); }
+.contact-btn:hover .contact-btn-arrow { color: var(--accent-text); }
 .modal-footer {
   margin-top: 20px;
   font-family: var(--font-mono);
@@ -345,7 +430,7 @@ img { display: block; max-width: 100%; }
   letter-spacing: -0.01em;
   border: 2px solid var(--accent);
   background: var(--accent);
-  color: #000;
+  color: var(--on-accent);
   padding: 12px 32px;
   height: 44px;
   transition: filter var(--transition), transform var(--transition);
@@ -361,7 +446,7 @@ img { display: block; max-width: 100%; }
   font-weight: 700;
   font-size: 14px;
   letter-spacing: -0.01em;
-  border: 2px solid #ffffff;
+  border: 2px solid var(--line-strong);
   background: transparent;
   color: var(--text-primary);
   padding: 12px 24px;
@@ -370,7 +455,7 @@ img { display: block; max-width: 100%; }
 }
 .btn-outline:hover {
   border-color: var(--accent);
-  color: var(--accent);
+  color: var(--accent-text);
   background: var(--accent-dimmer);
 }
 
@@ -385,14 +470,14 @@ img { display: block; max-width: 100%; }
   letter-spacing: -0.01em;
   border: 2px solid var(--accent);
   background: transparent;
-  color: var(--accent);
+  color: var(--accent-text);
   padding: 14px 32px;
   height: 60px;
   transition: background var(--transition), color var(--transition);
 }
 .btn-cta:hover {
   background: var(--accent);
-  color: #000;
+  color: var(--on-accent);
 }
 
 .btn-ghost {
@@ -443,7 +528,7 @@ img { display: block; max-width: 100%; }
   border: none;
   transition: color var(--transition);
 }
-.footer-link:hover { color: var(--accent); }
+.footer-link:hover { color: var(--accent-text); }
 
 /* ─── CTA SECTION (Let's Work Together) ─────────────────── */
 .cta-section {
@@ -581,7 +666,7 @@ img { display: block; max-width: 100%; }
   cursor: pointer;
   transition: color 150ms ease;
 }
-.nav-menu-close:hover { color: var(--accent); }
+.nav-menu-close:hover { color: var(--accent-text); }
 .nav-menu-link {
   font-family: var(--font-mono);
   font-size: 18px;
@@ -596,8 +681,8 @@ img { display: block; max-width: 100%; }
   cursor: pointer;
   transition: color 150ms ease;
 }
-.nav-menu-link:hover { color: var(--accent); }
-.nav-menu-link.active { color: var(--accent); }
+.nav-menu-link:hover { color: var(--accent-text); }
+.nav-menu-link.active { color: var(--accent-text); }
 
 /* ─── RESPONSIVE ─────────────────────────────────────────── */
 @media (max-width: 768px) {
@@ -654,3 +739,111 @@ img { display: block; max-width: 100%; }
   display: block;
 }
 
+
+/* ─── THEME SWITCHER · SWATCH POPOVER ───────────────────── */
+/* Ease colours only while a switch is actually happening, so the transition
+   never fights ordinary hover states. Reduced motion gets the swap instantly. */
+@media (prefers-reduced-motion: no-preference) {
+  :root.theme-switching,
+  :root.theme-switching * {
+    transition: background-color 0.25s ease, color 0.25s ease,
+                border-color 0.25s ease, stroke 0.25s ease !important;
+  }
+}
+
+.theme-swatch-btn {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  grid-template-columns: repeat(2, 8px);
+  gap: 4px;
+  place-content: center;
+  background: transparent;
+  border: 1px solid var(--border-bright);
+  transition: border-color var(--transition);
+}
+.theme-swatch-btn:hover,
+.theme-swatch-btn[aria-expanded="true"] { border-color: var(--accent); }
+/* The trigger reports state as well as offering the choice: the applied accent's
+   pip keeps full strength and takes the ink outline, the other three recede.
+   Decorative only — the button's aria-label names the applied Theme in words. */
+.theme-swatch-btn span { width: 8px; height: 8px; outline: 1px solid var(--border); opacity: 0.3; }
+.theme-swatch-btn span[data-current] { opacity: 1; outline-color: var(--line-strong); }
+.theme-swatch-btn--mobile { display: none; margin-left: auto; margin-right: 20px; }
+@media (max-width: 768px) {
+  .theme-swatch-btn--mobile { display: grid; }
+}
+
+.theme-pop {
+  position: fixed;
+  z-index: 120;
+  width: 288px;
+  max-width: calc(100vw - 24px);
+  background: var(--modal-bg);
+  border: 1px solid var(--border-bright);
+  padding: 6px;
+}
+.theme-pop[hidden] { display: none; }
+.theme-pop-head {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--text-secondary);
+  padding: 10px 10px 8px;
+}
+.theme-opt {
+  display: grid;
+  grid-template-columns: 40px 1fr auto 12px;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 9px 10px;
+  background: none;
+  border: 1px solid transparent;
+  text-align: left;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+/* The hovered/focused row is the previewed one. --accent-dim alone cannot carry
+   it: a 10% tint shifts the ground by however bright the accent happens to be,
+   and gold over the day ground measured 1.021:1 — no visible row at all. The
+   base is a ground-derived wash, which always moves the surface the right way;
+   the accent tint rides on top and keeps the row accent-flavoured. */
+.theme-opt:hover, .theme-opt:focus {
+  background-color: var(--surface-3);
+  background-image: linear-gradient(var(--accent-dim), var(--accent-dim));
+}
+/* --accent is the FILL value: on the day ground gold's fill measures 1.16:1, so
+   a border in it would make selection invisible on exactly one Theme. The glyph
+   carries the same signal without colour, which matters in the one control whose
+   whole job is changing the colours. */
+.theme-opt[aria-checked="true"] { border-color: var(--accent-text); }
+.theme-opt-mark {
+  font-size: 10px;
+  line-height: 1;
+  color: var(--accent-text);
+  text-align: right;
+}
+.theme-opt-kind { font-size: 10px; color: var(--text-secondary); }
+.theme-opt-sep { height: 1px; background: var(--border); margin: 6px 0; }
+.theme-preview {
+  position: relative;
+  width: 40px;
+  height: 28px;
+  border: 1px solid var(--border-bright);
+}
+.theme-preview i { position: absolute; left: 5px; top: 7px; width: 18px; height: 2px; }
+.theme-preview b { position: absolute; left: 5px; bottom: 6px; width: 8px; height: 6px; }
+
+/* Visually hidden, but announced: the applied Theme in words. */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
