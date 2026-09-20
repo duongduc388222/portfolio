@@ -547,10 +547,11 @@
       </div>
 
 
-      <!-- Sprites. Rows are generated from the .pix sources by
-           .scratch/portfolio-v2/prototypes/pix/embed.mjs — re-run it after editing
-           a sprite rather than hand-patching a data: URI. No runtime JS: the
-           listing is static so it costs nothing and works with scripting off. -->
+      <!-- Sprites. Each row points at /img/pixel/<name>.svg, compiled from
+           scripts/pixel/<name>.pix by scripts/pixel/render.mjs — edit the .pix
+           and re-render rather than touching the SVG, which is overwritten.
+           No runtime JS: the listing is static so it costs nothing and works
+           with scripting off. -->
       <div class="sprites-section">
         <h3>Sprites</h3>
         <p class="sprites-lede">
