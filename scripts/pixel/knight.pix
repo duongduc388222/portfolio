@@ -1,0 +1,34 @@
+# chess knight — full piece
+title: Knight
+drawn: claude
+date: 2026-09-19
+alt: Pixel-art chess knight piece
+
+. = none
+K = #2b2f3a
+W = #ece7db
+S = #b3ab99
+E = #2b2f3a
+---
+................
+.......KK.KK....
+......KWK.KWK...
+.....KWWKKKWWK..
+....KWWWWWWWWSK.
+...KWWWWWWWWWSSK
+..KWWWEWWWWWWSSK
+.KWWWWWWWWWWWSSK
+.KWWWWWWWWWWWSSK
+KWWKWWWWWWWWWSSK
+KWKWWWWWWWWWWSSK
+KKWWWWWWWWWWSSSK
+.KKWWWWWWWWWSSSK
+..KKWWWWWWWWSSK.
+...KWWWWWWWSSK..
+...KWWWWWWWSSK..
+...KWWWWWWWSSK..
+..KKWWWWWWWWSKK.
+..KWWWWWWWWWWSK.
+..KKKKKKKKKKKKK.
+.KWWWWWWWWWWWSSK
+.KKKKKKKKKKKKKKK

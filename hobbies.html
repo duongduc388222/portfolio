@@ -108,19 +108,21 @@
       position: absolute;
       top: 16px; right: 16px;
     }
+    /* 112px, not 96: the card icons are sprites, upscaled by whole numbers
+       only. At 96 the tallest piece (pan, 35px) could only take a 2x and sat
+       visibly smaller than the rest; 112 lets all four land together --
+       shuttlecock 7x, football 5x, knight 5x, pan 3x. The 16px the slot gains
+       comes off margin-bottom so the cards do not move.
+
+       No `color` here any more. These were currentColor vectors, and the
+       .is-pro rule tinted Badminton's gold; a sprite carries its own palette,
+       which is the trade for art that survives a ground flip unchanged. */
     .sport-card-icon {
-      width: 96px; height: 96px;
+      width: 112px; height: 112px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 56px;
-      color: var(--text-primary);
-    }
-    .sport-card.is-pro .sport-card-icon { color: var(--accent); }
-    .sport-card-icon svg {
-      width: 96px; height: 96px;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+      margin-bottom: 40px;
     }
     .sport-card h2 {
       font-size: 24px;
@@ -222,6 +224,99 @@
       color: rgba(255, 255, 255, 0.5);
     }
 
+    /* Sprites — the pixel-art listing. Deliberately an `ls -la`, not a gallery
+       grid: it is continuous with the Landing's terminal, its columns carry the
+       caption fields for free, and six rows of a listing look correct where six
+       tiles in a grid look thin. Sprites do NOT follow the Theme — each one is
+       authored with a rim that contrasts with a light and a dark ground, so the
+       art survives every Theme instead of needing a variant per Theme. */
+    .sprites-section {
+      margin-top: 40px;
+    }
+    .sprites-section h3 {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      /* --accent-text, not --accent: this is ink, and --accent is the fill
+         token. They hold the same value on the single ground the site ships
+         today, which is exactly why picking the wrong one here would go
+         unnoticed until a light ground existed. */
+      color: var(--accent-text);
+      margin-bottom: 8px;
+    }
+    /* --text-soft, not --text-secondary. #707070 is 3.89:1 on this ground,
+       under AA for normal text, and it is used site-wide -- a separate problem.
+       Nothing in this section leans on it: the hierarchy here comes from mono
+       vs sans, size, and .pix-file being pure white. */
+    .sprites-lede {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-soft);
+      max-width: 62ch;
+      margin-bottom: 18px;
+    }
+    .pix-term {
+      border: 1px solid var(--border);
+      background: var(--bg-2);
+    }
+    .pix-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+    .pix-dot {
+      width: 9px; height: 9px;
+      border: 1px solid var(--border-bright);
+    }
+    .pix-path { margin-left: 6px; }
+    .pix-cmd {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      padding: 14px 16px 4px;
+      color: var(--text-soft);
+    }
+    .pix-cmd b { color: var(--accent-text); font-weight: 500; }
+    .pix-list { padding: 8px 0 4px; }
+    .pix-row {
+      display: grid;
+      grid-template-columns: 72px 1fr auto;
+      gap: 20px;
+      align-items: center;
+      padding: 14px 16px;
+      border-top: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+    .pix-row:first-child { border-top: none; }
+    .pix-thumb { display: grid; place-items: center; height: 72px; }
+    /* Integer upscale only, so a pixel stays a square pixel. Pieces normalise
+       to a common ~70px visual box rather than a common pixel count, so a 16x16
+       isn't punished for being small; the caption carries the real dimensions. */
+    .pix-art {
+      display: block;
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+    }
+    .pix-file { color: var(--text-primary); }
+    .pix-sub { color: var(--text-soft); font-size: 11px; margin-top: 3px; }
+    .pix-meta {
+      color: var(--text-soft);
+      font-size: 11px;
+      text-align: right;
+      white-space: nowrap;
+    }
+    @media (max-width: 560px) {
+      .pix-row { grid-template-columns: 56px 1fr; row-gap: 6px; }
+      .pix-meta { grid-column: 2; text-align: left; }
+    }
+
     /* System message (DUCK.SYS sign-off) */
     .system-msg {
       margin-top: 24px;
@@ -247,13 +342,7 @@
       width: 64px; height: 64px;
       flex-shrink: 0;
     }
-    .duck-icon svg {
-      width: 64px; height: 64px;
-      image-rendering: pixelated;
-      image-rendering: -moz-crisp-edges;
-      image-rendering: crisp-edges;
-      shape-rendering: crispEdges;
-    }
+    .duck-icon img { width: 64px; height: 64px; }
     .system-msg-text { flex: 1; }
     .system-msg-body {
       font-family: var(--font-mono);
@@ -334,11 +423,10 @@
           <span class="sport-card-badge">
             <span class="badge badge-accent">MEDALIST</span>
           </span>
-          <!-- TODO: thumbnail — /img/hobbies/sports/badminton.webp · .thumb-4x3 · 600×450 export · replace the shuttlecock SVG below when asset lands -->
+          <!-- TODO: thumbnail — /img/hobbies/sports/badminton.webp · .thumb-4x3 · 600×450 export · replace the shuttlecock sprite below when asset lands -->
           <div class="sport-card-icon">
-            <svg viewBox="0 0 16 16" fill="currentColor" fill-rule="evenodd" aria-hidden="true">
-              <path d="M2.603333333333333 3.8046666666666664a1.8493333333333333 1.8493333333333333 0 0 1 2.956 -2.0166666666666666A1.8679999999999999 1.8679999999999999 0 0 1 6.786 1.3333333333333333c0.4626666666666666 0 0.8866666666666667 0.16666666666666666 1.214 0.44466666666666665A1.8733333333333333 1.8733333333333333 0 0 1 9.214666666666666 1.3333333333333333c0.4733333333333333 0 0.9 0.17333333333333334 1.2266666666666666 0.45466666666666666a1.8493333333333333 1.8493333333333333 0 0 1 2.956 2.0166666666666666L10.666666666666666 11.448666666666664V12a2.6666666666666665 2.6666666666666665 0 0 1 -5.333333333333333 0v-0.5513333333333332L2.603333333333333 3.8046666666666664ZM6.666666666666666 11.348666666666666V11.333333333333332h2.6666666666666665v0.6666666666666666a1.3333333333333333 1.3333333333333333 0 1 1 -2.6666666666666665 0v-0.6513333333333333ZM9.768666666666666 10H6.232l-2.373333333333333 -6.643999999999999a0.516 0.516 0 1 1 0.9933333333333333 -0.26466666666666666l1.0253333333333332 5.6933333333333325a0.6666666666666666 0.6666666666666666 0 0 0 1.3119999999999998 -0.236L6.246666666666666 3.311333333333333A0.5479999999999999 0.5479999999999999 0 1 1 7.333333333333333 3.2133333333333334V8.666666666666666a0.6666666666666666 0.6666666666666666 0 1 0 1.3333333333333333 0V3.2139999999999995a0.5473333333333332 0.5473333333333332 0 1 1 1.0879999999999999 0.09133333333333334l-0.944 5.243333333333333a0.6666666666666666 0.6666666666666666 0 1 0 1.3119999999999998 0.236l0.9426666666666665 -5.237333333333333 0.002 -0.010666666666666666 0.07999999999999999 -0.44533333333333336a0.516 0.516 0 1 1 0.9933333333333333 0.26466666666666666L9.769333333333332 10Z"/>
-            </svg>
+            <img class="pix-art" src="/img/pixel/shuttlecock.svg" alt=""
+                 width="112" height="112" decoding="async">
           </div>
           <h2>Badminton</h2>
           <p class="sport-card-subtitle">Medalist — Vietnam &amp; US</p>
@@ -357,24 +445,10 @@
           <span class="sport-card-badge">
             <span class="badge badge-outline">AMATEUR</span>
           </span>
-          <!-- TODO: thumbnail — /img/hobbies/sports/football.webp · .thumb-4x3 · 600×450 export · replace the football SVG below when asset lands -->
+          <!-- TODO: thumbnail — /img/hobbies/sports/football.webp · .thumb-4x3 · 600×450 export · replace the football sprite below when asset lands -->
           <div class="sport-card-icon">
-            <svg viewBox="0 0 48 48" aria-hidden="true">
-              <defs>
-                <mask id="footballPanels">
-                  <circle cx="24" cy="24" r="18" fill="white"/>
-                  <!-- Black strokes = cut out = white panel borders -->
-                  <polygon points="24,17 30.7,21.4 28.13,28.95 19.87,28.95 17.3,21.4"
-                           fill="none" stroke="black" stroke-width="3.6" stroke-linejoin="round"/>
-                  <line x1="24" y1="17" x2="24" y2="6.2" stroke="black" stroke-width="3.6"/>
-                  <line x1="30.7" y1="21.4" x2="40.9" y2="18.1" stroke="black" stroke-width="3.6"/>
-                  <line x1="28.13" y1="28.95" x2="34.45" y2="37.65" stroke="black" stroke-width="3.6"/>
-                  <line x1="19.87" y1="28.95" x2="13.55" y2="37.65" stroke="black" stroke-width="3.6"/>
-                  <line x1="17.3" y1="21.4" x2="7.1" y2="18.1" stroke="black" stroke-width="3.6"/>
-                </mask>
-              </defs>
-              <circle cx="24" cy="24" r="18" fill="currentColor" mask="url(#footballPanels)"/>
-            </svg>
+            <img class="pix-art" src="/img/pixel/football.svg" alt=""
+                 width="100" height="100" decoding="async">
           </div>
           <h2>Football</h2>
           <p class="sport-card-subtitle">Box-to-box midfielder</p>
@@ -394,21 +468,8 @@
             <span class="badge badge-outline">SOLO</span>
           </span>
           <div class="sport-card-icon">
-            <svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true">
-              <!-- Head, neck, and body — body bottom width matches base top width, floats above with a gap -->
-              <path d="M 24 6
-                       C 27.3 6 30 8.7 30 12
-                       C 30 14.3 28.6 16.3 26.7 17.2
-                       L 27.5 20
-                       C 31.5 24.5 33.5 28.5 35 33
-                       L 13 33
-                       C 14.5 28.5 16.5 24.5 20.5 20
-                       L 21.3 17.2
-                       C 19.4 16.3 18 14.3 18 12
-                       C 18 8.7 20.7 6 24 6 Z"/>
-              <!-- Flared foot plate — top edge same width as body base (22), floats below body with ~2.5u gap -->
-              <path d="M 13 35.5 L 35 35.5 L 37 41 L 11 41 Z"/>
-            </svg>
+            <img class="pix-art" src="/img/pixel/knight.svg" alt=""
+                 width="80" height="110" decoding="async">
           </div>
           <h2>Solo / Strategy</h2>
           <p class="sport-card-subtitle">Optimization under uncertainty</p>
@@ -429,21 +490,8 @@
             <span class="badge badge-outline">SOCIAL</span>
           </span>
           <div class="sport-card-icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
-              <path d="M 14 15 L 34 15 C 40 15 44 19 44 25 L 44 29 C 44 34 41 37 37 37 C 33 37 31 34 30 32 L 18 32 C 17 34 15 37 11 37 C 7 37 4 34 4 29 L 4 25 C 4 19 8 15 14 15 Z" fill="currentColor" opacity="0.08" stroke="none"/>
-              <path d="M 14 15 L 34 15 C 40 15 44 19 44 25 L 44 29 C 44 34 41 37 37 37 C 33 37 31 34 30 32 L 18 32 C 17 34 15 37 11 37 C 7 37 4 34 4 29 L 4 25 C 4 19 8 15 14 15 Z"/>
-              <g transform="translate(13 24)">
-                <path d="M -1.6 -4.5 L 1.6 -4.5 L 1.6 -1.6 L 4.5 -1.6 L 4.5 1.6 L 1.6 1.6 L 1.6 4.5 L -1.6 4.5 L -1.6 1.6 L -4.5 1.6 L -4.5 -1.6 L -1.6 -1.6 Z"/>
-              </g>
-              <circle cx="35" cy="20" r="1.5"/>
-              <circle cx="31" cy="24" r="1.5"/>
-              <circle cx="39" cy="24" r="1.5"/>
-              <circle cx="35" cy="28" r="1.5"/>
-              <circle cx="35" cy="20" r="1.5" fill="currentColor" opacity="0.5" stroke="none"/>
-              <rect x="20.5" y="21.5" width="3" height="1.4" rx="0.7" fill="currentColor" stroke="none" opacity="0.7"/>
-              <rect x="24.5" y="21.5" width="3" height="1.4" rx="0.7" fill="currentColor" stroke="none" opacity="0.7"/>
-              <circle cx="24" cy="26.5" r="1" fill="currentColor" stroke="none" opacity="0.5"/>
-            </svg>
+            <img class="pix-art" src="/img/pixel/pan.svg" alt=""
+                 width="66" height="105" decoding="async">
           </div>
           <h2>Social / Action</h2>
           <p class="sport-card-subtitle">Team coordination, real-time</p>
@@ -498,99 +546,102 @@
         </div>
       </div>
 
+
+      <!-- Sprites. Rows are generated from the .pix sources by
+           .scratch/portfolio-v2/prototypes/pix/embed.mjs — re-run it after editing
+           a sprite rather than hand-patching a data: URI. No runtime JS: the
+           listing is static so it costs nothing and works with scripting off. -->
+      <div class="sprites-section">
+        <h3>Sprites</h3>
+        <p class="sprites-lede">
+          Drawn a pixel at a time in a plain-text grid, then compiled to SVG by a script in
+          this repo. Claude drew them; no image model touched them.
+        </p>
+
+        <div class="pix-term">
+          <div class="pix-bar">
+            <span class="pix-dot"></span><span class="pix-dot"></span><span class="pix-dot"></span>
+            <span class="pix-path">~/portfolio/pixel</span>
+          </div>
+          <div class="pix-cmd">$ <b>ls -la ~/pixel/</b></div>
+          <div class="pix-list">
+          <div class="pix-row">
+            <div class="pix-thumb">
+              <img class="pix-art" src="/img/pixel/ducksys.svg" alt="Pixel-art duck wearing headphones with a boom mic, the site mascot" role="img"
+                   width="64" height="64" decoding="async">
+            </div>
+            <div>
+              <div class="pix-file">ducksys.pix</div>
+              <div class="pix-sub">Duck.sys</div>
+            </div>
+            <div class="pix-meta">32&times;32 &nbsp; 13c &nbsp; —</div>
+          </div>
+          <div class="pix-row">
+            <div class="pix-thumb">
+              <img class="pix-art" src="/img/pixel/shuttlecock.svg" alt="Pixel-art badminton shuttlecock" role="img"
+                   width="64" height="64" decoding="async">
+            </div>
+            <div>
+              <div class="pix-file">shuttlecock.pix</div>
+              <div class="pix-sub">Shuttlecock</div>
+            </div>
+            <div class="pix-meta">16&times;16 &nbsp; 6c &nbsp; 2026-09-19</div>
+          </div>
+          <div class="pix-row">
+            <div class="pix-thumb">
+              <img class="pix-art" src="/img/pixel/football.svg" alt="Pixel-art football" role="img"
+                   width="60" height="60" decoding="async">
+            </div>
+            <div>
+              <div class="pix-file">football.pix</div>
+              <div class="pix-sub">Football</div>
+            </div>
+            <div class="pix-meta">20&times;20 &nbsp; 4c &nbsp; 2026-09-19</div>
+          </div>
+          <div class="pix-row">
+            <div class="pix-thumb">
+              <img class="pix-art" src="/img/pixel/joker.svg" alt="Pixel-art jester card, the base Joker from Balatro" role="img"
+                   width="44" height="58" decoding="async">
+            </div>
+            <div>
+              <div class="pix-file">joker.pix</div>
+              <div class="pix-sub">Joker</div>
+            </div>
+            <div class="pix-meta">22&times;29 &nbsp; 10c &nbsp; 2026-09-19</div>
+          </div>
+          <div class="pix-row">
+            <div class="pix-thumb">
+              <img class="pix-art" src="/img/pixel/knight.svg" alt="Pixel-art chess knight piece" role="img"
+                   width="48" height="66" decoding="async">
+            </div>
+            <div>
+              <div class="pix-file">knight.pix</div>
+              <div class="pix-sub">Knight</div>
+            </div>
+            <div class="pix-meta">16&times;22 &nbsp; 4c &nbsp; 2026-09-19</div>
+          </div>
+          <div class="pix-row">
+            <div class="pix-thumb">
+              <img class="pix-art" src="/img/pixel/pan.svg" alt="Pixel-art hand gripping a cast-iron frying pan, from PUBG" role="img"
+                   width="44" height="70" decoding="async">
+            </div>
+            <div>
+              <div class="pix-file">pan.pix</div>
+              <div class="pix-sub">Cast-Iron Pan</div>
+            </div>
+            <div class="pix-meta">22&times;35 &nbsp; 9c &nbsp; 2026-09-19</div>
+          </div>
+          </div>
+        </div>
+      </div>
+
       <!-- System message (DUCK.SYS sign-off) -->
       <div class="system-msg">
         <p class="system-msg-label">SYSTEM MESSAGE</p>
         <div class="system-msg-body-row">
           <div class="duck-icon" aria-hidden="true">
-            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
-              <!-- Headphone band -->
-              <rect x="12" y="0" width="8" height="1" fill="#1A1A1A"/>
-              <rect x="10" y="1" width="12" height="1" fill="#1A1A1A"/>
-              <rect x="9" y="2" width="14" height="1" fill="#1A1A1A"/>
-              <rect x="8" y="3" width="2" height="1" fill="#1A1A1A"/>
-              <rect x="22" y="3" width="2" height="1" fill="#1A1A1A"/>
-              <rect x="7" y="4" width="2" height="1" fill="#1A1A1A"/>
-              <rect x="23" y="4" width="2" height="1" fill="#1A1A1A"/>
-              <rect x="13" y="1" width="6" height="1" fill="#4A4A4A"/>
-              <rect x="11" y="2" width="10" height="1" fill="#4A4A4A"/>
-
-              <!-- Duck head -->
-              <rect x="11" y="3" width="11" height="1" fill="#FFD93D"/>
-              <rect x="10" y="4" width="13" height="1" fill="#FFD93D"/>
-              <rect x="9" y="5" width="14" height="1" fill="#FFD93D"/>
-              <rect x="9" y="6" width="14" height="1" fill="#FFD93D"/>
-              <rect x="9" y="7" width="14" height="1" fill="#FFD93D"/>
-              <rect x="9" y="8" width="14" height="1" fill="#FFD93D"/>
-              <rect x="9" y="9" width="14" height="1" fill="#FFD93D"/>
-              <rect x="9" y="10" width="14" height="1" fill="#FFD93D"/>
-              <rect x="9" y="11" width="14" height="1" fill="#FFD93D"/>
-              <rect x="9" y="12" width="14" height="1" fill="#E5B72E"/>
-
-              <!-- Left ear cup -->
-              <rect x="6" y="5" width="3" height="1" fill="#1A1A1A"/>
-              <rect x="5" y="6" width="4" height="7" fill="#1A1A1A"/>
-              <rect x="6" y="12" width="3" height="1" fill="#1A1A1A"/>
-              <rect x="6" y="7" width="2" height="4" fill="#3A3A3A"/>
-              <rect x="6" y="8" width="2" height="2" fill="#FF3B30"/>
-              <rect x="6" y="8" width="1" height="1" fill="#FF7B73"/>
-
-              <!-- Right ear cup -->
-              <rect x="23" y="5" width="3" height="1" fill="#1A1A1A"/>
-              <rect x="23" y="6" width="4" height="7" fill="#1A1A1A"/>
-              <rect x="23" y="12" width="3" height="1" fill="#1A1A1A"/>
-              <rect x="24" y="7" width="2" height="4" fill="#3A3A3A"/>
-              <rect x="24" y="8" width="2" height="2" fill="#FF3B30"/>
-              <rect x="24" y="8" width="1" height="1" fill="#FF7B73"/>
-
-              <!-- Eyes -->
-              <rect x="12" y="6" width="2" height="3" fill="#FFFFFF"/>
-              <rect x="13" y="7" width="1" height="2" fill="#000000"/>
-              <rect x="18" y="6" width="2" height="3" fill="#FFFFFF"/>
-              <rect x="18" y="7" width="1" height="2" fill="#000000"/>
-
-              <!-- Beak -->
-              <rect x="14" y="10" width="4" height="1" fill="#FF8C00"/>
-              <rect x="13" y="11" width="6" height="1" fill="#FF8C00"/>
-              <rect x="14" y="12" width="4" height="1" fill="#D97500"/>
-              <rect x="14" y="10" width="1" height="1" fill="#FFB347"/>
-              <rect x="13" y="11" width="1" height="1" fill="#FFB347"/>
-
-              <!-- Microphone -->
-              <rect x="4" y="9" width="1" height="1" fill="#1A1A1A"/>
-              <rect x="3" y="10" width="1" height="1" fill="#1A1A1A"/>
-              <rect x="2" y="11" width="1" height="4" fill="#1A1A1A"/>
-              <rect x="1" y="13" width="1" height="2" fill="#FF3B30"/>
-              <rect x="1" y="13" width="1" height="1" fill="#FF7B73"/>
-
-              <!-- Body -->
-              <rect x="8" y="13" width="16" height="1" fill="#FFD93D"/>
-              <rect x="6" y="14" width="20" height="1" fill="#FFD93D"/>
-              <rect x="5" y="15" width="22" height="1" fill="#FFD93D"/>
-              <rect x="4" y="16" width="24" height="2" fill="#FFD93D"/>
-              <rect x="3" y="18" width="26" height="5" fill="#FFD93D"/>
-              <rect x="4" y="23" width="24" height="1" fill="#FFD93D"/>
-              <rect x="5" y="24" width="22" height="1" fill="#E5B72E"/>
-              <rect x="6" y="25" width="20" height="1" fill="#E5B72E"/>
-              <rect x="8" y="26" width="16" height="1" fill="#E5B72E"/>
-
-              <!-- Wing shading -->
-              <rect x="22" y="17" width="3" height="1" fill="#E5B72E"/>
-              <rect x="21" y="18" width="5" height="2" fill="#E5B72E"/>
-              <rect x="22" y="20" width="3" height="1" fill="#E5B72E"/>
-
-              <!-- Belly highlight -->
-              <rect x="10" y="20" width="2" height="1" fill="#FFE873"/>
-              <rect x="9" y="21" width="3" height="1" fill="#FFE873"/>
-
-              <!-- Feet -->
-              <rect x="9" y="27" width="5" height="1" fill="#FF8C00"/>
-              <rect x="18" y="27" width="5" height="1" fill="#FF8C00"/>
-              <rect x="8" y="28" width="6" height="1" fill="#FF8C00"/>
-              <rect x="18" y="28" width="6" height="1" fill="#FF8C00"/>
-              <rect x="9" y="29" width="4" height="1" fill="#D97500"/>
-              <rect x="19" y="29" width="4" height="1" fill="#D97500"/>
-            </svg>
+            <img class="pix-art" src="/img/pixel/ducksys.svg" alt=""
+                 width="64" height="64" decoding="async">
           </div>
           <div class="system-msg-text">
             <p class="system-msg-body">
