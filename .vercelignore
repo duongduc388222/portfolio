@@ -1,0 +1,18 @@
+# Allowlist. Exclude everything, then re-include only the site.
+# With no build step, anything committed gets a public URL by default —
+# a denylist would ship each new working note until someone remembered to add it.
+*
+
+!*.html
+!css/
+!js/
+!fonts/
+!img/
+!favicon.svg
+!resume.pdf
+!robots.txt
+!sitemap.xml
+!vercel.json
+
+# stats.json is deliberately NOT re-included: it is served through a rewrite
+# from the stats branch, and a deployed copy would override that rewrite.

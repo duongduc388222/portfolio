@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- PROD_URL — find/replace https://ducduong-portfolio.vercel.app if domain changes -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Duc Duong — Portfolio</title>
+  <meta name="description" content="Duc Duong — AI/ML researcher on efficient LLM inference and KV-cache management. CS &amp; Mathematics at Grinnell College." />
+
+  <!-- Favicon (terminal `>` prompt + block cursor, lime on #080808) -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <!-- Preload primary fonts (above-the-fold) to prevent FOIT. -->
+  <link rel="preload" href="/fonts/SpaceGrotesk-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/JetBrainsMono-variable.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ducduong-portfolio.vercel.app/home" />
+  <meta property="og:title" content="Duc Duong — Portfolio" />
+  <meta property="og:description" content="CS &amp; Mathematics at Grinnell. Research that ships, code that thinks, badminton that wins." />
+  <meta property="og:image" content="https://ducduong-portfolio.vercel.app/img/og/og-image.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Duc Duong — Portfolio" />
+  <meta name="twitter:description" content="CS &amp; Mathematics at Grinnell. Research that ships, code that thinks, badminton that wins." />
+  <meta name="twitter:image" content="https://ducduong-portfolio.vercel.app/img/og/og-image.png" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── HERO ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 64px;
+      align-items: center;
+      padding: 64px 0 80px;
+      min-height: calc(100vh - var(--nav-h));
+    }
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-sans);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 16px;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .hero-name {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 72px;
+      line-height: 1;
+      letter-spacing: 0.002em;
+      margin-bottom: 0;
+      color: var(--text-primary);
+    }
+    /* The wordmark is a FILL, not accent-coloured text, and the letters are
+       knocked out of it — var(--bg), so the glyphs read as holes punched through
+       to the page rather than ink printed on the block. Ink on #ffd700 is 13.61:1.
+
+       The outdent aligns the LETTERS, not the box: margin-left cancels the inline
+       padding exactly, so the D of DUONG lands on the same vertical as the D of
+       DUC and the block bleeds left instead of pushing the letters right — which
+       at 72px reads as a typo. One value drives both, so they cannot drift.
+
+       --mark-inset is a fraction of --pad rather than a fixed 14px, because the
+       bleed is spent out of .page-layout's gutter and that gutter shrinks (32px,
+       20px under 560px, style.css:604). A constant inset against a shrinking
+       gutter left only 6px of clearance at 375px; at 0.4375 it is 14px desktop
+       (pixel-identical to before) and 8.75px narrow, so clearance holds at 18px
+       and 11.25px. Keep the ratio under 1 or the block runs off the screen. */
+    .hero-name .last {
+      --mark-inset: calc(var(--pad) * 0.4375);
+      display: block;
+      width: fit-content;
+      background: var(--accent);
+      color: var(--bg);
+      padding: 2px var(--mark-inset) 8px;
+      margin-top: 6px;
+      margin-left: calc(var(--mark-inset) * -1);
+    }
+    .hero-tagline {
+      font-size: 18px;
+      color: var(--text-soft);
+      line-height: 1.55;
+      letter-spacing: -0.02em;
+      margin-top: 8px;
+      margin-bottom: 48px;
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 36px;
+      margin-bottom: 48px;
+    }
+    .hero-stat-num {
+      font-weight: 700;
+      font-size: 36px;
+      line-height: 1.1;
+      color: var(--accent);
+      letter-spacing: 0.01em;
+    }
+    .hero-stat-label {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+    .hero-stat-meta {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      line-height: 1.4;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      margin-top: 2px;
+      /* Height is reserved whether or not there is a line to show, so the
+         no-data state and the live state occupy the same box. */
+      min-height: 1.4em;
+    }
+    .hero-stat-meta.is-empty {
+      visibility: hidden;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .hero-portrait {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 400 / 534;
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      border-radius: 10px;
+      overflow: hidden;
+      background:
+        linear-gradient(126.87deg, rgba(255, 215, 0, 0.2) 0%, rgba(0, 0, 0, 0) 100%),
+        #101828;
+    }
+    .hero-portrait::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 4px;
+      background: var(--accent);
+    }
+    .hero-portrait img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Placeholder when no image */
+    .hero-portrait-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      color: rgba(255, 255, 255, 0.4);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-align: center;
+    }
+    .hero-portrait-placeholder svg {
+      width: 96px;
+      height: 96px;
+      stroke: rgba(255, 215, 0, 0.5);
+      stroke-width: 1;
+      fill: none;
+    }
+
+    /* ── WORK EXPERIENCE TIMELINE ── */
+    .timeline-section {
+      border-top: 1px solid var(--border);
+      padding: 64px 0 64px;
+    }
+    .timeline-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+    .timeline-header h2 {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.003em;
+      color: var(--text-primary);
+    }
+    .timeline-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: -0.01em;
+      transition: opacity var(--transition);
+    }
+    .timeline-link:hover { opacity: 0.8; }
+    .timeline-link svg { width: 14px; height: 14px; stroke: currentColor; }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 6px; right: 6px;
+      top: 6px;
+      height: 1px;
+      background: var(--border-bright);
+    }
+    .timeline-item {
+      position: relative;
+      padding-top: 32px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 12px; height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px var(--bg);
+    }
+    .timeline-year {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .timeline-role {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+    .timeline-place {
+      font-size: 12px;
+      color: var(--text-secondary);
+      letter-spacing: -0.01em;
+    }
+
+    /* ── QUICK NAV CARDS (carried over, restyled) ── */
+    .nav-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 32px;
+      margin-bottom: 64px;
+    }
+    .nav-card {
+      background: var(--bg-2);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: background var(--transition);
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      border: none;
+      text-align: left;
+      font-family: inherit;
+    }
+    .nav-card:hover { background: var(--surface); }
+    .nav-card-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--text-secondary);
+    }
+    .nav-card-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }
+    .nav-card-desc {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      letter-spacing: -0.01em;
+    }
+    .nav-card-arrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: auto;
+      transition: color var(--transition);
+      letter-spacing: 0.06em;
+    }
+    .nav-card:hover .nav-card-arrow { color: var(--accent); }
+
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .hero-portrait { max-width: 400px; }
+      .timeline { grid-template-columns: repeat(2, 1fr); }
+      .nav-cards { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .hero-name { font-size: 56px; }
+      .hero-stats { gap: 24px; flex-wrap: wrap; }
+      .timeline { grid-template-columns: 1fr; }
+      .timeline::before { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav class="navbar" aria-label="Main navigation">
+    <div class="navbar-inner">
+      <a href="/" class="nav-logo">
+        <div class="nav-logo-dots">
+          <span></span><span></span><span></span>
+        </div>
+        DUC.
+      </a>
+      <div class="nav-links">
+        <a href="home.html"       class="nav-link active" aria-current="page">HOME</a>
+        <a href="work.html" class="nav-link">WORK</a>
+        <a href="about.html"       class="nav-link">ABOUT</a>
+        <a href="hobbies.html"     class="nav-link">HOBBIES</a>
+        <button class="btn-connect-nav" onclick="openConnect()">CONNECT</button>
+      </div>
+      <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── MOBILE MENU ── -->
+  <div id="mobile-menu" class="nav-menu" aria-hidden="true">
+    <div class="nav-menu-inner">
+      <button class="nav-menu-close" aria-label="Close menu">✕</button>
+      <a href="home.html"   class="nav-menu-link active" aria-current="page">// HOME</a>
+      <a href="work.html"    class="nav-menu-link">// WORK</a>
+      <a href="about.html"   class="nav-menu-link">// ABOUT</a>
+      <a href="hobbies.html" class="nav-menu-link">// HOBBIES</a>
+      <button class="nav-menu-link" onclick="closeMobileMenu(); openConnect();">// CONNECT</button>
+    </div>
+  </div>
+
+  <!-- ── PAGE ── -->
+  <main class="page-layout">
+
+    <!-- HERO -->
+    <section class="hero">
+
+      <div class="hero-left">
+        <p class="hero-eyebrow fade-up">// RESEARCH · CODE · COMPETE</p>
+        <h1 class="hero-name fade-up fade-up-2">
+          DUC
+          <span class="last">DUONG</span>
+        </h1>
+        <p class="hero-tagline fade-up fade-up-3">
+          Research that ships. Code that thinks. Badminton that wins.
+        </p>
+
+        <div class="hero-stats fade-up fade-up-4">
+          <div>
+            <div class="hero-stat-num" data-count="1" data-pad="true">00</div>
+            <div class="hero-stat-label">Publications</div>
+          </div>
+          <div>
+            <div class="hero-stat-num" data-stat="tokens_burnt">&mdash;</div>
+            <div class="hero-stat-label">Tokens Burnt</div>
+            <div class="hero-stat-meta is-empty" data-stat-meta="tokens_burnt"></div>
+          </div>
+          <div>
+            <div class="hero-stat-num" data-count="4" data-pad="true">00</div>
+            <div class="hero-stat-label">Championships</div>
+          </div>
+        </div>
+
+        <div class="hero-ctas fade-up fade-up-5">
+          <a href="resume.pdf" class="btn-primary" download="Duc-Duong-Resume.pdf">
+            DOWNLOAD CV
+          </a>
+          <a href="work.html" class="btn-outline">
+            VIEW WORK
+          </a>
+        </div>
+      </div>
+
+      <!-- TODO: thumbnail — when /img/home/avatar.webp lands, replace the .hero-portrait-placeholder block below with: <img src="/img/home/avatar.webp" alt="Portrait of Duc Duong" width="400" height="534" decoding="async"> (no loading=lazy — above the fold). Aspect 3:4 — see .thumb-3x4 in css/style.css. Keep the .hero-portrait outer div + gold accent line. -->
+      <div class="hero-portrait fade-up fade-up-3" aria-label="Portrait of Duc Duong">
+        <div class="hero-portrait-placeholder">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="8" r="4" />
+            <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" />
+          </svg>
+          <span>// PORTRAIT</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- WORK EXPERIENCE TIMELINE -->
+    <section class="timeline-section">
+      <div class="timeline-header">
+        <h2>Work Experience</h2>
+        <a href="work.html" class="timeline-link">
+          View Full Timeline
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-year">2026</div>
+          <div class="timeline-role">AI Research Intern</div>
+          <div class="timeline-place">Stevens Institute of Technology</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2025</div>
+          <div class="timeline-role">R&amp;D Software Engineer</div>
+          <div class="timeline-place">GTEL ICT</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2025</div>
+          <div class="timeline-role">Quantitative Fellow</div>
+          <div class="timeline-place">CF Hub · qAnts</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2024</div>
+          <div class="timeline-role">B.A. Computer Science &amp; Math</div>
+          <div class="timeline-place">Grinnell College</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUICK NAV CARDS -->
+    <div class="nav-cards">
+      <a href="work.html" class="nav-card">
+        <span class="nav-card-num">01 //</span>
+        <span class="nav-card-title">WORK</span>
+        <span class="nav-card-desc">Projects, research,<br>and builds.</span>
+        <span class="nav-card-arrow">EXPLORE →</span>
+      </a>
+      <a href="hobbies.html" class="nav-card">
+        <span class="nav-card-num">02 //</span>
+        <span class="nav-card-title">HOBBIES</span>
+        <span class="nav-card-desc">Sports, gaming,<br>and everything in between.</span>
+        <span class="nav-card-arrow">EXPLORE →</span>
+      </a>
+      <button class="nav-card" onclick="openConnect()">
+        <span class="nav-card-num">03 //</span>
+        <span class="nav-card-title">CONNECT</span>
+        <span class="nav-card-desc">Email, LinkedIn,<br>GitHub — let's talk.</span>
+        <span class="nav-card-arrow">OPEN →</span>
+      </button>
+    </div>
+
+  </main>
+
+  <!-- ── LET'S WORK TOGETHER CTA ── -->
+  <section class="cta-section">
+    <h2>Let's Work Together</h2>
+    <p>Interested in collaborating on research, building AI systems, or discussing ideas? Let's connect.</p>
+    <button class="btn-cta" onclick="openConnect()">
+      CONNECT →
+    </button>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="site-footer">
+      <span class="footer-copy">© 2026 DUC DUONG</span>
+      <div class="footer-links">
+        <a href="https://github.com/duongduc388222" target="_blank" rel="noopener" class="footer-link">GITHUB</a>
+        <a href="https://linkedin.com/in/duchduong" target="_blank" rel="noopener" class="footer-link">LINKEDIN</a>
+        <button class="footer-link" onclick="openConnect()">EMAIL</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── CONNECT MODAL ── -->
+  <div id="connect-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Connect with Duc">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeConnect()" aria-label="Close">✕</button>
+      <p class="modal-eyebrow">// INITIATE CONTACT</p>
+      <h2 class="modal-title">Let's Connect</h2>
+      <p class="modal-subtitle">via Email · LinkedIn · GitHub</p>
+      <div class="contact-options">
+        <button class="contact-btn" data-copy="duc.does.ai@gmail.com">
+          COPY WORK EMAIL — duc.does.ai@gmail.com
+          <span class="contact-btn-arrow">→</span>
+        </button>
+        <button class="contact-btn" data-copy="duongduc@grinnell.edu">
+          COPY SCHOOL EMAIL — duongduc@grinnell.edu
+          <span class="contact-btn-arrow">→</span>
+        </button>
+        <a href="https://linkedin.com/in/duchduong" target="_blank" rel="noopener" class="contact-btn">
+          LINKEDIN — linkedin.com/in/duchduong
+          <span class="contact-btn-arrow">↗</span>
+        </a>
+        <a href="https://github.com/duongduc388222" target="_blank" rel="noopener" class="contact-btn">
+          GITHUB — github.com/duongduc388222
+          <span class="contact-btn-arrow">↗</span>
+        </a>
+        <a href="https://scholar.google.com/citations?user=q3b7yDwAAAAJ&amp;hl=vi" target="_blank" rel="noopener" class="contact-btn">
+          GOOGLE SCHOLAR — scholar.google.com
+          <span class="contact-btn-arrow">↗</span>
+        </a>
+      </div>
+      <p class="modal-footer">DUCK.SYS · v1.0 · ONLINE</p>
+    </div>
+  </div>
+
+  <script src="js/stats.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

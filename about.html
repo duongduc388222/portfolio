@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- PROD_URL — find/replace https://ducduong-portfolio.vercel.app if domain changes -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Duc Duong</title>
+  <meta name="description" content="CS &amp; Mathematics at Grinnell. Background, current focus, and how to reach Duc." />
+
+  <!-- Favicon (terminal `>` prompt + block cursor, lime on #080808) -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <!-- Preload primary fonts (above-the-fold) to prevent FOIT. -->
+  <link rel="preload" href="/fonts/SpaceGrotesk-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/JetBrainsMono-variable.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ducduong-portfolio.vercel.app/about.html" />
+  <meta property="og:title" content="About — Duc Duong" />
+  <meta property="og:description" content="CS &amp; Mathematics at Grinnell. Background, current focus, and how to reach Duc." />
+  <meta property="og:image" content="https://ducduong-portfolio.vercel.app/img/og/og-image.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="About — Duc Duong" />
+  <meta name="twitter:description" content="CS &amp; Mathematics at Grinnell. Background, current focus, and how to reach Duc." />
+  <meta name="twitter:image" content="https://ducduong-portfolio.vercel.app/img/og/og-image.png" />
+
+  <!-- No-flash: pick the Theme before first paint. Two axes, three ground states,
+       so opting into MATCH_SYSTEM is not mistaken for a first visit. -->
+  <script>
+    (function () {
+      var accents = ['gold', 'vermilion', 'cyan', 'violet'];
+      var grounds = ['night', 'day'];
+      var a = null, g = null;
+      try { a = localStorage.getItem('PROTOTYPE_accent'); g = localStorage.getItem('PROTOTYPE_scheme'); } catch (e) {}
+      if (accents.indexOf(a) < 0) a = 'gold';
+      if (g === 'system') g = matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day';
+      else if (grounds.indexOf(g) < 0) g = 'night';
+      document.documentElement.dataset.accent = a;
+      document.documentElement.dataset.scheme = g;
+    })();
+  </script>
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/prototype-theme-switcher.css?v=two-axis-14" />
+  <style>
+    /* ── ABOUT PAGE (scoped) ──
+       Page-local CSS only. M4 owns css/style.css in parallel — do not move
+       these rules there until M4 lands. Reuses existing tokens
+       (--font-sans, --font-mono, --accent, --bg-2, etc.) defined globally. */
+
+    .about-section {
+      padding: 64px 0 80px;
+    }
+
+    .about-heading {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+    }
+    .about-heading .eyebrow {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      color: var(--accent-text);
+    }
+    .about-heading h1 {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 56px;
+      line-height: 1;
+      letter-spacing: 0.005em;
+      color: var(--text-primary);
+    }
+    .about-heading h1 .dot { color: var(--accent-text); }
+
+    /* Two-column layout: main column + optional sidebar */
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* ── INTRO ── */
+    .about-intro {
+      margin-bottom: 48px;
+    }
+    .about-intro .block-label {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      color: var(--accent-text);
+      margin-bottom: 12px;
+    }
+    .about-intro .stub-line {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-secondary);
+      padding: 16px;
+      border: 1px dashed var(--accent-glow);
+      background: var(--accent-dimmer);
+      line-height: 1.7;
+      letter-spacing: 0.02em;
+    }
+    .about-intro .stub-line strong {
+      color: var(--accent-text);
+      font-weight: 500;
+    }
+
+    /* ── CURRENTLY / PREVIOUSLY BLOCKS ── */
+    .about-block {
+      margin-bottom: 40px;
+    }
+    .about-block-header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      border-bottom: 2px solid var(--accent-text);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+    }
+    .about-block-header .label {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      color: var(--accent-text);
+    }
+    .about-block-header .meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-left: auto;
+    }
+
+    .about-stub-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .about-stub-list li {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-secondary);
+      padding: 12px 14px;
+      border-left: 2px solid var(--accent-glow);
+      background: var(--wash);
+      letter-spacing: 0.01em;
+      line-height: 1.5;
+    }
+    .about-stub-list li::before {
+      content: '> ';
+      color: var(--accent-text);
+      font-weight: 500;
+    }
+
+    /* ── SIDEBAR (BACKGROUND PROCESSES) ── */
+    .about-sidebar {
+      position: sticky;
+      top: calc(var(--nav-h, 64px) + 24px);
+      border: 1px solid var(--border);
+      padding: 20px;
+      background: var(--wash);
+    }
+    .about-sidebar .label {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      color: var(--accent-text);
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed var(--accent-glow);
+    }
+    .about-sidebar .stub-line {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      letter-spacing: 0.02em;
+    }
+    .about-sidebar .crosslink {
+      display: inline-block;
+      margin-top: 16px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--accent-text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent-text);
+      padding-bottom: 2px;
+    }
+    .about-sidebar .crosslink:hover { opacity: 0.8; }
+
+    /* ── REAL CONTENT (post-population) ── */
+    .about-intro .lead {
+      font-family: var(--font-sans);
+      font-size: 17px;
+      line-height: 1.7;
+      letter-spacing: -0.01em;
+      color: var(--text-soft);
+    }
+    .about-stub-list.is-real li {
+      color: var(--text-soft);
+    }
+    .about-sidebar .sb-list {
+      list-style: none;
+      margin: 0 0 4px;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .about-sidebar .sb-list li {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.55;
+      letter-spacing: 0.01em;
+      color: var(--text-secondary);
+    }
+
+    @media (max-width: 900px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .about-sidebar { position: static; }
+      .about-heading h1 { font-size: 40px; }
+    }
+
+    /* ── HEADING CHIPS ──
+       The accent as a fill, not as text. Bright gold is 1.18:1 on the day ground,
+       so it cannot colour text there at any weight or size; as a fill carrying ink
+       it is 13.61:1 and renders identically on both grounds. This is exception 2 in
+       docs/adr/0001, the same device as DOWNLOAD CV.
+       --on-accent is chosen per accent by measurement, not assumed: gold, cyan and
+       vermilion carry the navy ink, violet is dark enough that it carries white.
+       Last in the block on purpose — same specificity as the rules above, so the
+       chip's colour wins on source order. */
+    .about-heading .eyebrow,
+    .about-intro .block-label,
+    .about-block-header .label,
+    .about-sidebar .label {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--on-accent);
+      padding: 3px 9px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav class="navbar" aria-label="Main navigation">
+    <div class="navbar-inner">
+      <a href="/" class="nav-logo">
+        <div class="nav-logo-dots">
+          <span></span><span></span><span></span>
+        </div>
+        DUC.
+      </a>
+      <div class="nav-links">
+        <a href="home.html"       class="nav-link">HOME</a>
+        <a href="work.html" class="nav-link">WORK</a>
+        <a href="about.html"       class="nav-link active" aria-current="page">ABOUT</a>
+        <a href="hobbies.html"     class="nav-link">HOBBIES</a>
+        <button class="btn-connect-nav" onclick="openConnect()">CONNECT</button>
+      </div>
+      <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── MOBILE MENU ── -->
+  <div id="mobile-menu" class="nav-menu" aria-hidden="true">
+    <div class="nav-menu-inner">
+      <button class="nav-menu-close" aria-label="Close menu">✕</button>
+      <a href="home.html"   class="nav-menu-link">// HOME</a>
+      <a href="work.html"    class="nav-menu-link">// WORK</a>
+      <a href="about.html"   class="nav-menu-link active" aria-current="page">// ABOUT</a>
+      <a href="hobbies.html" class="nav-menu-link">// HOBBIES</a>
+      <button class="nav-menu-link" onclick="closeMobileMenu(); openConnect();">// CONNECT</button>
+    </div>
+  </div>
+
+  <!-- ── PAGE ── -->
+  <main class="page-layout">
+
+    <section class="about-section">
+
+      <!-- HEADING -->
+      <div class="about-heading">
+        <span class="eyebrow">// SYSTEM PROFILE</span>
+        <h1>ABOUT<span class="dot">.</span>LOG</h1>
+      </div>
+
+      <div class="about-grid">
+
+        <!-- MAIN COLUMN -->
+        <div class="about-main">
+
+          <!-- (a) INTRO -->
+          <div class="about-intro">
+            <p class="block-label">// INTRO</p>
+            <p class="lead">
+              I work on efficient large language model inference — making models run faster, longer, and cheaper without giving up accuracy. I'm a Computer Science and Mathematics student at Grinnell College, researching across labs at Rice and Stevens, where my work centers on KV-cache management and inference-time reasoning: the place sampling, optimization, and systems meet. Lately I've been carrying that efficiency work into agents running on edge hardware, where inference cost compounds and smarter memory and compute decisions matter most. I try to optimize the whole pipeline, not a single model call. If you're working on efficient ML, NLP, or inference-time reasoning, I'd like to hear from you.
+            </p>
+          </div>
+
+          <!-- (b) CURRENTLY -->
+          <section class="about-block">
+            <header class="about-block-header">
+              <span class="label">// CURRENTLY</span>
+              <span class="meta">2026</span>
+            </header>
+            <ul class="about-stub-list is-real">
+              <li>Research Assistant on Stat2Games at Grinnell — browser games that teach statistics, and the data pipelines behind them.</li>
+              <li>Building an edge-agent benchmarking library — an open-source library for benchmarking AI agents on edge devices. Private until release.</li>
+              <li>Coursework in ML, AI, Reinforcement Learning, Linear Algebra, Probability &amp; Statistics, and DSA — GPA 4.0, Dean's List.</li>
+              <li>Member of the AI/ML Club.</li>
+            </ul>
+          </section>
+
+          <!-- (c) PREVIOUSLY -->
+          <section class="about-block">
+            <header class="about-block-header">
+              <span class="label">// PREVIOUSLY</span>
+              <span class="meta">2025–2026</span>
+            </header>
+            <ul class="about-stub-list is-real">
+              <li>AI Research Intern at Stevens (2026) — Nexus Sampling, KV-cache eviction under fixed budgets. Co-first author. Advised by Dr. Zhaozhuo Xu (Stevens) and Duy Le (PhD candidate, Rice).</li>
+              <li>Quantitative Fellow at CF Hub / qAnts (2025–2026) — backtesting and data infrastructure; alpha-signal and market-microstructure research.</li>
+              <li>Student mentor for STA-310 at Grinnell (2026) — statistical modeling and data analysis.</li>
+              <li>R&amp;D Software Engineer at GTEL ICT (2025) — fine-tuned an ancient-to-modern Vietnamese translation model with LoRA/QLoRA and built a 1M+ sample synthetic dataset; ran weekly seminars on Transformers and Diffusion.</li>
+              <li>NLP Intern at Data Glacier (2025) — built a hate-speech detection engine (BERT, 0.92 F1) and cut inference latency 45% with ONNX Runtime and Hugging Face Accelerate.</li>
+              <li>Computer Science Grader at Grinnell (2025).</li>
+              <li>Executive, Vietnamese Student Association (2025) — ran cultural events end to end: budgets, logistics, community.</li>
+            </ul>
+          </section>
+
+        </div>
+
+        <!-- (d) SIDEBAR — BACKGROUND PROCESSES -->
+        <aside class="about-sidebar">
+          <p class="label">// BACKGROUND PROCESSES</p>
+          <ul class="sb-list">
+            <li>Badminton — District golds and City medals in Vietnam; club singles champion in the US (2026).</li>
+            <li>Ronaldo loyalist → Real Madrid &amp; Portugal. France too.</li>
+            <li>Off-hours: Balatro, chess, and sudoku variants — deduction practice that doesn't feel like work.</li>
+          </ul>
+          <a href="hobbies.html" class="crosslink">SEE FULL HOBBIES →</a>
+        </aside>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="site-footer">
+      <span class="footer-copy">© 2026 DUC DUONG</span>
+      <div class="footer-links">
+        <a href="https://github.com/duongduc388222" target="_blank" rel="noopener" class="footer-link">GITHUB</a>
+        <a href="https://linkedin.com/in/duchduong" target="_blank" rel="noopener" class="footer-link">LINKEDIN</a>
+        <button class="footer-link" onclick="openConnect()">EMAIL</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── CONNECT MODAL ── -->
+  <div id="connect-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Connect with Duc">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeConnect()" aria-label="Close">✕</button>
+      <p class="modal-eyebrow">// INITIATE CONTACT</p>
+      <h2 class="modal-title">Let's Connect</h2>
+      <p class="modal-subtitle">via Email · LinkedIn · GitHub</p>
+      <div class="contact-options">
+        <button class="contact-btn" data-copy="duc.does.ai@gmail.com">
+          COPY WORK EMAIL — duc.does.ai@gmail.com
+          <span class="contact-btn-arrow">→</span>
+        </button>
+        <button class="contact-btn" data-copy="duongduc@grinnell.edu">
+          COPY SCHOOL EMAIL — duongduc@grinnell.edu
+          <span class="contact-btn-arrow">→</span>
+        </button>
+        <a href="https://linkedin.com/in/duchduong" target="_blank" rel="noopener" class="contact-btn">
+          LINKEDIN — linkedin.com/in/duchduong
+          <span class="contact-btn-arrow">↗</span>
+        </a>
+        <a href="https://github.com/duongduc388222" target="_blank" rel="noopener" class="contact-btn">
+          GITHUB — github.com/duongduc388222
+          <span class="contact-btn-arrow">↗</span>
+        </a>
+        <a href="https://scholar.google.com/citations?user=q3b7yDwAAAAJ&amp;hl=vi" target="_blank" rel="noopener" class="contact-btn">
+          GOOGLE SCHOLAR — scholar.google.com
+          <span class="contact-btn-arrow">↗</span>
+        </a>
+      </div>
+      <p class="modal-footer">DUCK.SYS · v1.0 · ONLINE</p>
+    </div>
+  </div>
+
+  <div id="theme-live" class="sr-only" aria-live="polite"></div>
+
+  <script src="js/main.js"></script>
+  <script src="js/prototype-theme-switcher.js?v=two-axis-14"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <title>Duc Duong — portfolio. CS &amp; Mathematics at Grinnell.</title>
+  <desc>OG preview image for ducduong-portfolio.vercel.app</desc>
+
+  <rect x="0" y="0" width="1200" height="630" fill="#080808"/>
+
+  <g stroke="#c5f135" stroke-width="1" opacity="0.05">
+    <line x1="0" y1="105" x2="1200" y2="105"/>
+    <line x1="0" y1="210" x2="1200" y2="210"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="0" y1="525" x2="1200" y2="525"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <text x="80" y="88" font-family="JetBrains Mono, monospace" font-weight="500" font-size="24" fill="#c5f135" text-anchor="start">// SYSTEM PROFILE</text>
+
+  <text x="80" y="380" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="280" fill="#ffffff" text-anchor="start" letter-spacing="-8"><tspan>DUC</tspan><tspan fill="#c5f135">.</tspan></text>
+
+  <rect x="80" y="412" width="4" height="1" fill="#c5f135"/>
+
+  <text x="80" y="470" font-family="Space Grotesk, sans-serif" font-weight="400" font-size="36" fill="#cccccc" text-anchor="start">Research that ships. Code that thinks. Badminton that wins.</text>
+
+  <text x="80" y="580" font-family="JetBrains Mono, monospace" font-weight="400" font-size="24" fill="#707070" text-anchor="start">ducduong-portfolio.vercel.app</text>
+</svg>

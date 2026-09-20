@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- PROD_URL — find/replace https://ducduong-portfolio.vercel.app if domain changes -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Duc Duong</title>
+  <meta name="description" content="Duc Duong — efficient LLM inference and KV-cache management. Accepted to EMNLP 2026, co-first author. Seeking Summer 2027 research internships." />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <!-- Preload primary fonts (above-the-fold) to prevent FOIT. -->
+  <link rel="preload" href="/fonts/SpaceGrotesk-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/JetBrainsMono-variable.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ducduong-portfolio.vercel.app/" />
+  <meta property="og:title" content="Duc Duong" />
+  <meta property="og:description" content="Efficient LLM inference and KV-cache management. Accepted to EMNLP 2026, co-first author. Seeking Summer 2027 research internships." />
+  <meta property="og:image" content="https://ducduong-portfolio.vercel.app/img/og/og-image.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Duc Duong" />
+  <meta name="twitter:description" content="Efficient LLM inference and KV-cache management. Accepted to EMNLP 2026, co-first author. Seeking Summer 2027 research internships." />
+  <meta name="twitter:image" content="https://ducduong-portfolio.vercel.app/img/og/og-image.png" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── LANDING ──
+       One screen, one terminal window. The commands are section headers, and
+       every line under them is plain output — no puzzles, nothing to decode.
+       --text-soft stands in for --text-secondary, which fails AA. */
+    .land-wrap { min-height: 100vh; display: grid; place-items: center; padding: 32px 16px; }
+    .land-term { width: 100%; max-width: 760px; border: 1px solid var(--border-bright); background: var(--bg-2); }
+    .land-bar { display: flex; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid var(--border); font-family: var(--font-mono); font-size: 12px; color: var(--text-soft); }
+    .land-body { padding: 28px 28px 32px; }
+    .land-cmd { font-family: var(--font-mono); font-size: 14px; color: var(--text-soft); margin: 22px 0 8px; }
+    .land-cmd:first-child { margin-top: 0; }
+    .land-cmd .p { color: var(--accent); }
+    .land-name { font-family: var(--font-sans); font-size: 44px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; }
+    .land-out { font-size: 18px; line-height: 1.55; }
+    .land-out.soft { color: var(--text-soft); }
+    .land-kv { display: grid; grid-template-columns: 11ch 1fr; gap: 6px 16px; font-size: 16px; line-height: 1.5; }
+    .land-kv dt { font-family: var(--font-mono); font-size: 13px; color: var(--text-soft); padding-top: 3px; }
+    .land-kv dd b { color: var(--accent); font-weight: 500; }
+    .land-pub { margin-top: 7px; }
+    .land-file { font-family: var(--font-mono); font-size: 15px; color: var(--accent); }
+    .land-file:hover { text-decoration: underline; }
+    .land-file small { color: var(--text-soft); margin-left: 10px; }
+    .land-enter { display: inline-block; font-family: var(--font-mono); font-size: 16px; color: var(--accent); margin-top: 8px; }
+    .land-enter:hover { text-decoration: underline; }
+    .land-term .me { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; }
+    .land-term a.u { border-bottom: 1px solid var(--border-bright); transition: border-color var(--transition), color var(--transition); }
+    .land-term a.u:hover { border-color: var(--accent); color: var(--accent); }
+    .land-term :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    @media (max-width: 700px) {
+      .land-body { padding: 20px 16px 24px; }
+      .land-name { font-size: 34px; }
+      .land-out { font-size: 16px; }
+      .land-kv { grid-template-columns: 1fr; gap: 0; }
+      .land-kv dt { padding-top: 12px; }
+      .land-kv dd a { display: inline-block; }
+      .land-bar span:last-child { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="land-wrap">
+    <div class="land-term">
+      <div class="land-bar"><span>duc@grinnell: ~</span><span>zsh — 80×24</span></div>
+      <div class="land-body">
+        <p class="land-cmd"><span class="p">$</span> whoami</p>
+        <h1 class="land-name">Duc Duong</h1>
+        <p class="land-out soft">CS &amp; Mathematics at Grinnell College. I research efficient LLM inference and KV-cache management, now carried into agents on edge hardware.</p>
+
+        <p class="land-cmd"><span class="p">$</span> cat status</p>
+        <p class="land-out">Open to Summer 2027 research internships. Graduating May 2028.</p>
+
+        <!-- Featured slot: one hand-picked item, never a feed. Selection order is
+             peer-reviewed publication > preprint > project, recency only as a tie-break. -->
+        <p class="land-cmd"><span class="p">$</span> ls publications/</p>
+        <dl class="land-kv">
+          <dt>nexus-sampling</dt>
+          <dd>Forget Without Compromise: Nexus Sampling for Streaming KV-Cache Eviction Under Fixed Budgets<br>
+            <b>Accepted — EMNLP 2026, main conference</b> · co-first author
+            <div class="land-pub"><a class="land-file" href="https://arxiv.org/abs/2606.23961" target="_blank" rel="noopener">arXiv:2606.23961 ↗<small>opens in a new tab</small></a></div>
+          </dd>
+        </dl>
+
+        <p class="land-cmd"><span class="p">$</span> open resume.pdf</p>
+        <p><a class="land-file" href="/resume.pdf" target="_blank" rel="noopener">Duc-Duong-Resume.pdf ↗<small>opens in a new tab</small></a></p>
+
+        <p class="land-cmd"><span class="p">$</span> contact --all</p>
+        <dl class="land-kv">
+          <dt>work</dt><dd><a class="u" href="mailto:duc.does.ai@gmail.com">duc.does.ai@gmail.com</a></dd>
+          <dt>school</dt><dd><a class="u" href="mailto:duongduc@grinnell.edu">duongduc@grinnell.edu</a></dd>
+          <dt>elsewhere</dt><dd><a class="u" href="https://github.com/duongduc388222">GitHub</a> · <a class="u" href="https://linkedin.com/in/duchduong">LinkedIn</a> · <a class="u" href="https://scholar.google.com/citations?user=q3b7yDwAAAAJ">Scholar</a></dd>
+        </dl>
+
+        <p class="land-cmd"><span class="p">$</span> cd ~/portfolio &amp;&amp; open home.html</p>
+        <a class="land-enter" href="home.html">Enter portfolio<span class="cursor" aria-hidden="true"></span></a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

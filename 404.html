@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- PROD_URL — find/replace https://ducduong-portfolio.vercel.app if domain changes -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Duc Duong</title>
+  <meta name="description" content="Page not found. // ERROR: 404" />
+
+  <!-- Favicon (terminal `>` prompt + block cursor, lime on #080808) -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <!-- Preload primary fonts (above-the-fold) to prevent FOIT. -->
+  <link rel="preload" href="/fonts/SpaceGrotesk-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/JetBrainsMono-variable.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ducduong-portfolio.vercel.app/404.html" />
+  <meta property="og:title" content="404 — Duc Duong" />
+  <meta property="og:description" content="404 — page not found. Return to ducduong-portfolio.vercel.app" />
+  <meta property="og:image" content="https://ducduong-portfolio.vercel.app/img/og/og-image.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="404 — Duc Duong" />
+  <meta name="twitter:description" content="404 — page not found. Return to ducduong-portfolio.vercel.app" />
+  <meta name="twitter:image" content="https://ducduong-portfolio.vercel.app/img/og/og-image.png" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── 404 PAGE — scoped to 404.html only ──
+       Centered terminal-style error block. No illustration, no giant numeral,
+       no gradient button. Reuses global tokens from css/style.css. */
+    .notfound-section {
+      min-height: calc(100vh - var(--nav-h, 64px) - 200px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 64px var(--pad, 24px);
+    }
+    .notfound-inner {
+      max-width: 600px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: flex-start;
+      text-align: left;
+    }
+    .notfound-label {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+    }
+    .notfound-title {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 56px;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .notfound-copy {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.55;
+      letter-spacing: -0.005em;
+      color: var(--text-secondary);
+      margin: 0;
+      max-width: 56ch;
+    }
+    .notfound-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .notfound-hint {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    @media (max-width: 600px) {
+      .notfound-title { font-size: 40px; }
+      .notfound-section { padding: 48px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav class="navbar" aria-label="Main navigation">
+    <div class="navbar-inner">
+      <a href="/" class="nav-logo">
+        <div class="nav-logo-dots">
+          <span></span><span></span><span></span>
+        </div>
+        DUC.
+      </a>
+      <div class="nav-links">
+        <a href="home.html"   class="nav-link">HOME</a>
+        <a href="work.html"    class="nav-link">WORK</a>
+        <a href="about.html"   class="nav-link">ABOUT</a>
+        <a href="hobbies.html" class="nav-link">HOBBIES</a>
+        <button class="btn-connect-nav" onclick="openConnect()">CONNECT</button>
+      </div>
+      <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── MOBILE MENU ── -->
+  <div id="mobile-menu" class="nav-menu" aria-hidden="true">
+    <div class="nav-menu-inner">
+      <button class="nav-menu-close" aria-label="Close menu">✕</button>
+      <a href="home.html"   class="nav-menu-link">// HOME</a>
+      <a href="work.html"    class="nav-menu-link">// WORK</a>
+      <a href="about.html"   class="nav-menu-link">// ABOUT</a>
+      <a href="hobbies.html" class="nav-menu-link">// HOBBIES</a>
+      <button class="nav-menu-link" onclick="closeMobileMenu(); openConnect();">// CONNECT</button>
+    </div>
+  </div>
+
+  <!-- ── PAGE ── -->
+  <main class="page-layout">
+    <section class="notfound-section">
+      <div class="notfound-inner">
+        <p class="notfound-label">// ERROR: 404</p>
+        <h1 class="notfound-title">FILE NOT FOUND</h1>
+        <p class="notfound-copy">The page you're looking for doesn't exist in this directory.</p>
+        <a href="home.html" class="btn-primary notfound-action">← RETURN HOME</a>
+        <p class="notfound-hint">// CHECK THE URL OR HEAD BACK</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="site-footer">
+      <span class="footer-copy">© 2026 DUC DUONG</span>
+      <div class="footer-links">
+        <a href="https://github.com/duongduc388222" target="_blank" rel="noopener" class="footer-link">GITHUB</a>
+        <a href="https://linkedin.com/in/duchduong" target="_blank" rel="noopener" class="footer-link">LINKEDIN</a>
+        <button class="footer-link" onclick="openConnect()">EMAIL</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── CONNECT MODAL ── -->
+  <div id="connect-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Connect with Duc">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeConnect()" aria-label="Close">✕</button>
+      <p class="modal-eyebrow">// INITIATE CONTACT</p>
+      <h2 class="modal-title">Let's Connect</h2>
+      <p class="modal-subtitle">via Email · LinkedIn · GitHub</p>
+      <div class="contact-options">
+        <button class="contact-btn" data-copy="duc.does.ai@gmail.com">
+          COPY WORK EMAIL — duc.does.ai@gmail.com
+          <span class="contact-btn-arrow">→</span>
+        </button>
+        <button class="contact-btn" data-copy="duongduc@grinnell.edu">
+          COPY SCHOOL EMAIL — duongduc@grinnell.edu
+          <span class="contact-btn-arrow">→</span>
+        </button>
+        <a href="https://linkedin.com/in/duchduong" target="_blank" rel="noopener" class="contact-btn">
+          LINKEDIN — linkedin.com/in/duchduong
+          <span class="contact-btn-arrow">↗</span>
+        </a>
+        <a href="https://github.com/duongduc388222" target="_blank" rel="noopener" class="contact-btn">
+          GITHUB — github.com/duongduc388222
+          <span class="contact-btn-arrow">↗</span>
+        </a>
+      </div>
+      <p class="modal-footer">DUCK.SYS · v1.0 · ONLINE</p>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

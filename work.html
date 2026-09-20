@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- PROD_URL — find/replace https://ducduong-portfolio.vercel.app if domain changes -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Work — Duc Duong</title>
+  <meta name="description" content="WORK.LOG — build log of projects and research by Duc Duong." />
+
+  <!-- Favicon (terminal `>` prompt + block cursor, lime on #080808) -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <!-- Preload primary fonts (above-the-fold) to prevent FOIT. -->
+  <link rel="preload" href="/fonts/SpaceGrotesk-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/JetBrainsMono-variable.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ducduong-portfolio.vercel.app/work.html" />
+  <meta property="og:title" content="Work — Duc Duong" />
+  <meta property="og:description" content="WORK.LOG — build log. Projects live, real writeups in progress." />
+  <meta property="og:image" content="https://ducduong-portfolio.vercel.app/img/og/og-image.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Work — Duc Duong" />
+  <meta name="twitter:description" content="WORK.LOG — build log. Projects live, real writeups in progress." />
+  <meta name="twitter:image" content="https://ducduong-portfolio.vercel.app/img/og/og-image.png" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── WORK PAGE — scoped to work.html only (M5 owns css/style.css) ── */
+
+    /* Header block — mirrors .archive-header from hobbies.html SOUL section
+       but uses Space Grotesk per type_system.md row "WORK" huge heading. */
+    .worklog-section {
+      padding: 64px 0 80px;
+    }
+    .worklog-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      border-bottom: 4px solid var(--accent);
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .worklog-header h1 {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 48px;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+    .worklog-header h1 .dot { color: var(--accent); }
+    .worklog-subtitle {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      letter-spacing: 0.02em;
+    }
+    .worklog-meta {
+      display: flex;
+      gap: 16px;
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+    }
+
+    /* Two-column terminal layout — sidebar + grid (reuses .filter-btn class
+       from hobbies.html so initGameFilter() in js/main.js works untouched). */
+    .worklog-terminal {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 16px;
+      min-height: 500px;
+    }
+
+    .worklog-sidebar,
+    .worklog-records {
+      border: 2px solid var(--border-bright, #2a2a2a);
+      padding: 16px;
+      background: rgba(197, 241, 53, 0.02);
+    }
+    .worklog-sidebar {
+      align-self: start;
+    }
+    .worklog-label {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 12px;
+      color: var(--accent);
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+      letter-spacing: 0.04em;
+    }
+
+    /* .filter-btn already exists in hobbies.html scope — re-declare locally
+       so this page renders standalone without depending on hobbies' style block.
+       Class name + data-filter contract preserved so main.js binds it. */
+    .worklog-sidebar .filter-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: var(--text-primary);
+      background: transparent;
+      border: 1px solid #404040;
+      padding: 8px 12px;
+      margin-bottom: 8px;
+      transition: background var(--transition), color var(--transition), border-color var(--transition);
+      cursor: pointer;
+    }
+    .worklog-sidebar .filter-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .worklog-sidebar .filter-btn.active {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .worklog-sidebar .filter-btn.active::before { content: '> '; }
+
+    .sidebar-note {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px dashed #404040;
+    }
+    .sidebar-note p {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      letter-spacing: 0.02em;
+    }
+
+    /* Records grid — 2 columns, asymmetric: the first card is the
+       "featured" one with the IN DEVELOPMENT banner and slightly different
+       treatment (different background + thicker top border) to avoid the
+       uniform-card-grid AI slop tell. */
+    .worklog-records-label {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 14px;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .project-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid #404040;
+      padding: 0;
+      transition: border-color var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+    .project-card:hover { border-color: var(--accent); }
+
+    /* Featured card variant — first card differs from the grid: full-width
+       row, thicker accent top border, larger thumbnail. */
+    .project-card.is-featured {
+      grid-column: 1 / -1;
+      border-top: 3px solid var(--accent);
+      background: rgba(197, 241, 53, 0.025);
+    }
+
+    /* .thumb .thumb-16x9 — references the M3 image slot system. M3 is
+       expected to define .thumb / .thumb-16x9 in css/style.css. Until then,
+       we add a minimal local fallback so the slot renders sized. */
+    .project-card .thumb {
+      background: #0d0d0d;
+      border-bottom: 1px solid #404040;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .project-card .thumb-16x9 {
+      aspect-ratio: 16 / 9;
+      width: 100%;
+    }
+    /* The featured slot keeps the asset's own 16:9 — a 21:9 crop would cut the
+       legend off the paper figure, which is the part that explains it. */
+    .project-card .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .project-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+    .project-flag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
+    }
+    .project-title {
+      font-family: var(--font-sans);
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }
+    .project-card.is-featured .project-title {
+      font-size: 22px;
+      font-weight: 700;
+    }
+    .project-meta-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      margin-top: 2px;
+    }
+    .project-line {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      letter-spacing: -0.005em;
+    }
+    .project-line em {
+      font-style: normal;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      display: inline-block;
+      margin-right: 6px;
+    }
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .project-tag {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      padding: 3px 8px;
+      border: 1px solid #404040;
+      color: var(--text-primary);
+    }
+    .project-link {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      margin-top: 8px;
+      align-self: flex-start;
+      transition: opacity var(--transition);
+    }
+    .project-link:hover { opacity: 0.75; }
+    /* Says why there is nothing to click. Deliberately not a link or a button:
+       the disabled buttons this replaced read as broken, not as closed. */
+    .project-closed {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-soft);
+      letter-spacing: 0.04em;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 900px) {
+      .worklog-terminal { grid-template-columns: 1fr; }
+      .project-grid { grid-template-columns: 1fr; }
+      .worklog-header h1 { font-size: 36px; }
+      .worklog-meta { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav class="navbar" aria-label="Main navigation">
+    <div class="navbar-inner">
+      <a href="/" class="nav-logo">
+        <div class="nav-logo-dots">
+          <span></span><span></span><span></span>
+        </div>
+        DUC.
+      </a>
+      <div class="nav-links">
+        <a href="home.html"       class="nav-link">HOME</a>
+        <a href="work.html" class="nav-link active" aria-current="page">WORK</a>
+        <a href="about.html"       class="nav-link">ABOUT</a>
+        <a href="hobbies.html"     class="nav-link">HOBBIES</a>
+        <button class="btn-connect-nav" onclick="openConnect()">CONNECT</button>
+      </div>
+      <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── MOBILE MENU ── -->
+  <div id="mobile-menu" class="nav-menu" aria-hidden="true">
+    <div class="nav-menu-inner">
+      <button class="nav-menu-close" aria-label="Close menu">✕</button>
+      <a href="home.html"   class="nav-menu-link">// HOME</a>
+      <a href="work.html"    class="nav-menu-link active" aria-current="page">// WORK</a>
+      <a href="about.html"   class="nav-menu-link">// ABOUT</a>
+      <a href="hobbies.html" class="nav-menu-link">// HOBBIES</a>
+      <button class="nav-menu-link" onclick="closeMobileMenu(); openConnect();">// CONNECT</button>
+    </div>
+  </div>
+
+  <!-- ── PAGE ── -->
+  <main class="page-layout">
+
+    <section class="worklog-section">
+
+      <!-- Header — // BUILD LOG / WORK.LOG (subtitle above title, matches About) -->
+      <div class="worklog-header">
+        <div>
+          <p class="worklog-subtitle">// BUILD LOG</p>
+          <h1>WORK<span class="dot">.</span>LOG</h1>
+        </div>
+        <div class="worklog-meta">
+          <span>ENTRIES 04</span>
+          <span>STATUS LIVE</span>
+          <span>YEAR 2026</span>
+        </div>
+      </div>
+
+      <!-- Two-column terminal layout -->
+      <div class="worklog-terminal">
+
+        <!-- Sidebar filter — reuses .filter-btn + data-filter; main.js
+             initGameFilter() picks this up automatically. -->
+        <aside class="worklog-sidebar game-sidebar">
+          <p class="worklog-label">// FILTERS</p>
+          <button class="filter-btn active" data-filter="all">ALL</button>
+          <button class="filter-btn" data-filter="research">RESEARCH</button>
+          <button class="filter-btn" data-filter="frontend">FRONTEND</button>
+          <button class="filter-btn" data-filter="ml">ML</button>
+          <button class="filter-btn" data-filter="systems">SYSTEMS</button>
+        </aside>
+
+        <!-- Records grid -->
+        <div class="worklog-records">
+          <p class="worklog-records-label" id="records-label">ALL RECORDS</p>
+          <div class="project-grid">
+
+            <!-- ── CARD 1 · featured · research ──────────────── -->
+            <article class="project-card is-featured" data-game="research all">
+              <!-- Figure 2 (lower panel) from the paper: the reservoir step, where a
+                   marginal token a hard top-K would drop is kept. Cropped to 16:9. -->
+              <div class="thumb thumb-16x9">
+                <img src="img/work/nexus-sampling.png" width="1600" height="900" loading="lazy" decoding="async"
+                     alt="Reservoir sampling step from the Nexus Sampling paper: cache blocks labelled with retention probabilities, where a low-scoring block is kept and a neighbouring one of similar score is evicted." />
+              </div>
+              <div class="project-body">
+                <p class="project-flag">// RESEARCH · ACCEPTED — EMNLP 2026, MAIN CONFERENCE</p>
+                <h3 class="project-title">Nexus Sampling — Streaming KV-Cache Eviction Under Fixed Budgets</h3>
+                <div class="project-meta-row">
+                  <span>RESEARCH</span><span>·</span><span>2026</span>
+                </div>
+                <p class="project-line"><em>WHAT</em>A training-free KV-cache eviction method that swaps deterministic Top-K for weighted reservoir sampling over an iterative walk, keeping the "bridge" tokens hard cutoffs throw away.</p>
+                <p class="project-line"><em>ROLE</em>Co-first author. At 80% eviction it stays within ~1 point of dense attention on LongBench and is the leading training-free eviction method in nearly every RULER cell, with 5–10× less per-sequence decode memory than dense FlashAttention-2.</p>
+                <div class="project-tags">
+                  <span class="project-tag">PyTorch</span>
+                  <span class="project-tag">KV-Cache</span>
+                  <span class="project-tag">LongBench</span>
+                </div>
+                <a href="https://arxiv.org/abs/2606.23961" target="_blank" rel="noopener" class="project-link">READ PAPER →</a>
+              </div>
+            </article>
+
+            <!-- ── CARD 2 · ml ────────────────────────────────── -->
+            <article class="project-card" data-game="ml all">
+              <div class="project-body">
+                <p class="project-flag">// ML · INDUSTRY R&amp;D</p>
+                <h3 class="project-title">Ancient → Modern Vietnamese Translation</h3>
+                <div class="project-meta-row">
+                  <span>ML</span><span>·</span><span>2025</span>
+                </div>
+                <p class="project-line"><em>WHAT</em>A translation model that renders ancient Vietnamese texts into modern language, fine-tuned with LoRA/QLoRA for parameter-efficient adaptation.</p>
+                <p class="project-line"><em>ROLE</em>R&amp;D Software Engineer at GTEL ICT. Engineered a 1M+ sample synthetic dataset via a round-robin architecture across Gemini API keys.</p>
+                <div class="project-tags">
+                  <span class="project-tag">LoRA/QLoRA</span>
+                  <span class="project-tag">T5</span>
+                  <span class="project-tag">Python</span>
+                </div>
+                <p class="project-closed">Closed source — proprietary work.</p>
+              </div>
+            </article>
+
+            <!-- ── CARD 3 · frontend ──────────────────────────── -->
+            <article class="project-card" data-game="frontend all">
+              <div class="project-body">
+                <p class="project-flag">// FRONTEND · RESEARCH LAB</p>
+                <h3 class="project-title">Stat2Games — Learning Statistics Through Play</h3>
+                <div class="project-meta-row">
+                  <span>FRONTEND</span><span>·</span><span>2025—</span>
+                </div>
+                <p class="project-line"><em>WHAT</em>A suite of browser-based games that teach statistics through play, turning student gameplay into teachable datasets.</p>
+                <p class="project-line"><em>ROLE</em>Research Assistant (PIs Kuiper &amp; Roy). Built the web front end, game-data pipelines, and the PHP/Shiny dashboards behind them.</p>
+                <div class="project-tags">
+                  <span class="project-tag">JavaScript</span>
+                  <span class="project-tag">PHP</span>
+                  <span class="project-tag">Shiny</span>
+                </div>
+                <a href="https://stat2games.sites.grinnell.edu" target="_blank" rel="noopener" class="project-link">VISIT SITE →</a>
+              </div>
+            </article>
+
+            <!-- ── CARD 4 · systems ──────────────────────────── -->
+            <article class="project-card" data-game="systems all">
+              <div class="project-body">
+                <p class="project-flag">// SYSTEMS · QUANT</p>
+                <h3 class="project-title">qAnts — Backtesting &amp; Data Infrastructure</h3>
+                <div class="project-meta-row">
+                  <span>SYSTEMS</span><span>·</span><span>2025—2026</span>
+                </div>
+                <p class="project-line"><em>WHAT</em>Backtesting and data infrastructure for quant research — simulator analyzers, broker integrations, and pipelines hardened to run unattended for days.</p>
+                <p class="project-line"><em>ROLE</em>Quantitative Fellow at CF Hub. Explored alpha signals and market microstructure, from dollar-bar vs. time-bar sampling to FinBERT sentiment.</p>
+                <div class="project-tags">
+                  <span class="project-tag">Python</span>
+                  <span class="project-tag">Backtesting</span>
+                  <span class="project-tag">Data-Infra</span>
+                </div>
+                <p class="project-closed">Closed source — proprietary work.</p>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ── LET'S WORK TOGETHER CTA ── -->
+  <section class="cta-section">
+    <h2>Let's Work Together</h2>
+    <p>Interested in collaborating on research, building AI systems, or discussing ideas? Let's connect.</p>
+    <button class="btn-cta" onclick="openConnect()">
+      CONNECT →
+    </button>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="site-footer">
+      <span class="footer-copy">© 2026 DUC DUONG</span>
+      <div class="footer-links">
+        <a href="https://github.com/duongduc388222" target="_blank" rel="noopener" class="footer-link">GITHUB</a>
+        <a href="https://linkedin.com/in/duchduong" target="_blank" rel="noopener" class="footer-link">LINKEDIN</a>
+        <button class="footer-link" onclick="openConnect()">EMAIL</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── CONNECT MODAL ── -->
+  <div id="connect-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Connect with Duc">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeConnect()" aria-label="Close">✕</button>
+      <p class="modal-eyebrow">// INITIATE CONTACT</p>
+      <h2 class="modal-title">Let's Connect</h2>
+      <p class="modal-subtitle">via Email · LinkedIn · GitHub</p>
+      <div class="contact-options">
+        <button class="contact-btn" data-copy="duc.does.ai@gmail.com">
+          COPY WORK EMAIL — duc.does.ai@gmail.com
+          <span class="contact-btn-arrow">→</span>
+        </button>
+        <button class="contact-btn" data-copy="duongduc@grinnell.edu">
+          COPY SCHOOL EMAIL — duongduc@grinnell.edu
+          <span class="contact-btn-arrow">→</span>
+        </button>
+        <a href="https://linkedin.com/in/duchduong" target="_blank" rel="noopener" class="contact-btn">
+          LINKEDIN — linkedin.com/in/duchduong
+          <span class="contact-btn-arrow">↗</span>
+        </a>
+        <a href="https://github.com/duongduc388222" target="_blank" rel="noopener" class="contact-btn">
+          GITHUB — github.com/duongduc388222
+          <span class="contact-btn-arrow">↗</span>
+        </a>
+        <a href="https://scholar.google.com/citations?user=q3b7yDwAAAAJ&amp;hl=vi" target="_blank" rel="noopener" class="contact-btn">
+          GOOGLE SCHOLAR — scholar.google.com
+          <span class="contact-btn-arrow">↗</span>
+        </a>
+      </div>
+      <p class="modal-footer">DUCK.SYS · v1.0 · ONLINE</p>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

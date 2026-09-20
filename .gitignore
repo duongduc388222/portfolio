@@ -1,0 +1,31 @@
+# macOS Finder metadata
+.DS_Store
+
+# Local working notes / scratch — not committed
+todo/
+.scratch/
+plans/
+
+# The Profile and the glossary are the source of truth, kept local on purpose
+aboutme.md
+CONTEXT.md
+
+# Agent-facing configuration and notes, not part of the site
+CLAUDE.md
+docs/
+scripts/README.md
+
+# Published from the stats branch by the daily updater, never from main
+stats.json
+
+# Prototypes. The deploy allowlist matches all HTML and re-includes css/ and js/
+# wholesale, so committed prototype assets would get public URLs.
+prototype-*.html
+css/prototype-*.css
+js/prototype-*.js
+
+# Test files for the updater. Ticket 03 tracks the site, the updater and the README.
+scripts/*.test.mjs
+
+# Agent handoffs — disposable, never committed
+tmp/

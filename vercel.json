@@ -1,0 +1,23 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/home",        "destination": "/home.html" },
+    { "source": "/hobbies",     "destination": "/hobbies.html" },
+    { "source": "/about",       "destination": "/about.html" },
+    { "source": "/work",        "destination": "/work.html" },
+    { "source": "/coming-soon", "destination": "/work.html" }
+  ],
+  "redirects": [
+    { "source": "/portfolio", "destination": "/work",       "permanent": true },
+    { "source": "/resume",    "destination": "/resume.pdf", "permanent": false }
+  ],
+  "headers": [
+    {
+      "source": "/resume.pdf",
+      "headers": [
+        { "key": "Content-Disposition", "value": "inline; filename=\"Duc-Duong-Resume.pdf\"" }
+      ]
+    }
+  ]
+}
