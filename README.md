@@ -2,15 +2,15 @@
 
 I make models run faster, longer, and cheaper without giving up accuracy. Currently a Computer Science and Mathematics student at Grinnell College.
 
-Most of my work centers on KV cache management and inference-time reasoning, where sampling, optimization, and systems meet, and increasingly on what those cost inside agentic loops. I care about methods that hold up in theory and on real benchmarks, not just one or the other.
+Most of my work centers on context management and agents: what a model keeps, what it recomputes, and what that costs once it runs in a loop that plans, calls tools, and re-reads its own history. I care about methods that hold up in theory and on real benchmarks, not just one or the other.
 
-That is where I want to go deeper, along with reinforcement learning. An agent pays the inference bill on every step, so cost compounds quickly and smarter memory and compute decisions matter more there than anywhere else. I'm building toward research that connects efficient inference to closed-loop agents and RL-driven reasoning, treating the whole pipeline as the thing to optimize rather than a single model call.
+That is where I want to go deeper, along with reinforcement learning: research that connects efficient inference to closed-loop agents and RL-driven reasoning, treating the whole pipeline as the thing to optimize rather than one model call.
 
 ## Portfolio
 
 **[duchduong.vercel.app](https://duchduong.vercel.app)**
 
-Research, projects, and the parts of me that are neither. Written by hand, no framework, no build step.
+Click if you want to see why my life is hanging on a can of Celsius.
 
 ## Hello
 
