@@ -640,6 +640,31 @@ img { display: block; max-width: 100%; }
 .fade-up-5 { animation-delay: 0.45s; opacity: 0; }
 .fade-up-6 { animation-delay: 0.6s; opacity: 0; }
 
+/* ─── PAGE TRANSITION ─────────────────────────────────────
+   Navigating between pages fades the outgoing page out, then loads the next
+   one. Driven by js/page-transition.js, which adds .is-leaving and defers the
+   navigation until the fade has run.
+
+   Deliberately NOT the View Transitions API: cross-document transitions are
+   Chromium-only today, so half the visitors would get a hard cut. This runs
+   everywhere. 180ms is under the swatch popover's 250ms on purpose — the fade
+   is dead time added to every navigation, so it buys attention it has to repay.
+
+   The incoming page is not faded in. Doing so means painting a blank page and
+   then revealing it, which costs more than it looks like it should on a slow
+   first load. The exit fade alone is what carries the continuity. */
+body { opacity: 1; transition: opacity 180ms ease; }
+body.is-leaving { opacity: 0; }
+
+/* Reduced motion opts out completely rather than shortening. A page transition
+   communicates nothing — there is no state change to track — so the honest
+   fallback is no transition at all. js/page-transition.js also stops
+   intercepting clicks, so navigation goes straight through. */
+@media (prefers-reduced-motion: reduce) {
+  body { transition: none !important; }
+  body.is-leaving { opacity: 1 !important; }
+}
+
 /* ─── A11Y (M7) ──────────────────────────────────────────── */
 :focus-visible {
   outline: 2px solid var(--accent);
