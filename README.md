@@ -1,51 +1,24 @@
-# portfolio
+# Duc Duong
 
-Duc Duong's personal site — CS at Grinnell, research, badminton, a duck mascot, and a `// SYSTEM`-flavored terminal aesthetic. Pure static HTML/CSS/JS, no build step, deployed on Vercel.
+Hi, I'm Duc. I study computer science at Grinnell College, and this is the source for my personal site.
 
-## Run locally
+**[ducduong-portfolio.vercel.app](https://ducduong-portfolio.vercel.app)**
 
-From the repo root:
+Thanks for stopping by. If you came here from the site itself, you already know the shape of it: a terminal that boots into a few rooms. The home page is the short version of who I am. Work is the honest one, where projects that aren't finished say so instead of hiding behind a mockup. About is the longer story, including the parts that aren't about code. Hobbies is badminton, football, games, and a duck.
 
-```sh
-python3 -m http.server 4173
-```
+I built the whole thing by hand in HTML, CSS, and JavaScript. No framework, no build step, nothing to install. That was a deliberate choice rather than a limitation I put up with. I wanted to understand every line on the page, and I wanted the site to still open in ten years without a toolchain to resurrect first.
 
-Then open <http://localhost:4173>. Stop with `Ctrl+C`. Edits show up on a browser refresh — there is nothing to rebuild.
+If any of it is useful to you, take it. If something looks broken, I'd genuinely like to know.
 
-- **Use a server, not `file://`.** Double-clicking `index.html` breaks the root-relative paths (`/fonts/…`, `/favicon.svg`) and the `fetch('/stats.json')` in `js/main.js`.
-- **Port in use?** Pick another: `python3 -m http.server 8000`.
-- **Clean URLs:** `vercel.json` sets `cleanUrls: true` and rewrites `/work`, `/about`, `/hobbies` (and `/coming-soon` → `/work.html`). The Python server does **not** honor these, so `/work` 404s locally — use `/work.html`. The site's own nav links already use `.html`, so clicking around works.
-- **Custom 404:** `404.html` is only served automatically on Vercel; locally open `/404.html` to see it.
-- **Token counter:** the hero reads `stats.json`. To refresh it, see `scripts/README.md`.
+## Get in touch
 
-## Layout
+I read everything, and I answer. Work and internships are best at the first address, anything Grinnell related at the second.
 
-- `index.html`, `hobbies.html`, `coming-soon.html` — pages (top-level, one file per route).
-- `css/style.css` — global styles + design tokens (accent `#c5f135`, dark palette, `--font-sans` / `--font-mono`).
-- `js/main.js` — global JS: connect modal, hobbies tab switching, game filter, scroll counters.
-- `vercel.json` — production routing.
-- `plans/formal_portfolio/` — milestone-driven plan for taking this from "legacy site" to "formal portfolio." Start at `overview.md`.
+- **Work:** [duc.does.ai@gmail.com](mailto:duc.does.ai@gmail.com)
+- **School:** [duongduc@grinnell.edu](mailto:duongduc@grinnell.edu)
+- **LinkedIn:** [linkedin.com/in/duchduong](https://linkedin.com/in/duchduong)
+- **GitHub:** [@duongduc388222](https://github.com/duongduc388222)
+- **Google Scholar:** [publications](https://scholar.google.com/citations?user=q3b7yDwAAAAJ)
+- **Resume:** [resume.pdf](resume.pdf)
 
-## Conventions
-
-- No build chain. If you find yourself wanting webpack/Vite/Next, that's a smell — the static-HTML constraint is intentional.
-- Typography is locked in `plans/formal_portfolio/type_system.md`: Space Grotesk + JetBrains Mono on the main site, Press Start 2P + VT323 scoped to the `.soul-sys` gaming wrapper only.
-- Aesthetic guardrails: `plans/formal_portfolio/anti_ai_slop.md`. Read it before adding visuals.
-
-## Fonts
-
-Fonts are self-hosted in `/fonts/` (no `fonts.googleapis.com` / `fonts.gstatic.com` requests at runtime). Files:
-
-- `SpaceGrotesk-variable.woff2` — covers weights 400/500/700 (italic is browser-synthesized; Google Fonts does not ship a Space Grotesk italic file).
-- `JetBrainsMono-variable.woff2` — covers weights 400/500.
-- `PressStart2P-400.woff2`, `VT323-400.woff2` — gaming-section pixel fonts (scoped to `.soul-sys`, not preloaded).
-
-All subset to the `latin` range only. Every page preloads the two variable fonts above-the-fold via `<link rel="preload" ... crossorigin>`. `font-display: swap` everywhere — FOUT is acceptable, FOIT (or falling back to Inter) is not.
-
-## Image conventions
-
-- Every `<img>` carries `width` and `height` attributes (prevents CLS).
-- Below-the-fold images: `loading="lazy"`. Everywhere: `decoding="async"`.
-- Raster: `.webp` only (no `.jpg` / `.png` except the single OG share image).
-- Vector: `.svg`.
-- Sources: real screenshots of Duc's actual work; real photos of Duc. No stock photos. No AI-generated illustrations. No placeholder gradients. A project card without a real screenshot ships with an honest `// IN DEVELOPMENT` block instead of a stand-in.
+Reach out even if there's nothing you need from me. I like hearing what people are building.
