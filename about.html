@@ -61,36 +61,17 @@
       padding: 64px 0 80px;
     }
 
-    .about-heading {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 48px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 24px;
-    }
-    .about-heading .eyebrow {
-      font-family: var(--font-mono);
-      font-weight: 500;
-      font-size: 12px;
-      letter-spacing: 0.14em;
-      color: var(--accent-text);
-    }
-    .about-heading h1 {
-      font-family: var(--font-sans);
-      font-weight: 700;
-      font-size: 56px;
-      line-height: 1;
-      letter-spacing: 0.005em;
-      color: var(--text-primary);
-    }
-    .about-heading h1 .dot { color: var(--accent-text); }
+    /* The heading is .log-head in css/style.css — shared with work.html and
+       hobbies.html. */
 
-    /* Two-column layout: main column + optional sidebar */
+    /* Two-column layout: main column + sidebar. The width is spent on content
+       (see the 1400px block at the end of this file, where the two record
+       blocks go side by side) rather than on a gap, so the main column is a
+       plain 1fr and the measure is capped on the text itself. */
     .about-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 280px;
-      gap: 48px;
+      grid-template-columns: minmax(0, 1fr) clamp(280px, 20vw, 380px);
+      gap: clamp(32px, 3vw, 64px);
       align-items: start;
     }
 
@@ -243,7 +224,6 @@
         gap: 32px;
       }
       .about-sidebar { position: static; }
-      .about-heading h1 { font-size: 40px; }
     }
 
     /* ── HEADING CHIPS ──
@@ -255,7 +235,6 @@
        vermilion carry the navy ink, violet is dark enough that it carries white.
        Last in the block on purpose — same specificity as the rules above, so the
        chip's colour wins on source order. */
-    .about-heading .eyebrow,
     .about-intro .block-label,
     .about-block-header .label,
     .about-sidebar .label {
@@ -263,6 +242,31 @@
       background: var(--accent);
       color: var(--on-accent);
       padding: 3px 9px;
+      /* inline-block does not stop a flex or grid child from stretching, so
+         without this every chip is as wide as its parent — which at the old
+         1129px was already wrong and on an edge-hug page is a gold bar the
+         width of the screen. A chip is the size of its words. */
+      width: fit-content;
+    }
+
+    /* ── REFLOW (edge-hug) ──
+       Past 1400px there is room for the two record blocks side by side, so
+       // CURRENTLY and // PREVIOUSLY stop stacking and the intro spans above
+       them. The width goes into content, which is the only thing that keeps
+       an uncapped page from reading as a narrow page with space around it.
+       Everything below 1400px is untouched — laptops and phones get exactly
+       the layout they had. */
+    @media (min-width: 1400px) {
+      .about-main {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0 clamp(32px, 3vw, 64px);
+        align-items: start;
+      }
+      .about-intro { grid-column: 1 / -1; }
+      /* The column is wide now, but the measure is the text's own business. */
+      .about-intro .lead { max-width: 84ch; }
+      .about-block { margin-bottom: 0; }
     }
   </style>
 </head>
@@ -317,11 +321,14 @@
 
     <section class="about-section">
 
-      <!-- HEADING -->
-      <div class="about-heading">
-        <span class="eyebrow">// SYSTEM PROFILE</span>
-        <h1>ABOUT<span class="dot">.</span>LOG</h1>
-      </div>
+      <!-- Shared .log-head. No meta: About has no counter whose number is
+           established in the Profile. -->
+      <header class="log-head">
+        <div class="log-head-title">
+          <p class="log-head-eyebrow">// SYSTEM PROFILE</p>
+          <h1>ABOUT<span class="dot">.</span>LOG</h1>
+        </div>
+      </header>
 
       <div class="about-grid">
 

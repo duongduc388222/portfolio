@@ -40,8 +40,25 @@
   --font-sans:     'Space Grotesk', system-ui, sans-serif;
   --font-mono:     'JetBrains Mono', ui-monospace, monospace;
   --nav-h:         86px;
-  --max-w:         1129px;
-  --pad:           32px;
+  /* The page hugs the viewport rather than pouring through a fixed column.
+     Every shell below reads these two tokens — .navbar-inner, .page-layout,
+     .page-inner, .site-footer, .cta-section, .nav-menu-inner — so the whole
+     width of the site is these two lines and there is no per-component
+     override to keep in step.
+
+     --max-w: none is the edge-hug. The gutter carries the breathing room
+     instead, and grows with the viewport: 16px under 800px, 32px from
+     1600px up. A fixed gutter against an uncapped page reads as a document
+     pasted onto a desktop; a proportional one reads as a screen. These are
+     deliberately tight — half the old 32px desktop gutter — because the
+     page is meant to meet the edge, not approach it.
+
+     What this does NOT do is let prose run the full width — a 17px line
+     across 1400px is ~160 characters and unreadable. Every text block that
+     is not in a card carries its own ch-based cap. Keep that rule when
+     adding a block: the gutter is the page's, the measure is the text's. */
+  --max-w:         none;
+  --pad:           clamp(16px, 2vw, 32px);
   --radius:        2px;
   --transition:    0.2s ease;
 }
@@ -312,6 +329,83 @@ img { display: block; max-width: 100%; }
   max-width: var(--max-w);
   margin: 0 auto;
   padding: 0 var(--pad);
+}
+
+/* ─── LOG HEADING ─────────────────────────────────────────
+   The one heading WORK.LOG, ABOUT.LOG and HOBBIES.LOG share. It lives here
+   rather than in three page style blocks because it drifted into three
+   different headings once it did — grey mono eyebrow vs gold chip, 700 vs a
+   faked 900, a 4px rule vs a 1px one vs none.
+
+   The eyebrow is a CHIP: the accent as a fill carrying ink, exception 2 in
+   docs/adr/0001. A fill is the only treatment that survives both grounds
+   unchanged — the bright accent as text measures ~1.2:1 on the day ground,
+   which is what --accent-text exists to solve.
+
+   700 and not 900: Space Grotesk is a 400–700 variable font, so a 900 here
+   is not a weight in the file, it is the browser smearing the 700 outline.
+
+   The meta block is optional. Only WORK fills it in, because ENTRIES /
+   STATUS / YEAR are facts that page already states; a counter whose number
+   is not in the Profile does not belong in a heading. */
+.log-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  border-bottom: 3px solid var(--accent);
+  padding-bottom: clamp(14px, 1.2vw, 22px);
+  margin-bottom: clamp(24px, 2.4vw, 44px);
+}
+.log-head-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+}
+/* width: fit-content because inline-block does NOT stop a flex child from
+   stretching — that fault is what turned about's eyebrow into a gold bar
+   the width of the screen once the page ran edge to edge. */
+.log-head-eyebrow {
+  display: inline-block;
+  width: fit-content;
+  background: var(--accent);
+  color: var(--on-accent);
+  padding: 3px 9px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+}
+.log-head h1 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(36px, 3.6vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+/* --accent-text, not --accent: the dot is a glyph, and the fill value is
+   ~1.2:1 on the day ground. */
+.log-head h1 .dot { color: var(--accent-text); }
+.log-head-meta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  padding-bottom: 4px;
+}
+.log-head-meta b { font-weight: 500; color: var(--accent-text); }
+
+@media (max-width: 900px) {
+  .log-head h1 { font-size: 36px; }
+  .log-head-meta { display: none; }
 }
 
 /* ─── SECTION LABEL ─────────────────────────────────────── */
@@ -785,7 +879,10 @@ body.is-leaving { opacity: 0; }
 
 /* ─── RESPONSIVE ─────────────────────────────────────────── */
 @media (max-width: 768px) {
-  :root { --pad: 20px; --nav-h: 72px; }
+  /* --pad is no longer set here: the clamp above already lands on 20px by
+     ~420px and eases up from there, so a hard step at 768px would make the
+     gutter jump backwards on a tablet. */
+  :root { --nav-h: 72px; }
   .navbar { padding-top: 16px; }
   .nav-links { display: none; }
   .nav-hamburger { display: flex; }

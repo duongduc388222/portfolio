@@ -52,28 +52,9 @@
 
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    /* ── HEADING ── */
-    .hobbies-heading {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 24px;
-    }
-    .hobbies-heading .eyebrow {
-      font-family: var(--font-mono);
-      font-weight: 500;
-      font-size: 12px;
-      letter-spacing: 0.04em;
-      color: var(--text-muted);
-    }
-    .hobbies-heading h1 {
-      font-weight: 900;
-      font-size: 48px;
-      line-height: 1;
-      letter-spacing: 0.007em;
-      color: var(--text-primary);
-    }
-    .hobbies-heading h1 .dot { color: var(--accent); }
+    /* The heading is .log-head in css/style.css — shared with work.html and
+       about.html. The 900 weight it used to carry was a fake: Space Grotesk
+       is a 400–700 variable font. */
     .hobbies-intro {
       font-size: 18px;
       color: rgba(255, 255, 255, 0.9);
@@ -110,10 +91,12 @@
     .hobbies-section > * { position: relative; z-index: 1; }
 
     /* Sport cards (reused for all four hobby cards) */
+    /* Columns are added, not widened — same rule as work.html's record grid.
+       Two cards stretched across an uncapped page become slabs. */
     .sport-cards {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
+      grid-template-columns: repeat(auto-fill, minmax(clamp(320px, 26vw, 460px), 1fr));
+      gap: clamp(20px, 2.2vw, 36px);
       margin-bottom: 64px;
     }
     .sport-card {
@@ -193,8 +176,8 @@
     }
     .team-list {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      grid-template-columns: repeat(auto-fill, minmax(clamp(260px, 20vw, 340px), 1fr));
+      gap: clamp(16px, 1.6vw, 28px);
     }
     .team-item {
       display: flex;
@@ -383,7 +366,6 @@
     @media (max-width: 900px) {
       .sport-cards { grid-template-columns: 1fr; }
       .team-list   { grid-template-columns: 1fr; gap: 16px; }
-      .hobbies-heading h1 { font-size: 40px; }
     }
   </style>
 </head>
@@ -438,11 +420,14 @@
 
     <section class="hobbies-section">
 
-      <!-- HEADING -->
-      <div class="hobbies-heading">
-        <span class="eyebrow">// OFF-HOURS</span>
-        <h1>HOBBIES<span class="dot">.</span>LOG</h1>
-      </div>
+      <!-- Shared .log-head. No meta: Hobbies has no counter whose number is
+           established in the Profile. -->
+      <header class="log-head">
+        <div class="log-head-title">
+          <p class="log-head-eyebrow">// OFF-HOURS</p>
+          <h1>HOBBIES<span class="dot">.</span>LOG</h1>
+        </div>
+      </header>
 
       <p class="hobbies-intro">
         District golds and City medals in badminton back in Vietnam, a club singles title in the US, football on the weekend, and a steady rotation of strategy and puzzle games. Sports taught me discipline under physical pressure; games taught me decision-making under uncertainty. Both run as background processes while research runs in the foreground.

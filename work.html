@@ -54,60 +54,28 @@
   <style>
     /* ── WORK PAGE — scoped to work.html only (M5 owns css/style.css) ── */
 
-    /* Header block — mirrors .archive-header from hobbies.html SOUL section
-       but uses Space Grotesk per type_system.md row "WORK" huge heading. */
+    /* The heading is .log-head in css/style.css — shared with about.html and
+       hobbies.html. Nothing page-specific about it lives here. */
     .worklog-section {
       padding: 64px 0 80px;
-    }
-    .worklog-header {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 24px;
-      border-bottom: 4px solid var(--accent);
-      padding-bottom: 16px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-    }
-    .worklog-header h1 {
-      font-family: var(--font-sans);
-      font-weight: 700;
-      font-size: 48px;
-      line-height: 1;
-      letter-spacing: -0.02em;
-      color: var(--text-primary);
-    }
-    .worklog-header h1 .dot { color: var(--accent); }
-    .worklog-subtitle {
-      font-family: var(--font-mono);
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-      letter-spacing: 0.02em;
-    }
-    .worklog-meta {
-      display: flex;
-      gap: 16px;
-      font-family: var(--font-mono);
-      font-weight: 500;
-      font-size: 12px;
-      color: var(--accent);
-      letter-spacing: 0.04em;
     }
 
     /* Two-column terminal layout — sidebar + grid (reuses .filter-btn class
        from hobbies.html so initGameFilter() in js/main.js works untouched). */
+    /* The shell scales with the viewport rather than sitting at fixed pixels
+       inside an uncapped page: a 240px sidebar against a 2000px record panel
+       reads as a rounding error. */
     .worklog-terminal {
       display: grid;
-      grid-template-columns: 240px 1fr;
-      gap: 16px;
+      grid-template-columns: clamp(200px, 15vw, 280px) 1fr;
+      gap: clamp(16px, 1.6vw, 28px);
       min-height: 500px;
     }
 
     .worklog-sidebar,
     .worklog-records {
       border: 2px solid var(--border-bright, #2a2a2a);
-      padding: 16px;
+      padding: clamp(16px, 1.4vw, 28px);
       background: rgba(197, 241, 53, 0.02);
     }
     .worklog-sidebar {
@@ -181,10 +149,13 @@
       margin-bottom: 16px;
     }
 
+    /* Columns are added, not widened. A fixed 1fr 1fr against the edge-hug
+       layout turns two cards into slabs on a wide display; auto-fill keeps a
+       card a card and spends the extra width on more of them. */
     .project-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(clamp(300px, 24vw, 420px), 1fr));
+      gap: clamp(16px, 1.4vw, 24px);
     }
     .project-card {
       background: rgba(255, 255, 255, 0.02);
@@ -227,6 +198,12 @@
       height: 100%;
       object-fit: contain;
       display: block;
+    }
+    /* The featured card spans every column, so on a wide display its 16:9 slot
+       would ask a 1600×900 export to cover ~1400px and the figure's legend
+       turns to mush. Cap the height and centre it; the slot keeps its ratio. */
+    .project-card.is-featured .thumb-16x9 {
+      max-height: 520px;
     }
 
     .project-body {
@@ -320,8 +297,6 @@
     @media (max-width: 900px) {
       .worklog-terminal { grid-template-columns: 1fr; }
       .project-grid { grid-template-columns: 1fr; }
-      .worklog-header h1 { font-size: 36px; }
-      .worklog-meta { display: none; }
     }
   </style>
 </head>
@@ -376,18 +351,18 @@
 
     <section class="worklog-section">
 
-      <!-- Header — // BUILD LOG / WORK.LOG (subtitle above title, matches About) -->
-      <div class="worklog-header">
-        <div>
-          <p class="worklog-subtitle">// BUILD LOG</p>
+      <!-- Shared .log-head. The meta counters are facts this page states. -->
+      <header class="log-head">
+        <div class="log-head-title">
+          <p class="log-head-eyebrow">// BUILD LOG</p>
           <h1>WORK<span class="dot">.</span>LOG</h1>
         </div>
-        <div class="worklog-meta">
-          <span>ENTRIES 04</span>
-          <span>STATUS LIVE</span>
-          <span>YEAR 2026</span>
+        <div class="log-head-meta">
+          <span>ENTRIES <b>04</b></span>
+          <span>STATUS <b>LIVE</b></span>
+          <span>YEAR <b>2026</b></span>
         </div>
-      </div>
+      </header>
 
       <!-- Two-column terminal layout -->
       <div class="worklog-terminal">

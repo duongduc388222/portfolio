@@ -28,3 +28,11 @@
 
 # stats.json is deliberately NOT re-included: it is served through a rewrite
 # from the stats branch, and a deployed copy would override that rewrite.
+
+# Prototypes, again. .gitignore already keeps them out of a git-triggered
+# deploy, but `!*.html` above would sweep them back in on a `vercel` CLI
+# deploy from a working tree, where the ignore file — not git — decides what
+# uploads. Last match wins, so these belong at the end.
+prototype-*.html
+css/prototype-*.css
+js/prototype-*.js

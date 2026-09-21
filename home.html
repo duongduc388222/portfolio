@@ -53,13 +53,26 @@
   <link rel="stylesheet" href="css/style.css" />
   <style>
     /* ── HERO ── */
+    /* The portrait is the right edge of the screen, not a card sitting in the
+       gutter: flush to the viewport on three sides and the full height of the
+       hero. The copy keeps the left gutter, so the page has one held edge and
+       one bled edge rather than two of the same.
+
+       An earlier pass capped the copy at 66ch and pinned the portrait right,
+       which left ~700px of dead space between them. Sparse content does not
+       become an edge-hug layout by being allowed to be wider — it has to grow
+       into the width, which is what the clamped type below does. */
     .hero {
       display: grid;
-      grid-template-columns: 1fr 400px;
-      gap: 64px;
-      align-items: center;
-      padding: 64px 0 80px;
+      grid-template-columns: minmax(0, 1fr) clamp(380px, 38vw, 760px);
+      gap: clamp(40px, 5vw, 96px);
+      align-items: stretch;
+      padding: 64px 0 0;
       min-height: calc(100vh - var(--nav-h));
+    }
+    .hero-left {
+      justify-content: center;
+      padding-bottom: 80px;
     }
     .hero-left {
       display: flex;
@@ -77,7 +90,10 @@
     .hero-name {
       font-family: var(--font-sans);
       font-weight: 700;
-      font-size: 72px;
+      /* Grows with the page — the wordmark is the largest object on the site
+         and the one that can afford the width. The 560px block below still
+         takes it down to 56px on a phone. */
+      font-size: clamp(72px, 7.6vw, 148px);
       line-height: 1;
       letter-spacing: 0.002em;
       margin-bottom: 0;
@@ -109,7 +125,8 @@
       margin-left: calc(var(--mark-inset) * -1);
     }
     .hero-tagline {
-      font-size: 18px;
+      font-size: clamp(18px, 1.4vw, 24px);
+      max-width: 26ch;
       color: var(--text-soft);
       line-height: 1.55;
       letter-spacing: -0.02em;
@@ -160,20 +177,30 @@
 
     .hero-portrait {
       position: relative;
-      width: 100%;
-      aspect-ratio: 400 / 534;
+      /* The bleed is spent as WIDTH, not as a negative margin: this box is
+         explicitly sized, and an explicitly sized box does not grow into a
+         negative margin — it only gains overflow room and stays put. One
+         --pad exactly, so it tracks the gutter at every width instead of
+         needing a second number kept in step with it. */
+      width: calc(100% + var(--pad));
+      height: 100%;
+      min-height: 560px;
       border: 2px solid rgba(255, 215, 0, 0.3);
-      border-radius: 10px;
+      border-right: none;
+      border-radius: 0;
       overflow: hidden;
       background:
         linear-gradient(126.87deg, rgba(255, 215, 0, 0.2) 0%, rgba(0, 0, 0, 0) 100%),
         #101828;
     }
+    /* The accent line moves from the bottom of a card to the full left edge of
+       the bled block — once three sides are gone, the seam against the copy is
+       the only edge left to draw. */
     .hero-portrait::after {
       content: '';
       position: absolute;
-      left: 0; right: 0; bottom: 0;
-      height: 4px;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
       background: var(--accent);
     }
     .hero-portrait img {
@@ -324,6 +351,7 @@
       color: var(--text-secondary);
       line-height: 1.7;
       letter-spacing: -0.01em;
+      max-width: 46ch;
     }
     .nav-card-arrow {
       font-family: var(--font-mono);
@@ -339,8 +367,25 @@
       .hero {
         grid-template-columns: 1fr;
         gap: 40px;
+        align-items: center;
+        padding-bottom: 80px;
       }
-      .hero-portrait { max-width: 400px; }
+      .hero-left { padding-bottom: 0; }
+      /* One column: there is no right edge to bleed into, so the portrait
+         goes back to being a card. */
+      .hero-portrait {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        min-height: 0;
+        aspect-ratio: 400 / 534;
+        border-right: 2px solid rgba(255, 215, 0, 0.3);
+        border-radius: 10px;
+      }
+      .hero-portrait::after {
+        left: 0; right: 0; top: auto; bottom: 0;
+        width: auto; height: 4px;
+      }
       .timeline { grid-template-columns: repeat(2, 1fr); }
       .nav-cards { grid-template-columns: 1fr; }
     }
