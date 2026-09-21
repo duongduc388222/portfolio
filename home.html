@@ -66,13 +66,21 @@
       display: grid;
       grid-template-columns: minmax(0, 1fr) clamp(380px, 38vw, 760px);
       gap: clamp(40px, 5vw, 96px);
-      align-items: stretch;
+      /* align-CONTENT, not align-items: one auto row in a grid with a
+         min-height is stretched to the container by default, which sized the
+         portrait to the viewport instead of to the copy. Centring the content
+         keeps the row at its natural height and centres the pair inside the
+         min-height. */
+      align-content: center;
+      align-items: center;
       padding: 64px 0 0;
       min-height: calc(100vh - var(--nav-h));
     }
     .hero-left {
       justify-content: center;
-      padding-bottom: 80px;
+      /* No bottom padding: the portrait is stretched to this column's box, so
+         anything here shows up as the portrait overshooting the CTA row. */
+      padding-bottom: 0;
     }
     .hero-left {
       display: flex;
@@ -177,58 +185,39 @@
 
     .hero-portrait {
       position: relative;
-      /* The bleed is spent as WIDTH, not as a negative margin: this box is
-         explicitly sized, and an explicitly sized box does not grow into a
-         negative margin — it only gains overflow room and stays put. One
-         --pad exactly, so it tracks the gutter at every width instead of
-         needing a second number kept in step with it. */
-      width: calc(100% + var(--pad));
-      height: 100%;
-      min-height: 560px;
-      border: 2px solid rgba(255, 215, 0, 0.3);
-      border-right: none;
-      border-radius: 0;
+      /* Most of the gutter is spent as WIDTH — not as a negative margin, since
+         an explicitly sized box does not grow into one — but --portrait-gap is
+         held back so the photo stops short of the viewport edge instead of
+         running off it. Both values track the gutter, so they cannot drift. */
+      --portrait-gap: 32px;
+      width: calc(100% + var(--pad) - var(--portrait-gap));
+      /* Bounded by the copy, not the viewport: stretch against a row that is
+         now the copy's height puts the top edge on the eyebrow and the bottom
+         edge on the CTA row. */
+      align-self: stretch;
+      height: auto;
+      min-height: 0;
       overflow: hidden;
-      background:
-        linear-gradient(126.87deg, rgba(255, 215, 0, 0.2) 0%, rgba(0, 0, 0, 0) 100%),
-        #101828;
-    }
-    /* The accent line moves from the bottom of a card to the full left edge of
-       the bled block — once three sides are gone, the seam against the copy is
-       the only edge left to draw. */
-    .hero-portrait::after {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 4px;
-      background: var(--accent);
+      /* Undecorated on purpose. The photograph is the object; a gold frame
+         around it is one border more than the hero has anywhere else, and a
+         rounded corner reads as UI chrome the rest of the page does not use. */
+      border: none;
+      border-radius: 0;
+      background: none;
     }
     .hero-portrait img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    /* Placeholder when no image */
-    .hero-portrait-placeholder {
+      /* Out of flow, so the image cannot feed its own intrinsic height back
+         into the row and push the box past the CTA it is meant to end on. */
       position: absolute;
       inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 18px;
-      color: rgba(255, 255, 255, 0.4);
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.16em;
-      text-align: center;
-    }
-    .hero-portrait-placeholder svg {
-      width: 96px;
-      height: 96px;
-      stroke: rgba(255, 215, 0, 0.5);
-      stroke-width: 1;
-      fill: none;
+      width: 100%; height: 100%;
+      display: block;
+      object-fit: cover;
+      /* The slot runs from slightly tall to slightly landscape across desktop
+         widths, so the crop moves. Biased up: the face survives the landscape
+         end, the shoulders do not need to. */
+      object-position: 50% 35%;
+      border-radius: 0;
     }
 
     /* ── WORK EXPERIENCE TIMELINE ── */
@@ -373,18 +362,17 @@
       .hero-left { padding-bottom: 0; }
       /* One column: there is no right edge to bleed into, so the portrait
          goes back to being a card. */
+      /* One column: there is no right edge to bleed into, and the source is
+         square, so the box is too. */
       .hero-portrait {
         width: 100%;
-        max-width: 400px;
+        max-width: 420px;
+        align-self: center;
         height: auto;
         min-height: 0;
-        aspect-ratio: 400 / 534;
-        border-right: 2px solid rgba(255, 215, 0, 0.3);
-        border-radius: 10px;
-      }
-      .hero-portrait::after {
-        left: 0; right: 0; top: auto; bottom: 0;
-        width: auto; height: 4px;
+        aspect-ratio: 1 / 1;
+        border: none;
+        border-radius: 0;
       }
       .timeline { grid-template-columns: repeat(2, 1fr); }
       .nav-cards { grid-template-columns: 1fr; }
@@ -485,15 +473,10 @@
         </div>
       </div>
 
-      <!-- TODO: thumbnail — when /img/home/avatar.webp lands, replace the .hero-portrait-placeholder block below with: <img src="/img/home/avatar.webp" alt="Portrait of Duc Duong" width="400" height="534" decoding="async"> (no loading=lazy — above the fold). Aspect 3:4 — see .thumb-3x4 in css/style.css. Keep the .hero-portrait outer div + gold accent line. -->
-      <div class="hero-portrait fade-up fade-up-3" aria-label="Portrait of Duc Duong">
-        <div class="hero-portrait-placeholder">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="12" cy="8" r="4" />
-            <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" />
-          </svg>
-          <span>// PORTRAIT</span>
-        </div>
+      <!-- Above the fold: decoding=async, no loading=lazy. -->
+      <div class="hero-portrait fade-up fade-up-3">
+        <img src="/img/home/avatar.webp" alt="Duc Duong, head-and-shoulders portrait"
+             width="1600" height="1600" decoding="async">
       </div>
 
     </section>
