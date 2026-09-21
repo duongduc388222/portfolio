@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
   <title>Duc Duong — portfolio. CS &amp; Mathematics at Grinnell.</title>
-  <desc>OG preview image for ducduong-portfolio.vercel.app</desc>
+  <desc>OG preview image for duchduong.vercel.app</desc>
 
   <rect x="0" y="0" width="1200" height="630" fill="#080808"/>
 
@@ -26,5 +26,5 @@
 
   <text x="80" y="470" font-family="Space Grotesk, sans-serif" font-weight="400" font-size="36" fill="#cccccc" text-anchor="start">Research that ships. Code that thinks. Badminton that wins.</text>
 
-  <text x="80" y="580" font-family="JetBrains Mono, monospace" font-weight="400" font-size="24" fill="#707070" text-anchor="start">ducduong-portfolio.vercel.app</text>
+  <text x="80" y="580" font-family="JetBrains Mono, monospace" font-weight="400" font-size="24" fill="#707070" text-anchor="start">duchduong.vercel.app</text>
 </svg>
