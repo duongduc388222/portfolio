@@ -2,7 +2,7 @@
 
 Hi, I'm Duc. I study computer science at Grinnell College, and this is the source for my personal site.
 
-**[ducduong-portfolio.vercel.app](https://ducduong-portfolio.vercel.app)**
+**[duchduong.vercel.app](https://duchduong.vercel.app)**
 
 Thanks for stopping by. If you came here from the site itself, you already know the shape of it: a terminal that boots into a few rooms. The home page is the short version of who I am. Work is the honest one, where projects that aren't finished say so instead of hiding behind a mockup. About is the longer story, including the parts that aren't about code. Hobbies is badminton, football, games, and a duck.
 
