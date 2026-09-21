@@ -8,9 +8,9 @@ That is where I want to go deeper, along with reinforcement learning: research t
 
 ## Portfolio
 
-**[duchduong.vercel.app](https://duchduong.vercel.app)**
-
 Click if you want to see why my life is hanging on a can of Celsius.
+
+**[duchduong.vercel.app](https://duchduong.vercel.app)**
 
 ## Hello
 
